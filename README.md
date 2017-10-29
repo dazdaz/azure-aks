@@ -32,6 +32,19 @@ az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.1
 kubectl get nodes
 kubectl version
 
+# Access k8s GUI, setup SSH Tunelling in your SSH Client
+kubectl get pods --namespace kube-system | grep kubernetes-dashboard
+kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
+kubectl -n kube-system port-forward kubernetes-dashboard-1427906131-8vbjh 9090:9090
+
+# Install reverse proxy, show IP on LoadBalancer
+helm init
+helm install stable/nginx-ingress
+kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller
+
+# k8s-cron-jobs required k8s 1.8 https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
+# kubectl run cronjobname --schedule "*/5 * * * *" --restart=OnFailure --image "imagename" -- "command"
+
 # az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
 # az group delete --name $RG --no-wait --yes
 </pre>
