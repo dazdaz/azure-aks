@@ -1,3 +1,4 @@
+<pre>
 # Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
 # https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication/
 
@@ -18,6 +19,7 @@ kubectl get nodes
 # Downloads and merge credentials into ~/.kube/config
 az aks get-credentials -n ${CLUSTERNAME} -g $RG
 
+# Display version and state of Azure Managed k8s cluster
 az aks show -g $RG -n ${CLUSTERNAME} -o table
 
 # Build out a total of 3 Agent VM's to run out containers
@@ -32,3 +34,4 @@ kubectl version
 
 # az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
 # az group delete --name $RG --no-wait --yes
+</pre>
