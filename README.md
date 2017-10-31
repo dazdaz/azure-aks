@@ -11,6 +11,9 @@ LOCATION=ukwest
 RG=daz-mngk8s-rg
 CLUSTERNAME=daz-mngk8s
 
+# While AKS is in preview, creating new clusters requires a feature flag on your subscription.
+az provider register -n Microsoft.ContainerService
+
 az group create --name $RG --location $LOCATION
 az aks create --resource-group $RG --name ${CLUSTERNAME} --agent-count 2 -s Standard_D2_v2
 # Download and install kubectl
