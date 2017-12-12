@@ -7,7 +7,7 @@
 # Kubernetes Version 1.7.7 deployed by default
 
 # westus2 / ukwest
-LOCATION=ukwest
+LOCATION=eastus
 RG=daz-mngk8s-rg
 CLUSTERNAME=daz-mngk8s
 
@@ -15,7 +15,7 @@ CLUSTERNAME=daz-mngk8s
 az provider register -n Microsoft.ContainerService
 
 az group create --name $RG --location $LOCATION
-az aks create --resource-group $RG --name ${CLUSTERNAME} --agent-count 2 -s Standard_D2_v2
+az aks create --resource-group $RG --name ${CLUSTERNAME} --node-count 2 -s Standard_D2_v2
 # Download and install kubectl
 sudo az aks install-cli
 kubectl get nodes
@@ -26,12 +26,12 @@ az aks get-credentials -n ${CLUSTERNAME} -g $RG
 az aks show -g $RG -n ${CLUSTERNAME} -o table
 
 # Build out a total of 3 Agent VM's to run out containers
-az aks scale -g $RG -n ${CLUSTERNAME} --agent-count 3
+az aks scale -g $RG -n ${CLUSTERNAME} --node-count 3
 
 # Check what version of Azure Managed k8s is available
 az aks get-versions -g $RG -n $CLUSTERNAME -o table
-az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.1
-# Check that our nodes have been upgraded to 1.8.1
+az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.2
+# Check that our nodes have been upgraded to 1.8.2
 kubectl get nodes
 kubectl version
 
