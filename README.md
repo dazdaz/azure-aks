@@ -30,6 +30,7 @@ az aks scale -g $RG -n ${CLUSTERNAME} --node-count 3
 
 # Check what version of Azure Managed k8s is available
 az aks get-versions -g $RG -n $CLUSTERNAME -o table
+
 az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.2
 # Check that our nodes have been upgraded to 1.8.2
 kubectl get nodes
