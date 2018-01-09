@@ -28,6 +28,15 @@ az aks show -g $RG -n ${CLUSTERNAME} -o table
 # Build out a total of 3 Agent VM's to run out containers
 az aks scale -g $RG -n ${CLUSTERNAME} --node-count 3
 
+# Run 3 pods
+kubectl run mynginx --image nginxdemos/hello --port=80 --replicas=3
+
+# Expose the mynginx deployment via the Azure LoadBalancer
+kubectl expose deployments mynginx --port=80 --type=LoadBalancer
+
+# Run 5 pods
+kubectl scale --replicas=5 deployment/mynginx
+
 # Check what version of Azure Managed k8s is available
 az aks get-versions -g $RG -n $CLUSTERNAME -o table
 
@@ -93,3 +102,12 @@ If TLS is enabled for the Ingress, a Secret containing the certificate and key m
 # az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
 # az group delete --name $RG --no-wait --yes
 </pre>
+
+Wildcard Certs - Getting, Setting up
+https://www.youtube.com/watch?v=JNbvEl52dd4
+
+Ingress - NGINX, TLS
+https://www.youtube.com/watch?v=U9_A5B9x4SY
+
+Ingress controller config on k8s.
+https://blogs.technet.microsoft.com/livedevopsinjapan/2017/02/28/configure-nginx-ingress-controller-for-tls-termination-on-kubernetes-on-azure-2/
