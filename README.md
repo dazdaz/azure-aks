@@ -50,7 +50,7 @@ kubectl get pods --namespace kube-system | grep kubernetes-dashboard
 kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
 kubectl -n kube-system port-forward kubernetes-dashboard-1427906131-8vbjh 9090:9090
 
-# Install reverse proxy, show IP on LoadBalancer
+# Install helm
 wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
 tar xvzf helm-v2.7.2-linux-amd64.tar.gz
 
