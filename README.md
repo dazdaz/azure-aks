@@ -51,17 +51,21 @@ kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
 kubectl -n kube-system port-forward kubernetes-dashboard-1427906131-8vbjh 9090:9090
 
 # Install reverse proxy, show IP on LoadBalancer
-helm init
+wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
+tar xvzf helm-v2.7.2-linux-amd64.tar.gz
+
+# Install Tiller (helm server)
+helm init --upgrade
+
+# Deploy nginx ingress controller
 helm install stable/nginx-ingress
 kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller
-NOTES:
-The nginx-ingress controller has been installed.
-It may take a few minutes for the LoadBalancer IP to be available.
+
 You can watch the status by running 'kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller'
 
 An example Ingress that makes use of the controller:
 
-  apiVersion: extensions/v1beta1
+  apiVersion: extensions/v1
   kind: Ingress
   metadata:
     annotations:
