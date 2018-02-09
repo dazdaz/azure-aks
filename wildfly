@@ -1,0 +1,11 @@
+Deploying Wildfly on Kubernetes
+kubectl create namespace wildfly
+helm repo add bitnami-incubator https://charts.bitnami.com/incubator
+helm install --name azure-wildfly bitnami-incubator/wildfly --namespace wildfly
+kubectl get all -n wildfly
+export SERVICE_IP=$(kubectl get svc --namespace wildfly azure-wildfly-wildfly -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+echo URL : http://$SERVICE_IP/
+echo Management URL : http://$SERVICE_IP:9990/
+echo Username: user
+echo Password: $(kubectl get secret --namespace wildfly azure-wildfly-wildfly -o jsonpath="{.data.wildfly-password}" | base64 --decode)
+ 
