@@ -8,8 +8,8 @@
 
 # westus2 / ukwest
 LOCATION=eastus
-RG=daz-mngk8s-rg
-CLUSTERNAME=daz-mngk8s
+RG=daz-aks-rg
+CLUSTERNAME=daz-aks
 
 # While AKS is in preview, creating new clusters requires a feature flag on your subscription.
 az provider register -n Microsoft.ContainerService
