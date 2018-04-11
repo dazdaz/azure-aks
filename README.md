@@ -14,6 +14,8 @@ CLUSTERNAME=daz-mngk8s
 # While AKS is in preview, creating new clusters requires a feature flag on your subscription.
 az provider register -n Microsoft.ContainerService
 
+# https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
+# Standard_D2_v2 Standard_B1ms
 az group create --name $RG --location $LOCATION
 az aks create --resource-group $RG --name ${CLUSTERNAME} --node-count 2 -s Standard_D2_v2
 # Download and install kubectl
