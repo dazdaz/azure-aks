@@ -22,9 +22,9 @@ az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --n
 
 # Download and install kubectl
 sudo az aks install-cli
-kubectl get nodes
 # Downloads and merge credentials into ~/.kube/config
 az aks get-credentials -n ${CLUSTERNAME} -g $RG
+kubectl get nodes
 
 # Display version and state of Azure Managed k8s cluster
 az aks show -g $RG -n ${CLUSTERNAME} -o table
