@@ -17,7 +17,9 @@ az provider register -n Microsoft.ContainerService
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 # Standard_D2_v2 Standard_B1ms
 az group create --name $RG --location $LOCATION
-az aks create --resource-group $RG --name ${CLUSTERNAME} --node-count 2 -s Standard_D2_v2
+az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -s Standard_D2_v2
+# az aks create -n $CLUSTER_NAME -g $NAME -c 2 -k 1.7.7 --generate-ssh-keys -l $LOCATION
+
 # Download and install kubectl
 sudo az aks install-cli
 kubectl get nodes
