@@ -42,7 +42,7 @@ kubectl expose deployments mynginx --port=80 --type=LoadBalancer
 kubectl scale --replicas=5 deployment/mynginx
 
 # Check what version of Azure Managed k8s is available for deployment
-az aks get-versions -o table
+az aks get-versions -o table -l eastus
 
 az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.2
 # Check that our nodes have been upgraded to 1.8.2
