@@ -2,9 +2,9 @@
 # Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
 # https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication/
 
-# 29th Oct 2017
+# 12th April 2018
 # https://docs.microsoft.com/en-us/azure/aks/ # Docs on AKS
-# Kubernetes Version 1.7.7 deployed by default
+# Kubernetes Version 1.8.10 deployed by default
 
 # westus2 / ukwest
 LOCATION=eastus
@@ -17,7 +17,7 @@ az provider register -n Microsoft.ContainerService
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 # Standard_D2_v2 Standard_B1ms
 az group create --name $RG --location $LOCATION
-az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -s Standard_D2_v2
+az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -s Standard_B1ms
 # az aks create -n $CLUSTER_NAME -g $NAME -c 2 -k 1.7.7 --generate-ssh-keys -l $LOCATION
 
 # Download and install kubectl
