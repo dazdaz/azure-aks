@@ -61,6 +61,9 @@ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/
 # Install Tiller (helm server)
 helm init --upgrade
 
+# Deploy datadog helm chart for monitoring
+helm install --name dg-release --set datadog.apiKey=YOUR-KEY-HERE stable/datadog
+
 # Deploy nginx ingress controller
 helm install stable/nginx-ingress
 kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller
