@@ -17,7 +17,7 @@ az provider register -n Microsoft.ContainerService
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 # Standard_D2_v2 Standard_B1ms
 az group create --name $RG --location $LOCATION
-az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -s Standard_B1ms
+az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.9.6 -s Standard_B1ms
 # az aks create -n $CLUSTER_NAME -g $NAME -c 2 -k 1.7.7 --generate-ssh-keys -l $LOCATION
 
 # Download and install kubectl
@@ -44,6 +44,7 @@ kubectl scale --replicas=5 deployment/mynginx
 # Check what version of Azure Managed k8s is available for deployment
 az aks get-versions -o table -l eastus
 
+# Only one minor version upgrade is supported so from 1.77 to 1.8.11
 az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.2
 # Check that our nodes have been upgraded to 1.8.2
 kubectl get nodes
@@ -107,12 +108,19 @@ If TLS is enabled for the Ingress, a Secret containing the certificate and key m
   type: kubernetes.io/tls
 
 
-# k8s-cron-jobs required k8s 1.8 https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
-# kubectl run cronjobname --schedule "*/5 * * * *" --restart=OnFailure --image "imagename" -- "command"
+## Kubernetes Cronjobs
+* k8s-cron-jobs required k8s 1.8 .  or higher https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
+```
 
+kubectl run cronjobname --schedule "*/5 * * * *" --restart=OnFailure --image "imagename" -- "command"
+kubectl get cronjon
+```
+
+## Clean up your cluster cleanly
+```
 # az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
 # az group delete --name $RG --no-wait --yes
-</pre>
+```
 
 Wildcard Certs - Getting, Setting up
 https://www.youtube.com/watch?v=JNbvEl52dd4
