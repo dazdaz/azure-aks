@@ -73,13 +73,17 @@ helm install --name dg-release --set datadog.apiKey=YOUR-KEY-HERE stable/datadog
 ```
 
 ## Deploy nginx ingress controller and configure it
+```
 helm install stable/nginx-ingress
 kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller
+```
 
-You can watch the status by running 'kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller'
+You can watch the status by running
+```kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller
+```
 
 An example Ingress that makes use of the controller:
-
+```
   apiVersion: extensions/v1
   kind: Ingress
   metadata:
@@ -113,7 +117,7 @@ If TLS is enabled for the Ingress, a Secret containing the certificate and key m
     tls.crt: <base64 encoded cert>
     tls.key: <base64 encoded key>
   type: kubernetes.io/tls
-
+```
 
 ## Kubernetes Cronjobs
 * k8s-cron-jobs required k8s 1.8 or higher https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
