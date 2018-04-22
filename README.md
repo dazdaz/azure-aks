@@ -1,4 +1,3 @@
-```
 # Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
 # https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication/
 
@@ -6,6 +5,7 @@
 # https://docs.microsoft.com/en-us/azure/aks/ # Docs on AKS
 # Kubernetes Version 1.8.10 deployed by default
 
+```
 # westus2 / ukwest
 LOCATION=eastus
 RG=daz-aks-rg
@@ -52,6 +52,7 @@ az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.2
 kubectl get nodes
 kubectl version
 ```
+
 ## Access k8s GUI, setup SSH Tunelling in your SSH Client
 ```
 kubectl get pods --namespace kube-system | grep kubernetes-dashboard
