@@ -1,9 +1,9 @@
-# Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
-# https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication/
+## Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
+* https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication/
 
-# 12th April 2018
-# https://docs.microsoft.com/en-us/azure/aks/ # Docs on AKS
-# Kubernetes Version 1.8.10 deployed by default
+* 12th April 2018
+* https://docs.microsoft.com/en-us/azure/aks/ # Docs on AKS
+* Kubernetes Version 1.8.10 deployed by default
 
 ```
 # westus2 / ukwest
