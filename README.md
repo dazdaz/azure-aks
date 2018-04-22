@@ -1,4 +1,4 @@
-<pre>
+```
 # Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
 # https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication/
 
@@ -15,7 +15,7 @@ CLUSTERNAME=daz-aks
 az provider register -n Microsoft.ContainerService
 
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
-# Standard_D2_v2 Standard_B1ms
+# Standard_D2_v2 Standard_B1ms Standard_DS1_v2
 az group create --name $RG --location $LOCATION
 az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.9.6 -s Standard_B1ms
 # az aks create -n $CLUSTER_NAME -g $NAME -c 2 -k 1.7.7 --generate-ssh-keys -l $LOCATION
@@ -43,19 +43,24 @@ kubectl scale --replicas=5 deployment/mynginx
 
 # Check what version of Azure Managed k8s is available for deployment
 az aks get-versions -o table -l eastus
+```
 
-# Only one minor version upgrade is supported so from 1.77 to 1.8.11
+## Only one minor version upgrade is supported so from 1.77 to 1.8.11
+```
 az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.2
 # Check that our nodes have been upgraded to 1.8.2
 kubectl get nodes
 kubectl version
-
-# Access k8s GUI, setup SSH Tunelling in your SSH Client
+```
+## Access k8s GUI, setup SSH Tunelling in your SSH Client
+```
 kubectl get pods --namespace kube-system | grep kubernetes-dashboard
 kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
 kubectl -n kube-system port-forward kubernetes-dashboard-1427906131-8vbjh 9090:9090
+```
 
-# Install helm
+## Install helm
+```
 wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
 sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
 
@@ -64,8 +69,9 @@ helm init --upgrade
 
 # Deploy datadog helm chart for monitoring
 helm install --name dg-release --set datadog.apiKey=YOUR-KEY-HERE stable/datadog
+```
 
-# Deploy nginx ingress controller
+## Deploy nginx ingress controller and configure it
 helm install stable/nginx-ingress
 kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller
 
@@ -109,14 +115,20 @@ If TLS is enabled for the Ingress, a Secret containing the certificate and key m
 
 
 ## Kubernetes Cronjobs
-* k8s-cron-jobs required k8s 1.8 .  or higher https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
+* k8s-cron-jobs required k8s 1.8 or higher https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
 ```
 
-kubectl run cronjobname --schedule "*/5 * * * *" --restart=OnFailure --image "imagename" -- "command"
-kubectl get cronjon
+wget https://raw.githubusercontent.com/kubernetes/website/master/docs/concepts/workloads/controllers/cronjob.yaml
+kubectl create -f ./cronjob.yaml
+kubectl get cronjob
+cronoutput=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+echo $cronoutput
+# View output from cron
+kubectl logs $cronoutput
+kubectl delete cronjob hello
 ```
 
-## Clean up your cluster cleanly
+## Remove your cluster cleanly
 ```
 # az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
 # az group delete --name $RG --no-wait --yes
