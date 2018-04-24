@@ -54,10 +54,18 @@ kubectl version
 ```
 
 ## Access k8s GUI, setup SSH Tunelling in your SSH Client
+* Run both commands from your laptop, and connect to http://localhost:9000
+
+### Method 1
+```
+az aks browse -g resource-group -n name
+```
+
+### Method 2
 ```
 kubectl get pods --namespace kube-system | grep kubernetes-dashboard
 kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
-kubectl -n kube-system port-forward kubernetes-dashboard-1427906131-8vbjh 9090:9090
+kubectl -n kube-system port-forward kubernetes-dashboard-665f768455-7bjm5 9000:9090
 ```
 
 ## Install helm
