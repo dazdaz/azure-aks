@@ -17,38 +17,7 @@ az provider register -n Microsoft.ContainerService
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 # Standard_D2_v2 Standard_B1ms Standard_DS1_v2
 az group create --name $RG --location $LOCATION
-az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.9.6 -s Standard_B1ms
-# az aks create -n $CLUSTER_NAME -g $NAME -c 2 -k 1.7.7 --generate-ssh-keys -l $LOCATION
-
-# Download and install kubectl
-sudo az aks install-cli
-# Downloads and merge credentials into ~/.kube/config
-az aks get-credentials -n ${CLUSTERNAME} -g $RG
-kubectl get nodes
-
-# Display version and state of Azure Managed k8s cluster
-az aks show -g $RG -n ${CLUSTERNAME} -o table
-
-# Build out a total of 3 Agent VM's to run out containers
-az aks scale -g $RG -n ${CLUSTERNAME} --node-count 3
-
-# Run 3 pods
-kubectl run mynginx --image nginxdemos/hello --port=80 --replicas=3
-
-# Expose the mynginx deployment via the Azure LoadBalancer
-kubectl expose deployments mynginx --port=80 --type=LoadBalancer
-
-# Run 5 pods
-kubectl scale --replicas=5 deployment/mynginx
-
-# Check what version of Azure Managed k8s is available for deployment
-az aks get-versions -o table -l eastus
-```
-
-## Only one minor version upgrade is supported so from 1.77 to 1.8.11
-```
-az aks upgrade -g $RG -n $CLUSTERNAME -k 1.8.2
-# Check that our nodes have been upgraded to 1.8.2
+az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.9.2
 kubectl get nodes
 kubectl version
 ```
@@ -75,9 +44,11 @@ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/
 
 # Install Tiller (helm server)
 helm init --upgrade
+```
 
-# Deploy datadog helm chart for monitoring
-helm install --name dg-release --set datadog.apiKey=YOUR-KEY-HERE stable/datadog
+## Deploy Datadog helm chart for monitoring
+```
+helm install --name dg-release --set datadog.apiKey=YOUR-KEY-HERE stable/datadog --set rbac.create=False^
 ```
 
 ## Deploy nginx ingress controller and configure it
