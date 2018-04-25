@@ -7,7 +7,7 @@
 
 ```
 # westus2 / ukwest
-LOCATION=eastus
+LOCATION=centralus
 RG=daz-aks-rg
 CLUSTERNAME=daz-aks
 
@@ -17,7 +17,7 @@ az provider register -n Microsoft.ContainerService
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 # Standard_D2_v2 Standard_B1ms Standard_DS1_v2
 az group create --name $RG --location $LOCATION
-az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.9.2
+az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.8.11
 kubectl get nodes
 kubectl version
 ```
