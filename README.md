@@ -1,4 +1,4 @@
-## Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
+#### Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
 * https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication/
 
 * 12th April 2018
@@ -110,6 +110,52 @@ echo $cronoutput
 # View output from cron
 kubectl logs $cronoutput
 kubectl delete cronjob hello
+```
+
+## Changing K8s cluster context
+```
+$ kubectl config use-context daz-aks
+Switched to context "daz-aks".
+$ kubectl config get-contexts
+CURRENT   NAME             CLUSTER          AUTHINFO                                       NAMESPACE
+*         daz-aks          daz-aks          clusterUser_daz-aks-rg_daz-aks
+          fabmedical-daz   fabmedical-daz   clusterUser_fabmedical-daz-rg_fabmedical-daz
+```
+
+## RBAC
+* https://kubernetes.io/docs/admin/authorization/rbac/
+```
+* RoleBindings are bounded to a certain namespace
+* ClusterRoleBindings are cluster-global
+* Roles define a list of actions that can be performed over the resources or verbs: GET, WATCH, LIST, CREATE, UPDATE, PATCH, DELETE.
+* Roles are assigned to ServiceAccounts
+
+$ kubectl api-versions|grep rbac
+rbac.authorization.k8s.io/v1
+rbac.authorization.k8s.io/v1beta1
+
+$ kubectl get clusterroles
+No resources found.
+
+$ kubectl get clusterrole cluster-admin -o yaml
+
+$ kubectl get clusterrolebindings
+NAME                  AGE
+permissive-binding    9m
+tiller                23h
+tiller-binding        5d
+tiller-cluster-rule   4m
+
+$ kubectl get clusterrolebindings tiller -o yaml
+
+$ kubectl auth can-i list pods -n default --as=system:serviceaccount:default:default
+yes
+$ kubectl auth can-i create pods -n default --as=system:serviceaccount:default:default
+yes
+$ kubectl auth can-i delete pods -n default --as=system:serviceaccount:default:default
+yes
+$ kubectl auth can-i list services -n default --as=system:serviceaccount:default:default
+yes
 ```
 
 ## Remove your cluster cleanly
