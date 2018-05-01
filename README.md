@@ -48,7 +48,7 @@ helm init --upgrade
 
 ## Deploy Datadog helm chart for monitoring
 ```
-helm install --name dg-release --set datadog.apiKey=YOUR-KEY-HERE stable/datadog --set rbac.create=False^
+helm install --name dg-release --set datadog.apiKey=YOUR-KEY-HERE stable/datadog --set rbac.create=false
 ```
 
 ## Deploy nginx ingress controller and configure it
