@@ -40,10 +40,10 @@ kubectl -n kube-system port-forward kubernetes-dashboard-665f768455-7bjm5 9000:9
 ## Install helm
 ```
 wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
-sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
+sudo tar xvzf helm-v2.6.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
 
 # Install Tiller (helm server)
-helm init --upgrade
+helm init --service-account default
 ```
 
 ## Deploy Datadog helm chart for monitoring
