@@ -48,7 +48,7 @@ helm init --service-account default
 
 ## Deploy Datadog helm chart for monitoring
 ```
-helm install --name dg-release --set datadog.apiKey=YOUR-KEY-HERE stable/datadog --set rbac.create=false
+helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
 ```
 
 ## Deploy nginx ingress controller and configure it
