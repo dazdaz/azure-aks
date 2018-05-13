@@ -18,6 +18,7 @@ az provider register -n Microsoft.ContainerService
 # Standard_D2_v2 Standard_B1ms Standard_DS1_v2
 az group create --name $RG --location $LOCATION
 az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.8.11
+az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
 kubectl get nodes
 kubectl version
 ```
