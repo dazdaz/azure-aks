@@ -52,6 +52,9 @@ helm init --service-account default
 helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
 ```
 
+## To use and configure HTTP routing, read up here or depoy nginx ingress controller manually
+https://docs.microsoft.com/en-us/azure/aks/http-application-routing
+
 ## Deploy nginx ingress controller and configure it
 ```
 helm install stable/nginx-ingress
