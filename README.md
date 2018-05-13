@@ -47,6 +47,12 @@ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/
 helm init --service-account default
 ```
 
+## Add Azure repo
+```
+helm repo add azure
+helm install azure/wordpress
+```
+
 ## Deploy Datadog helm chart for monitoring
 ```
 helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
