@@ -3,7 +3,7 @@
 
 * 12th April 2018
 * https://docs.microsoft.com/en-us/azure/aks/ # Docs on AKS
-* Kubernetes Version 1.8.10 deployed by default
+* Kubernetes Version 1.8.11 deployed by default
 
 ```
 # westus2 / ukwest
