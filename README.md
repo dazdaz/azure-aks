@@ -124,6 +124,8 @@ kubectl delete cronjob hello
 
 ## Changing K8s cluster context
 ```
+$ kubectl config current-context
+daz-aks
 $ kubectl config use-context daz-aks
 Switched to context "daz-aks".
 $ kubectl config get-contexts
