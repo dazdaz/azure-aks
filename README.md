@@ -19,6 +19,17 @@ az provider register -n Microsoft.ContainerService
 az group create --name $RG --location $LOCATION
 az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.8.11
 az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
+```
+
+## Install kubectl
+### Method 1
+sudo az aks install-cli
+### Method 2
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+### Method 3
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.3/bin/linux/amd64/kubectl
+chmod a+x ./kubectl
+
 kubectl get nodes
 kubectl version
 ```
