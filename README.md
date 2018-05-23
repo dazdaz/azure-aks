@@ -29,11 +29,14 @@ sudo az aks install-cli
 ### Method 2
 ```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+chmod a+x ./kubectl
+sudo mv kubectl /usr/local/bin
 ```
 ### Method 3
 ```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.3/bin/linux/amd64/kubectl
 chmod a+x ./kubectl
+sudo mv kubectl /usr/local/bin
 
 kubectl get nodes
 kubectl version
