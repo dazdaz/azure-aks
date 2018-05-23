@@ -170,6 +170,27 @@ $ kubectl auth can-i list services -n default --as=system:serviceaccount:default
 yes
 ```
 
+## View versions of Kubernetes, which can be upgraded
+```
+$ az aks get-versions -l centralus -o table
+KubernetesVersion    Upgrades
+-------------------  -------------------------------------------------------------------------
+1.9.6                None available
+1.9.2                1.9.6
+1.9.1                1.9.2, 1.9.6
+1.8.11               1.9.1, 1.9.2, 1.9.6
+1.8.10               1.8.11, 1.9.1, 1.9.2, 1.9.6
+1.8.7                1.8.10, 1.8.11, 1.9.1, 1.9.2, 1.9.6
+1.8.6                1.8.7, 1.8.10, 1.8.11, 1.9.1, 1.9.2, 1.9.6
+1.8.2                1.8.6, 1.8.7, 1.8.10, 1.8.11, 1.9.1, 1.9.2, 1.9.6
+1.8.1                1.8.2, 1.8.6, 1.8.7, 1.8.10, 1.8.11, 1.9.1, 1.9.2, 1.9.6
+1.7.16               1.8.1, 1.8.2, 1.8.6, 1.8.7, 1.8.10, 1.8.11
+1.7.15               1.7.16, 1.8.1, 1.8.2, 1.8.6, 1.8.7, 1.8.10, 1.8.11
+1.7.12               1.7.15, 1.7.16, 1.8.1, 1.8.2, 1.8.6, 1.8.7, 1.8.10, 1.8.11
+1.7.9                1.7.12, 1.7.15, 1.7.16, 1.8.1, 1.8.2, 1.8.6, 1.8.7, 1.8.10, 1.8.11
+1.7.7                1.7.9, 1.7.12, 1.7.15, 1.7.16, 1.8.1, 1.8.2, 1.8.6, 1.8.7, 1.8.10, 1.8.11
+```
+
 ## Remove your cluster cleanly
 ```
 # az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
@@ -181,6 +202,9 @@ yes
 ```
 # Increase verbosity
 kubectl delete -f mpich.yml -v=9
+
+# Selecting a pod, by the label
+kubectl get pods --selector app=samples-tf-mnist-demo --show-all
 ```
 
 Wildcard Certs - Getting, Setting up
