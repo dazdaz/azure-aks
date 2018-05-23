@@ -176,6 +176,13 @@ yes
 # az group delete --name $RG --no-wait --yes
 ```
 
+
+## Random commands
+```
+# Increase verbosity
+kubectl delete -f mpich.yml -v=9
+```
+
 Wildcard Certs - Getting, Setting up
 https://www.youtube.com/watch?v=JNbvEl52dd4
 
