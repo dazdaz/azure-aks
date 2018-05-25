@@ -127,6 +127,46 @@ If TLS is enabled for the Ingress, a Secret containing the certificate and key m
   type: kubernetes.io/tls
 ```
 
+## Dev Spaces - What is it
+* Run and debug multiple containers directly in Kubernetes just by hitting F5
+* Iterate your code pre-commit into your SCM and CICD pipeline
+* Iteratively develop code in containers using Visual Studio and Kubernetes
+* Develop with VS, VS Code or command line
+* Collaborate within a development team by sharing an AKS cluster
+* Test code end-to-end without replicating or simulating dependencies
+* When your happy with your code, then you use your CICD pipeline to deploy your code
+* Uses init-containers and sidecars for instrumentation
+* Modifies the ingress controller to add in a route to the K8s namespace relating to your dev space
+* Languate Support : node.JS and .NET core supported, Java support is next, .NET Framework is not yet supported
+* Private Preview : Signup aka.ms/devspaces
+* https://channel9.msdn.com/Events/Build/2018/BRK3809
+
+## Dev Spaces - azure-cli
+# Enable dev-spaces to be used with that cluster.  Downloads a tool called azds
+```
+az aks use-dev-spaces -g <rg> -n <name>
+```
+### Look at code in current directory and create a Dockerfile and helm chart
+```
+azds prep --public
+azds up
+```
+
+## Dev Spaces - Visual Studio
+* Azure Dev Spaces extension for VS Code - debug live code running on AKS
+http://landinghub.visualstudio.com/devspaces
+https://docs.microsoft.com/en-us/azure/dev-spaces/quickstart-netcore-visualstudio
+https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces
+
+## Shared Dev Spaces - Visual Studio
+* Breakpoints are stored within the namespace, so with a shared dev space, you'll see the breakpoints which someone else set
+* Type commands in VS Code Terminal
+```
+azds space list
+azds space select -n lisa
+Hit F5
+```
+
 ## Kubernetes Cronjobs
 * k8s-cron-jobs required k8s 1.8 or higher https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
 ```
