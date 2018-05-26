@@ -147,7 +147,7 @@ az aks install-connector --name akscluster --resource-group demorg --connector-n
 * https://channel9.msdn.com/Events/Build/2018/BRK3809
 
 ## Dev Spaces - azure-cli
-# Enable dev-spaces to be used with that cluster.  Downloads a tool called azds
+* Enable dev-spaces to be used with that cluster.  Downloads a tool called azds
 ```
 az aks use-dev-spaces -g <rg> -n <name>
 ```
