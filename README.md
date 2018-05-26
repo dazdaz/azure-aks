@@ -127,6 +127,11 @@ If TLS is enabled for the Ingress, a Secret containing the certificate and key m
   type: kubernetes.io/tls
 ```
 
+## Deploy virtual-kubelet
+```
+az aks install-connector --name akscluster --resource-group demorg --connector-name myaciconnector --os-type both
+```
+
 ## Dev Spaces - What is it
 * Run and debug multiple containers directly in Kubernetes just by hitting F5
 * Iterate your code pre-commit into your SCM and CICD pipeline
