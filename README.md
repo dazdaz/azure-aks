@@ -64,6 +64,10 @@ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/
 
 # Install Tiller (helm server)
 helm init --service-account default
+
+# Test an installation via helm, to ensure that it's working
+helm install stable/locust
+helm delete vigilant-hound
 ```
 
 ## Add Azure repo
