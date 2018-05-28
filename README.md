@@ -128,6 +128,7 @@ If TLS is enabled for the Ingress, a Secret containing the certificate and key m
 ```
 
 ## Deploy virtual-kubelet
+* Azure Container Instance is not available at location "centralus". The available locations are "westus,eastus,westeurope,southeastasia"
 ```
 az aks install-connector --name akscluster --resource-group demorg --connector-name myaciconnector --os-type both
 ```
