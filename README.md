@@ -66,14 +66,16 @@ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/
 helm init --service-account default
 
 # Test an installation via helm, to ensure that it's working
+# Installing and removing a package on K8s 1.9.6 has been a workaround
 helm install stable/locust
 helm delete vigilant-hound
 ```
 
 ## Add Azure repo
 ```
-helm repo add azure
-helm install azure/wordpress
+helm repo add azure https://kubernetescharts.blob.core.windows.net/azure
+helm search azure
+helm install azure/azure-service-broker
 ```
 
 ## Deploy Datadog helm chart for monitoring
