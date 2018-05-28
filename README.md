@@ -274,6 +274,20 @@ kubectl delete -f mpich.yml -v=9
 
 # Selecting a pod, by the label
 kubectl get pods --selector app=samples-tf-mnist-demo --show-all
+
+# Extract metadata from K8s
+$ kubectl get pod dg-release-datadog-hlvxc -o=jsonpath={.status.containerStatuses[].image}
+datadog/agent:6.1.2
+
+# View configuration details of a pod, deployment, service etc
+$ kubectl get pod dg-release-datadog-hlvxc -o json | jq
+<output formatted>
+
+# View config in yaml
+$ kubectl get pod dg-release-datadog-hlvxc -o yaml
+
+# Edit a live pod config
+$ kubectl edit pod dg-release-datadog-hlvxc
 ```
 
 Wildcard Certs - Getting, Setting up
