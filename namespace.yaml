@@ -1,0 +1,24 @@
+* Create a namespace
+```
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: test
+  labels:
+    name: test
+```
+
+* Create a pod within a namespace
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+namespace: test
+  labels:
+    name: mypod
+spec:
+  containers:
+  - name: mypod
+  image: nginx
+```
