@@ -1,0 +1,62 @@
+
+Request is what the container is guaranteed to get, i.e. 200MiB Memory and 1 CPU
+So container is scheduled onto a VM which can provide the specified 'Request' resource
+
+Limit ensures that a container never exceeds a specified Memory and CPU limit
+
+Kubernetes has a new metric called Millicores that is used to measure CPU usage. It is a CPU core split into 1000 units (milli = 1000).  If you have 2 cores, then the CPU capacity of the node is 2000m.
+
+ResourceQuotas are typically set on Production namespace
+No Resource quotas are set in the Development namespace
+
+https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+https://kubernetes.io/docs/concepts/policy/resource-quotas/
+https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/
+https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+
+
+containers:
+ - name: mycontainer
+ image: busybox
+ resources:
+   requests:
+     memory: "32Mi"
+     cpu: "200m"
+   limits:
+     memory: "64Mi"
+     cpu: "250m"
+
+
+# Maximum amount of CPU and memory (requests.*) for all containers within the namespace
+ apiVersion: v1
+ kind: ResourceQuota
+ metadata:
+   name: demo
+ spec:
+   hard:
+     requests.cpu: 500m
+     requests.memory: 100Mib
+     limits.cpu: 700m
+     limits.memory: 500Mib
+
+
+# LimitRange - specify default limits for a container in the pod
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: demo
+spec:
+  limits:
+- default:
+    cpu: 600m
+    memory: 100Mib
+  defaultRequest:
+    cpu: 100m
+    memory: 50Mib
+  max:
+      cpu: 1000m
+      memory: 200Mib
+    min:
+      cpu: 10m
+      memory: 10Mib
+    type: Container
