@@ -1,21 +1,19 @@
-#### Introducing AKS (managed Kubernetes) and Azure Container Registry improvements
-* https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication/
 
-* 12th April 2018
-* https://docs.microsoft.com/en-us/azure/aks/ # Docs on AKS
-* Kubernetes Version 1.8.11 deployed by default
+## Azure Kubernetes Service
 
 ```
 # westus2 / ukwest
 LOCATION=centralus
 RG=daz-aks-rg
-CLUSTERNAME=daz-aks
+CLUSTERNAME=dow-aks
 
 # While AKS is in preview, creating new clusters requires a feature flag on your subscription.
 az provider register -n Microsoft.ContainerService
 
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
-# Standard_D2_v2 Standard_B1ms Standard_DS1_v2
+# Standard_D2_v2 Standard_DS1_v2
+# Avoid using burst VM's, they are too small, such as Standard_B1ms
+
 az group create --name $RG --location $LOCATION
 az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.8.11
 az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
@@ -303,3 +301,6 @@ https://www.youtube.com/watch?v=U9_A5B9x4SY
 
 Ingress controller config on k8s.
 https://blogs.technet.microsoft.com/livedevopsinjapan/2017/02/28/configure-nginx-ingress-controller-for-tls-termination-on-kubernetes-on-azure-2/
+
+AKS Docs
+https://docs.microsoft.com/en-us/azure/aks/
