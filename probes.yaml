@@ -1,0 +1,48 @@
+# Readiness probe tells K8s when your app is ready to serve traffic
+# K8s will stop sending traffic to the pod, if the readiness probe fails.
+
+# Liveness probes lets K8s know if your app is alive or dead
+# If your app is dead, then K8s will remove your pod and start a new one to replace it
+
+3 types of probes
+- HTTP
+- TCP
+- Command
+
+# 200-300 Return Code = Healthy
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-a-liveness-http-request
+spec:
+  containers:
+  - name: liveness
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+
+# If connection established = healthy
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-a-tcp-liveness-probe
+spec:
+  containers:
+  - name: liveness
+  livenessProbe:
+    tcpSocket:
+      port: 8080
+
+# Run a container, if exit code 0 = Healthy
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-a-liveness-command
+spec:
+  containers:
+  - name: liveness
+    livenessProbe:
+      exec:
+        command:
+        - mycontainerprogram
+
+# Configuring Probes
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+
+# initialDelaySeconds - must be set, as app takes a few seconds to start-up
+periodSeconds
+timeoutSeconds
+successThreshold
+failureThreshold
