@@ -83,6 +83,9 @@ helm install azure/azure-service-broker
 helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
 ```
 
+## If you want to SSH into your VM's within your agent pool, then follow these instructions
+https://docs.microsoft.com/en-us/azure/aks/aks-ssh
+
 ## To use and configure HTTP routing, read up here or depoy nginx ingress controller manually
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
