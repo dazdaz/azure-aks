@@ -263,10 +263,15 @@ KubernetesVersion    Upgrades
 1.7.7                1.7.9, 1.7.12, 1.7.15, 1.7.16, 1.8.1, 1.8.2, 1.8.6, 1.8.7, 1.8.10, 1.8.11
 ```
 
+## Upgrade to the latest K8s
+```
+$ az aks upgrade -n $CLUSTERNAME --resource-group $RG --kubernetes-version 1.9.6 --yes
+```
+
 ## Remove your cluster cleanly
 ```
 # az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
-# az group delete --name $RG --no-wait --yes
+# az group delete --name $CLUSTERNAME --no-wait --yes
 ```
 
 
