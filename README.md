@@ -55,7 +55,17 @@ kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
 kubectl -n kube-system port-forward kubernetes-dashboard-665f768455-7bjm5 9000:9090
 ```
 
-## Install helm
+## Install helm - Method 1 - Automatically download latest version
+```
+wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
+chmod a+x get
+./get
+
+# You can also specify a specific version
+./get -v 2.7.2
+```
+
+## Install helm - Method 2 - Manual - Download a specific version
 ```
 wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
 sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
