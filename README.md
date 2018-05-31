@@ -98,50 +98,71 @@ https://docs.microsoft.com/en-us/azure/aks/aks-ssh
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
 ## Deploy nginx ingress controller and configure it
-```
-helm install stable/nginx-ingress
-kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller
+* https://docs.microsoft.com/en-us/azure/aks/ingress
 ```
 
-You can watch the status by running
-```kubectl --namespace default get services -o wide -w flailing-hound-nginx-ingress-controller
-```
+helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
 
-An example Ingress that makes use of the controller:
-```
-  apiVersion: extensions/v1
-  kind: Ingress
-  metadata:
-    annotations:
-      kubernetes.io/ingress.class: nginx
-    name: example
-    namespace: foo
-  spec:
-    rules:
-      - host: www.example.com
-        http:
-          paths:
-            - backend:
-                serviceName: exampleService
-                servicePort: 80
-              path: /
-    # This section is only required if TLS is to be enabled for the Ingress
-    tls:
-        - hosts:
-            - www.example.com
-          secretName: example-tls
+devans@u1804:~$ kubectl get service -l app=nginx-ingress --namespace kube-system
+NAME                                           TYPE           CLUSTER-IP    EXTERNAL-IP      PORT(S)                      AGE
+ranting-beetle-nginx-ingress-controller        LoadBalancer   10.0.64.147   204.43.245.186   80:30649/TCP,443:31654/TCP   1m
+ranting-beetle-nginx-ingress-default-backend   ClusterIP      10.0.9.5      <none>           80/TCP                       1m
 
-If TLS is enabled for the Ingress, a Secret containing the certificate and key must also be provided:
+#!/bin/bash
 
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: example-tls
-    namespace: foo
-  data:
-    tls.crt: <base64 encoded cert>
-    tls.key: <base64 encoded key>
-  type: kubernetes.io/tls
+# Public IP address
+IP="204.43.245.186"
+
+# Name to associate with public IP address
+DNSNAME="demo2-aks-ingress"
+
+# Get the resource-id of the public ip
+PUBLICIPID=$(az network public-ip list --query "[?ipAddress!=null]|[?contains(ipAddress, '$IP')].[id]" --output tsv)
+
+# Update public ip address with dns name
+az network public-ip update --ids $PUBLICIPID --dns-name $DNSNAME
+
+$ dig +short demo2-aks-ingress.centralus.cloudapp.azure.com
+204.43.245.186
+
+# Configure ingress controller and a certificate management solution
+helm install stable/kube-lego \
+  --set config.LEGO_EMAIL=user@contoso.com \
+  --set config.LEGO_URL=https://acme-v01.api.letsencrypt.org/directory
+
+helm repo add azure-samples https://azure-samples.github.io/helm-charts/
+helm install azure-samples/aks-helloworld
+
+helm install azure-samples/aks-helloworld --set title="AKS Ingress Demo" --set serviceName="ingress-demo"
+
+## Create ingress route
+#
+# kubectl apply -f hello-world-ingress.yaml
+#
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-world-ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - demo2-aks-ingress.eastus.cloudapp.azure.com
+    secretName: tls-secret
+  rules:
+  - host: demo2-aks-ingress.eastus.cloudapp.azure.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: aks-helloworld
+          servicePort: 80
+      - path: /hello-world-two
+        backend:
+          serviceName: ingress-demo
+          servicePort: 80
 ```
 
 ## Deploy virtual-kubelet
