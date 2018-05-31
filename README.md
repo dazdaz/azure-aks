@@ -308,7 +308,7 @@ $ kubectl get pod dg-release-datadog-hlvxc -o yaml
 $ kubectl edit pod dg-release-datadog-hlvxc
 
 # Forcefully remove a pod
-$ kubectl delete pods tiller-deploy -n kube-system --force=true --timeout=0s --now -v8
+$ kubectl delete pods tiller-deploy -n kube-system --force=true --timeout=0s --now -v9
 
 # Testing Service Discovery (DNS not Environment variables)
 $ kubectl run busybox --image busybox -it -- /bin/sh
@@ -317,6 +317,9 @@ $ nslookup nginxServer:    10.96.0.10
 Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local
 Name:      nginx
 Address 1: 10.109.24.56 nginx.default.svc.cluster.local
+
+# Upload nginx.conf configuration file into a configmap
+$ kubectl create configmap ambassador-config --from-file=conf.d
 ```
 
 Wildcard Certs - Getting, Setting up
