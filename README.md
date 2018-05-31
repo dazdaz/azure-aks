@@ -103,9 +103,9 @@ https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
 helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
 
-devans@u1804:~$ kubectl get service -l app=nginx-ingress --namespace kube-system
+$ kubectl get service -l app=nginx-ingress --namespace kube-system
 NAME                                           TYPE           CLUSTER-IP    EXTERNAL-IP      PORT(S)                      AGE
-ranting-beetle-nginx-ingress-controller        LoadBalancer   10.0.64.147   204.43.245.186   80:30649/TCP,443:31654/TCP   1m
+ranting-beetle-nginx-ingress-controller        LoadBalancer   10.0.64.146   204.43.245.186   80:30649/TCP,443:31654/TCP   1m
 ranting-beetle-nginx-ingress-default-backend   ClusterIP      10.0.9.5      <none>           80/TCP                       1m
 
 #!/bin/bash
