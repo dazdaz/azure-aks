@@ -299,6 +299,27 @@ KubernetesVersion    Upgrades
 $ az aks upgrade -n $CLUSTERNAME --resource-group $RG --kubernetes-version 1.9.6 --yes
 ```
 
+## Procedure to reboot VM's within the agent pool
+```
+kubectl get nodes
+# Gracefully terminate all pods on the node while marking the node as unschedulable:
+# If your daemonsets are non-critical pods such as monitoring agents then ignore-daemonsets
+kubectl drain aks-agentpool-75595413-0 --ignore-daemonsets
+
+# Check that SchedulingDisabled is set
+$ kubectl get nodes
+NAME                       STATUS                     ROLES     AGE       VERSION
+aks-agentpool-75595413-0   Ready,SchedulingDisabled   agent     3d        v1.9.6
+aks-agentpool-75595413-2   Ready                      agent     3d        v1.9.6
+
+# Check no pods running on aks-agentpool-75595413-0
+kubectl get pods -o wide
+
+az vm restart --resource-group MC_orange-aks-rg_orange-aks_centralus -n aks-agentpool-75595413-0
+kubectl uncordon aks-agentpool-75595413-0
+kubectl get nodes - o wide
+```
+
 ## Remove your cluster cleanly
 ```
 # az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
