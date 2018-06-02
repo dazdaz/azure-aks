@@ -171,6 +171,11 @@ spec:
 az aks install-connector --name akscluster --resource-group demorg --connector-name myaciconnector --os-type both
 ```
 
+## Upgading virtual-kubelet
+```
+az aks upgrade-connector --name orange-aks --resource-group orange-aks-rg --connector-name myaciconnector
+```
+
 ## Dev Spaces - What is it
 * Run and debug multiple containers directly in Kubernetes just by hitting F5
 * Iterate your code pre-commit into your SCM and CICD pipeline
