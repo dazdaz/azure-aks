@@ -341,6 +341,9 @@ Address 1: 10.109.24.56 nginx.default.svc.cluster.local
 
 # Upload nginx.conf configuration file into a configmap
 $ kubectl create configmap ambassador-config --from-file=conf.d
+
+# Useful command to view details of a K8s Worker node within the agent pool
+az vm get-instance-view -g "MC_orange-aks-rg_orange-aks_centralus" -n aks-agentpool-75595413-0 
 ```
 
 Wildcard Certs - Getting, Setting up
