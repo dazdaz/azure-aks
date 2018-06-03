@@ -370,6 +370,10 @@ $ kubectl create configmap ambassador-config --from-file=conf.d
 
 # Useful command to view details of a K8s Worker node within the agent pool
 az vm get-instance-view -g "MC_orange-aks-rg_orange-aks_centralus" -n aks-agentpool-75595413-0 
+
+# Horizontal Pod Autoscale
+$ kubectl autoscale deployment <deployment-name> --min=2 --max=5 --cpu-percent=80
+$ kubectl get hpa
 ```
 
 Wildcard Certs - Getting, Setting up
