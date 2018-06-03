@@ -144,7 +144,7 @@ https://docs.microsoft.com/en-us/azure/aks/aks-ssh
 ## Ingress Controller (HTTP routing) - Method #1
 * "HTTP routing" is an AKS deployment option, read URL below to learn more
 * This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
-* I recommend to use option 2 as deployment, which will be the same across Kubernetes clusters, regardless of the Hyperscaler
+* I recommend to use method 2 as the ingress controller will be the same across Kubernetes clusters, regardless of the Hyperscaler
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
 ##  Ingress Controller - Method #2
@@ -152,7 +152,7 @@ https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 https://docs.microsoft.com/en-us/azure/aks/ingress
 ```
 
-helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
+$ helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
 
 $ kubectl get service -l app=nginx-ingress --namespace kube-system
 NAME                                           TYPE           CLUSTER-IP    EXTERNAL-IP      PORT(S)                      AGE
@@ -177,14 +177,14 @@ $ dig +short demo2-aks-ingress.centralus.cloudapp.azure.com
 204.43.245.186
 
 # Configure ingress controller and a certificate management solution
-helm install stable/kube-lego \
+$ helm install stable/kube-lego \
   --set config.LEGO_EMAIL=user@contoso.com \
   --set config.LEGO_URL=https://acme-v01.api.letsencrypt.org/directory
 
-helm repo add azure-samples https://azure-samples.github.io/helm-charts/
-helm install azure-samples/aks-helloworld
+$ helm repo add azure-samples https://azure-samples.github.io/helm-charts/
+$ helm install azure-samples/aks-helloworld
 
-helm install azure-samples/aks-helloworld --set title="AKS Ingress Demo" --set serviceName="ingress-demo"
+$ helm install azure-samples/aks-helloworld --set title="AKS Ingress Demo" --set serviceName="ingress-demo"
 
 ## Create ingress route
 #
@@ -244,12 +244,12 @@ az aks upgrade-connector --name orange-aks --resource-group orange-aks-rg --conn
 ## Dev Spaces - azure-cli
 * Enable dev-spaces to be used with that cluster.  Downloads a tool called azds
 ```
-az aks use-dev-spaces -g <rg> -n <name>
+$ az aks use-dev-spaces -g <rg> -n <name>
 ```
 ### Look at code in current directory and create a Dockerfile and helm chart
 ```
-azds prep --public
-azds up
+$ azds prep --public
+$ azds up
 ```
 
 ## Dev Spaces - Visual Studio
