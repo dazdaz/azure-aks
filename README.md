@@ -91,10 +91,44 @@ helm install azure/azure-service-broker
 helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
 ```
 
+## HPA - Horizontal Pod Autoscaling - Manual
+```
+# Horizontal Pod Autoscale
+$ kubectl autoscale deployment <deployment-name> --min=2 --max=5 --cpu-percent=80
+$ kubectl get hpa
+
+$ kubectl get hpa/acs-helloworld-idle-dachshund -o yaml > demo.yaml
+vi demo.yaml
+  maxReplicas: 4
+  minReplicas: 2
+$ kubectl apply -f ./demo.yaml
+```
+
+## HPA - Horizontal Pod Autoscaling - Scriptable
+```
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-app-hpa
+  namespace: my-app-space
+  labels:
+    app: my-app
+    tier: frontend
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1beta1
+    kind: Deployment
+    name: my-app-deployment
+  minReplicas: 2
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 75
+```
+
 ## If you want to SSH into your VM's within your agent pool, then follow these instructions
 https://docs.microsoft.com/en-us/azure/aks/aks-ssh
 
-## To use and configure HTTP routing, read up here or depoy nginx ingress controller manually
+## To use and configure HTTP routing, read up here
+## This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
 ## Deploy nginx ingress controller and configure it
@@ -370,10 +404,6 @@ $ kubectl create configmap ambassador-config --from-file=conf.d
 
 # Useful command to view details of a K8s Worker node within the agent pool
 az vm get-instance-view -g "MC_orange-aks-rg_orange-aks_centralus" -n aks-agentpool-75595413-0 
-
-# Horizontal Pod Autoscale
-$ kubectl autoscale deployment <deployment-name> --min=2 --max=5 --cpu-percent=80
-$ kubectl get hpa
 ```
 
 Wildcard Certs - Getting, Setting up
