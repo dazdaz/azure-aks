@@ -142,11 +142,11 @@ $ watch -d -n 2 -b -c kubectl get hpa
 https://docs.microsoft.com/en-us/azure/aks/aks-ssh
 
 ## To use and configure HTTP routing, read up here
-## This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
+* This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
 ## Deploy nginx ingress controller and configure it
-* https://docs.microsoft.com/en-us/azure/aks/ingress
+https://docs.microsoft.com/en-us/azure/aks/ingress
 ```
 
 helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
