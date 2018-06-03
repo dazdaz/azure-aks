@@ -138,6 +138,32 @@ $ siege --verbose --benchmark --internet --concurrent 255 --time 10M --file sieg
 $ watch -d -n 2 -b -c kubectl get hpa
 ```
 
+## Rolling Updates
+*Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones
+```
+Rollouts is a process for updating replicas to match the deployment's template
+Triggered by any change to the deployment template
+Multiple rollout strategies : "rolling update" is the default.
+kubectl commands to check, pause, resume, and rollback rollouts
+
+# Rolling updates can be achieved with 3 commands
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+kubectl rollout status deployments/kubernetes-bootcamp
+kubectl rollout undo deployments/kubernetes-bootcamp
+
+# There are other things which you can do, like pause, resume updates
+kubectl rollout pause deployment example-app-tier --namespace lesson202
+kubectl rollout resume deployment example-app-tier --namespace lesson202
+
+# This flag needs to be used to record rollout deployment history, so that you can rollback
+kubectl apply -f my.yaml --record
+kubectl rollout status deployment hello-deploy
+kubectl get deploy hello-deploy
+kubectl rollout history deployment hello-deploy
+kubectl describe deploy hello-deploy
+kubectl rollout undo deployment hello-world --to-revision=1
+```
+
 ## If you want to SSH into your VM's within your agent pool, then follow these instructions
 https://docs.microsoft.com/en-us/azure/aks/aks-ssh
 
