@@ -421,6 +421,9 @@ az vm get-instance-view -g "MC_orange-aks-rg_orange-aks_centralus" -n aks-agentp
 
 # View details of a deployment
 $ kubectl describe deployments acs-helloworld-idle-dachshund
+
+# Scale a deployment to 5 replicas
+$ kubectl scale deployment/azure-vote-front --replicas=5
 ```
 
 Wildcard Certs - Getting, Setting up
