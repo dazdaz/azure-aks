@@ -106,6 +106,10 @@ $ kubectl apply -f ./demo.yaml
 
 ## HPA - Horizontal Pod Autoscaling - Scriptable
 ```
+$ kubectl apply --record -f acs-helloworld-frontend-hpa.yaml
+```
+
+```
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
@@ -122,6 +126,16 @@ spec:
   minReplicas: 2
   maxReplicas: 20
   targetCPUUtilizationPercentage: 75
+```
+
+## HPA - Testing
+```
+$ apt-get install siege
+$ cat > siege-urls.txt <<!EOF
+http://demo2-aks-ingress.centralus.cloudapp.azure.com
+EOF
+$ siege --verbose --benchmark --internet --concurrent 255 --time 10M --file siege-urls.txt
+$ watch -d -n 2 -b -c kubectl get hpa
 ```
 
 ## If you want to SSH into your VM's within your agent pool, then follow these instructions
@@ -391,7 +405,7 @@ $ kubectl edit pod dg-release-datadog-hlvxc
 # Forcefully remove a pod
 $ kubectl delete pods tiller-deploy -n kube-system --force=true --timeout=0s --now -v9
 
-# Testing Service Discovery (DNS not Environment variables)
+# Testing Service Discovery using DNS (Not Environment variables)
 $ kubectl run busybox --image busybox -it -- /bin/sh
 If you don't see a command prompt, try pressing enter
 $ nslookup nginxServer:    10.96.0.10
@@ -404,6 +418,9 @@ $ kubectl create configmap ambassador-config --from-file=conf.d
 
 # Useful command to view details of a K8s Worker node within the agent pool
 az vm get-instance-view -g "MC_orange-aks-rg_orange-aks_centralus" -n aks-agentpool-75595413-0 
+
+# View details of a deployment
+$ kubectl describe deployments acs-helloworld-idle-dachshund
 ```
 
 Wildcard Certs - Getting, Setting up
