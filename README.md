@@ -141,11 +141,14 @@ $ watch -d -n 2 -b -c kubectl get hpa
 ## If you want to SSH into your VM's within your agent pool, then follow these instructions
 https://docs.microsoft.com/en-us/azure/aks/aks-ssh
 
-## To use and configure HTTP routing, read up here
+## Ingress Controller (HTTP routing) - Method #1
+* "HTTP routing" is an AKS deployment option, read URL below to learn more
 * This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
+* I recommend to use option 2 as deployment, which will be the same across Kubernetes clusters, regardless of the Hyperscaler
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
-## Deploy nginx ingress controller and configure it
+##  Ingress Controller - Method #2
+* Deploy nginx ingress controller and configure it
 https://docs.microsoft.com/en-us/azure/aks/ingress
 ```
 
