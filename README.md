@@ -432,6 +432,7 @@ Run these commands
 
 ```
 $ kubectl cluster-info dump
+$ kubectl get events
 ```
 
 ## Random commands
