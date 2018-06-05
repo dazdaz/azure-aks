@@ -1,6 +1,9 @@
 
 ## Azure Kubernetes Service
 
+Official Docs for AKS deployment are now available here or you can read this guide
+https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
+
 ```
 # westus2 / ukwest
 LOCATION=centralus
@@ -530,6 +533,8 @@ aks-agentpool-85595413-2
 $ sudo docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'
 NAMES               IMAGE               STATUS
 sonic               dazdaz/sonic        Up 2 weeks
+
+$ kubectl get all --all-namespaces -l co=fabrikam
 ```
 
 Wildcard Certs - Getting, Setting up
