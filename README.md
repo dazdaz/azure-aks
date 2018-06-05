@@ -73,6 +73,19 @@ $ kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
 $ kubectl -n kube-system port-forward kubernetes-dashboard-665f768455-7bjm5 9000:9090
 ```
 
+## BASH kubectl completion
+
+https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion
+
+```
+# If Linux
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+
+# If MacOS
+brew install bash-completion@2
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+```
+
 ## Install helm - Method 1 - Automatically download latest version
 ```
 $ wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
@@ -432,6 +445,9 @@ Run these commands
 
 ```
 $ kubectl cluster-info dump
+$ kubectl cluster-info dump --all-namespaces --output-directory=$PWD/cluster-state-2018-06-13
+$ tree cluster-state-2018-06-13
+
 $ kubectl get events
 ```
 
@@ -481,6 +497,31 @@ $ kubectl describe deployments acs-helloworld-idle-dachshund
 $ kubectl scale deployment/azure-vote-front --replicas=5
 
 $ kubectl cluster-info dump
+
+$ kubectl explain pods
+
+$ kubectl get service --watch --show-labels
+
+# Run a shell on a VM within the agent pool, to troubeshoot from inside out
+$ alias kshell='kubectl run -it shell --image giantswarm/tiny-tools --restart Never --rm -- sh'
+“--restart Never” ensures that only a pod resource is created (instead of a deployment, replicaset and pod)
+“--rm” ensures the pod is deleted when you exit the shell
+
+# Decode Kubernetes secrets
+https://github.com/ashleyschuett/kubernetes-secret-decode
+
+# Get all pod names under service / endpoint
+$ kubectl get ep aks-helloworld -n default -o jsonpath='{range .subsets[*].addresses[*]}{.targetRef.name}{"\n"}{end}'
+acs-helloworld-illocutionary-angelfish-95974fb95-s44kz
+
+# Get not tainted node(s)
+$ kubectl get nodes -o go-template='{{range .items}}{{if not .spec.taints}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}'
+aks-agentpool-85595413-0
+aks-agentpool-85595413-2
+
+$ sudo docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'
+NAMES               IMAGE               STATUS
+sonic               dazdaz/sonic        Up 2 weeks
 ```
 
 Wildcard Certs - Getting, Setting up
