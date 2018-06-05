@@ -198,6 +198,14 @@ kubectl rollout undo deployment hello-world --to-revision=1
 ## If you want to SSH into your VM's within your agent pool, then follow these instructions
 https://docs.microsoft.com/en-us/azure/aks/aks-ssh
 
+```
+$ az vm list-ip-addresses --resource-group "MC_orange-aks-rg_orange-aks_centralus" -o table
+VirtualMachine            PrivateIPAddresses
+------------------------  --------------------
+aks-agentpool-75595413-0  10.240.0.4
+aks-agentpool-75595413-2  10.240.0.6
+```
+
 ## Ingress Controller (HTTP routing) - Method #1
 * "HTTP routing" is an AKS deployment option, read URL below to learn more
 * This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
