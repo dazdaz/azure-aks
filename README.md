@@ -20,24 +20,42 @@ az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
 ```
 
 ## Install kubectl
+
+Chose from one of the following
+
 ### Method 1
+
 ```
-sudo az aks install-cli
+$ sudo az aks install-cli
 ```
 ### Method 2
 ```
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-chmod a+x ./kubectl
-sudo mv kubectl /usr/local/bin
+$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+$ chmod a+x ./kubectl
+$ sudo mv kubectl /usr/local/bin
 ```
 ### Method 3
 ```
-curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.3/bin/linux/amd64/kubectl
-chmod a+x ./kubectl
-sudo mv kubectl /usr/local/bin
+$ curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.3/bin/linux/amd64/kubectl
+$ chmod a+x ./kubectl
+$ sudo mv kubectl /usr/local/bin
 
-kubectl get nodes
-kubectl version
+$ kubectl get nodes
+$ kubectl version
+```
+### Method 4
+```
+apt-get update && apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubectl
+```
+### Method 5
+```
+$ brew install kubectl
 ```
 
 ## Access k8s GUI, setup SSH Tunelling in your SSH Client
@@ -50,28 +68,28 @@ az aks browse -g resource-group -n name
 
 ### Method 2
 ```
-kubectl get pods --namespace kube-system | grep kubernetes-dashboard
-kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
-kubectl -n kube-system port-forward kubernetes-dashboard-665f768455-7bjm5 9000:9090
+$ kubectl get pods --namespace kube-system | grep kubernetes-dashboard
+$ kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
+$ kubectl -n kube-system port-forward kubernetes-dashboard-665f768455-7bjm5 9000:9090
 ```
 
 ## Install helm - Method 1 - Automatically download latest version
 ```
-wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
-chmod a+x get
-./get
+$ wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
+$ chmod a+x get
+$ ./get
 
 # You can also specify a specific version
-./get -v 2.7.2
+$ ./get -v 2.7.2
 ```
 
 ## Install helm - Method 2 - Manual - Download a specific version
 ```
-wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
-sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
+$ wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
+$ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
 
 # Install Tiller (helm server)
-helm init --service-account default
+$ helm init --service-account default
 
 # Test an installation via helm, to ensure that it's working
 # Installing and removing a package on K8s 1.9.6 has been a workaround
@@ -81,14 +99,14 @@ helm delete vigilant-hound
 
 ## Add Azure repo
 ```
-helm repo add azure https://kubernetescharts.blob.core.windows.net/azure
-helm search azure
-helm install azure/azure-service-broker
+$ helm repo add azure https://kubernetescharts.blob.core.windows.net/azure
+$ helm search azure
+$ helm install azure/azure-service-broker
 ```
 
 ## Deploy Datadog helm chart for monitoring
 ```
-helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
+$ helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
 ```
 
 ## HPA - Horizontal Pod Autoscaling - Manual
@@ -245,12 +263,12 @@ spec:
 ## Deploy virtual-kubelet
 * Azure Container Instance is not available at location "centralus". The available locations are "westus,eastus,westeurope,southeastasia"
 ```
-az aks install-connector --name akscluster --resource-group demorg --connector-name myaciconnector --os-type both
+$ az aks install-connector --name akscluster --resource-group demorg --connector-name myaciconnector --os-type both
 ```
 
 ## Upgading virtual-kubelet
 ```
-az aks upgrade-connector --name orange-aks --resource-group orange-aks-rg --connector-name myaciconnector
+$ az aks upgrade-connector --name orange-aks --resource-group orange-aks-rg --connector-name myaciconnector
 ```
 
 ## Dev Spaces - What is it
@@ -288,8 +306,8 @@ https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces
 * Breakpoints are stored within the namespace, so with a shared dev space, you'll see the breakpoints which someone else set
 * Type commands in VS Code Terminal
 ```
-azds space list
-azds space select -n lisa
+$ azds space list
+$ azds space select -n lisa
 Hit F5
 ```
 
@@ -297,14 +315,14 @@ Hit F5
 * k8s-cron-jobs required k8s 1.8 or higher https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
 ```
 
-wget https://raw.githubusercontent.com/kubernetes/website/master/docs/concepts/workloads/controllers/cronjob.yaml
-kubectl create -f ./cronjob.yaml
-kubectl get cronjob
-cronoutput=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
-echo $cronoutput
+$ wget https://raw.githubusercontent.com/kubernetes/website/master/docs/concepts/workloads/controllers/cronjob.yaml
+$ kubectl create -f ./cronjob.yaml
+$ kubectl get cronjob
+$ cronoutput=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+$ echo $cronoutput
 # View output from cron
-kubectl logs $cronoutput
-kubectl delete cronjob hello
+$ kubectl logs $cronoutput
+$ kubectl delete cronjob hello
 ```
 
 ## Changing K8s cluster context
@@ -408,14 +426,21 @@ kubectl get nodes - o wide
 # az group delete --name $CLUSTERNAME --no-wait --yes
 ```
 
+## Collecting logs for troubleshooting
+
+Run these commands
+
+```
+$ kubectl cluster-info dump
+```
 
 ## Random commands
 ```
 # Increase verbosity
-kubectl delete -f mpich.yml -v=9
+$ kubectl delete -f mpich.yml -v=9
 
 # Selecting a pod, by the label
-kubectl get pods --selector app=samples-tf-mnist-demo --show-all
+$ kubectl get pods --selector app=samples-tf-mnist-demo --show-all
 
 # Extract metadata from K8s
 $ kubectl get pod dg-release-datadog-hlvxc -o=jsonpath={.status.containerStatuses[].image}
@@ -453,6 +478,8 @@ $ kubectl describe deployments acs-helloworld-idle-dachshund
 
 # Scale a deployment to 5 replicas
 $ kubectl scale deployment/azure-vote-front --replicas=5
+
+$ kubectl cluster-info dump
 ```
 
 Wildcard Certs - Getting, Setting up
