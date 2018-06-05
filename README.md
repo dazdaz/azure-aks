@@ -413,17 +413,17 @@ aks-agentpool-75595413-0   Ready,SchedulingDisabled   agent     3d        v1.9.6
 aks-agentpool-75595413-2   Ready                      agent     3d        v1.9.6
 
 # Check no pods running on aks-agentpool-75595413-0
-kubectl get pods -o wide
+$ kubectl get pods -o wide
 
-az vm restart --resource-group MC_orange-aks-rg_orange-aks_centralus -n aks-agentpool-75595413-0
-kubectl uncordon aks-agentpool-75595413-0
-kubectl get nodes - o wide
+$ az vm restart --resource-group MC_orange-aks-rg_orange-aks_centralus -n aks-agentpool-75595413-0
+$ kubectl uncordon aks-agentpool-75595413-0
+$ kubectl get nodes - o wide
 ```
 
 ## Remove your cluster cleanly
 ```
-# az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
-# az group delete --name $CLUSTERNAME --no-wait --yes
+$ az aks delete --resource-group $RG --name ${CLUSTERNAME} --yes
+$ az group delete --name $CLUSTERNAME --no-wait --yes
 ```
 
 ## Collecting logs for troubleshooting
