@@ -233,6 +233,8 @@ aks-agentpool-75595413-2  10.240.0.6
 ## Ingress Controller (HTTP routing) - Method #1
 * "HTTP routing" is an AKS deployment option, read URL below to learn more
 * This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
+* myappa.example.com ->  888326a4-d388-4bb0-bb01-79c4d162a7a7.centralus.aksapp.io
+  That means that the cert will need a SN of  appa.example.com, rather than the long name.
 * I recommend to use method 2 as the ingress controller will be the same across Kubernetes clusters, regardless of the Hyperscaler
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
@@ -572,3 +574,6 @@ https://docs.microsoft.com/en-us/azure/aks/
 
 AKS Volume Drivers
 https://github.com/Azure/kubernetes-volume-drivers
+
+Azure File mounting from K8s
+https://github.com/andyzhangx/demo/blob/master/linux/azurefile/azurefile-mountoptions.md
