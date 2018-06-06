@@ -125,7 +125,7 @@ $ helm install azure/azure-service-broker
 $ helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
 ```
 
-## HPA - Horizontal Pod Autoscaling - Manual
+## HPA - Horizontal Pod Autoscaling (CPU) - Manual
 ```
 # Horizontal Pod Autoscale
 $ kubectl autoscale deployment <deployment-name> --min=2 --max=5 --cpu-percent=80
@@ -138,7 +138,7 @@ vi demo.yaml
 $ kubectl apply -f ./demo.yaml
 ```
 
-## HPA - Horizontal Pod Autoscaling - Scriptable
+## HPA - Horizontal Pod Autoscaling (CPU) - Scriptable
 ```
 $ kubectl apply --record -f acs-helloworld-frontend-hpa.yaml
 ```
@@ -170,6 +170,27 @@ http://demo2-aks-ingress.centralus.cloudapp.azure.com
 EOF
 $ siege --verbose --benchmark --internet --concurrent 255 --time 10M --file siege-urls.txt
 $ watch -d -n 2 -b -c kubectl get hpa
+```
+
+## HPA - Horizontal Pod Autoscaling (Memory API : v2beta1) - Scriptable
+```
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: nginx
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 60
 ```
 
 ## Rolling Updates
