@@ -26,18 +26,18 @@ az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
 
 Chose from one of the following
 
-### Method 1
+### Method 1 (Ubuntu|RHEL)
 
 ```
 $ sudo az aks install-cli
 ```
-### Method 2
+### Method 2 (Ubuntu|RHEL)
 ```
 $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 $ chmod a+x ./kubectl
 $ sudo mv kubectl /usr/local/bin
 ```
-### Method 3
+### Method 3 (Ubuntu|RHEL)
 ```
 $ curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.3/bin/linux/amd64/kubectl
 $ chmod a+x ./kubectl
@@ -46,7 +46,7 @@ $ sudo mv kubectl /usr/local/bin
 $ kubectl get nodes
 $ kubectl version
 ```
-### Method 4
+### Method 4 (Ubuntu)
 ```
 apt-get update && apt-get install -y apt-transport-https
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -56,7 +56,7 @@ EOF
 apt-get update
 apt-get install -y kubectl
 ```
-### Method 5
+### Method 5 (MacOS)
 ```
 $ brew install kubectl
 ```
@@ -64,12 +64,12 @@ $ brew install kubectl
 ## Access k8s GUI, setup SSH Tunelling in your SSH Client
 * Run both commands from your laptop, and connect to http://127.0.0.1:8001 http://127.0.0.1:9000
 
-### Method 1
+### Method 1 - Using Azure-CLI
 ```
 az aks browse -g resource-group -n name
 ```
 
-### Method 2
+### Method 2 - Using kubectl
 ```
 $ kubectl get pods --namespace kube-system | grep kubernetes-dashboard
 $ kubernetes-dashboard-3427906134-9vbjh   1/1       Running   0          49m
