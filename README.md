@@ -449,9 +449,9 @@ $ az aks upgrade -n $CLUSTERNAME --resource-group $RG --kubernetes-version 1.9.6
 ## Procedure to reboot VM's within the agent pool
 ```
 kubectl get nodes
-# Prevent new pods from being scheduled onto node (drain)
+# Prevent new pods from being scheduled onto node (cordon)
 kubectl cordon <NODE_NAME>
-# Gracefully terminate all pods on the node while marking the node as unschedulable:
+# Drain - Gracefully terminate all pods on the node while marking the node as unschedulable:
 # If your daemonsets are non-critical pods such as monitoring agents then ignore-daemonsets
 kubectl drain <NODE_NAME> --ignore-daemonsets --force
 
