@@ -307,6 +307,18 @@ spec:
           servicePort: 80
 ```
 
+## Persistent Volumes
+```
+A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+
+A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory). Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
+```
+```
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+https://docs.microsoft.com/en-us/azure/aks/azure-disks-dynamic-pv
+https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv
+```
+
 ## Deploy virtual-kubelet
 * Azure Container Instance is not available at location "centralus". The available locations are "westus,eastus,westeurope,southeastasia"
 ```
@@ -582,3 +594,6 @@ https://github.com/andyzhangx/demo/blob/master/linux/azurefile/azurefile-mountop
 
 AKS Networking
 https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/aks/networking-overview.md
+
+K8s config samples
+https://github.com/yokawasa/kubernetes-config-samples
