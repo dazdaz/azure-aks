@@ -99,7 +99,7 @@ $ ./get
 $ ./get -v 2.7.2
 ```
 
-## Install helm - Method 2 - Manual - Download a specific version
+## Install helm - Method 2 - Manual - Download a specific version for Linux
 ```
 $ wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
 $ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
@@ -111,6 +111,11 @@ $ helm init --service-account default
 # Installing and removing a package on K8s 1.9.6 has been a workaround
 helm install stable/locust
 helm delete vigilant-hound
+```
+
+## Install helm - Method 3 - MacOS
+```
+brew install kubernetees-helm
 ```
 
 ## Add Azure repo
