@@ -61,6 +61,15 @@ apt-get install -y kubectl
 $ brew install kubectl
 ```
 
+### Method 6 (Windows)
+Download Azure CLI -> https://aka.ms/installazurecliwindows
+```
+Run "Azure Command Prompt"
+az login
+az aks install-cli --install-location c:\apps\kubectl.exe
+az aks get-credentials --name k8s-aks --resource-group k8s-aks-rg
+```
+
 ## Access k8s GUI, setup SSH Tunelling in your SSH Client
 * Run both commands from your laptop, and connect to http://127.0.0.1:8001 http://127.0.0.1:9000
 
