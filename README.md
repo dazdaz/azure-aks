@@ -332,6 +332,7 @@ https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 https://docs.microsoft.com/en-us/azure/aks/azure-disks-dynamic-pv
 https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv
 ```
+*Disk sizes upto 1 TB are supported, however be aware that bot every vm size supports 1TB disk sizes
 
 ## Deploy virtual-kubelet
 * Azure Container Instance is not available at location "centralus". The available locations are "westus,eastus,westeurope,southeastasia"
@@ -451,9 +452,10 @@ yes
 $ az aks get-versions -l centralus -o table
 KubernetesVersion    Upgrades
 -------------------  -------------------------------------------------------------------------
-1.9.6                None available
-1.9.2                1.9.6
-1.9.1                1.9.2, 1.9.6
+1.10.3               None available
+1.9.6                1.10.3
+1.9.2                1.9.6, 1.10.3
+1.9.1                1.9.2, 1.9.6, 1.10.3
 1.8.11               1.9.1, 1.9.2, 1.9.6
 1.8.10               1.8.11, 1.9.1, 1.9.2, 1.9.6
 1.8.7                1.8.10, 1.8.11, 1.9.1, 1.9.2, 1.9.6
@@ -511,6 +513,31 @@ $ kubectl cluster-info dump --all-namespaces --output-directory=$PWD/cluster-sta
 $ tree cluster-state-2018-06-13
 
 $ kubectl get events
+```
+
+## RBAC Troubleshooting
+```
+To determine what authorization-mode setting has been configured in order to see if RBAC has been enabled or not when your cluster was deployed, you need to SSH into a VM in the agent-pool and look at the options for the kubelet daemon.
+
+However, I cannot find a method to query the authorization-mode setting within kube-system or any namespace.
+If anybody finds out if the argv options are stored there, please do let me know, as that’ll be much easier.
+
+Here are a list of all authorization-mode options when kubelet and kube-apiserver are run.
+https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
+
+--authorization-mode string     Default: "AlwaysAllow"
+	Ordered list of plug-ins to do authorization on secure port. Comma-delimited list of: AlwaysAllow,AlwaysDeny,ABAC,Webhook,RBAC,Node.
+
+1.
+Follow instructions to be able to SSH into your VM’s within the agent pool.
+https://docs.microsoft.com/en-us/azure/aks/aks-ssh
+
+2.
+root@aks-agentpool-45595413-0:~# ps auxwwwwwww | grep "/usr/local/bin/[k]ubelet"
+root       1525  3.7  3.0 795136 105436 ?       Ssl  Jun02 1359:39 /usr/local/bin/kubelet --enable-server --node-labels=kubernetes.io/role=agent,agentpool=agentpool,storageprofile=managed,storagetier=Premium_LRS,kubernetes.azure.com/cluster=MC_daz-aks-rg_daz-aks_centralus --v=2 --volume-plugin-dir=/etc/kubernetes/volumeplugins --address=0.0.0.0 --allow-privileged=true --authorization-mode=Webhook --azure-container-registry-config=/etc/kubernetes/azure.json --cadvisor-port=0 --cgroups-per-qos=true --cloud-config=/etc/kubernetes/azure.json --cloud-provider=azure --cluster-dns=10.0.0.10 --cluster-domain=cluster.local --enforce-node-allocatable=pods --event-qps=0 --eviction-hard=memory.available<100Mi,nodefs.available<10%,nodefs.inodesFree<5% --feature-gates=Accelerators=true --image-gc-high-threshold=85 --image-gc-low-threshold=80 --keep-terminated-pod-volumes=false --kubeconfig=/var/lib/kubelet/kubeconfig --max-pods=110 --network-plugin=kubenet --node-status-update-frequency=10s --non-masquerade-cidr=10.244.0.0/16 --pod-infra-container-image=k8s-gcrio.azureedge.net/pause-amd64:3.1 --pod-manifest-path=/etc/kubernetes/manifests
+
+3.In conclusion, this AKS Kubernetes 1.9.6 cluster which I deployed, is’nt running in RBAC enabled mode.
+To use RBAC, I need to re-deploy.
 ```
 
 ## Random commands
@@ -586,6 +613,14 @@ NAMES               IMAGE               STATUS
 sonic               dazdaz/sonic        Up 2 weeks
 
 $ kubectl get all --all-namespaces -l co=fabrikam
+
+# Show JSON paths to query
+kubectl proxy &
+curl -O 127.0.0.1:8001/swagger.json
+cat swagger.json | jq '.paths | keys[]'
+
+View k8s agent config
+curl -O http://127.0.0.1:8001/apis/apps/v1/controllerrevisions
 ```
 
 Wildcard Certs - Getting, Setting up
@@ -611,3 +646,9 @@ https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/aks/networking-
 
 K8s config samples
 https://github.com/yokawasa/kubernetes-config-samples
+
+https://acotten.com/post/kube17-security RBAC Guide
+http://kubernetesbyexample.com/
+https://kubernetes.feisky.xyz/en/
+https://thenewstack.io/taking-kubernetes-api-spin/
+https://docs.microsoft.com/en-us/azure/aks/acs-aks-migration Migrating from Azure Container Service (ACS) to Azure Kubernetes Service (AKS)
