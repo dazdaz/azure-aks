@@ -621,6 +621,9 @@ cat swagger.json | jq '.paths | keys[]'
 
 View k8s agent config
 curl -O http://127.0.0.1:8001/apis/apps/v1/controllerrevisions
+
+# Re-attach to a pod
+$ kubectl attach aks-ssh-7b5b5856cd-58wwq -c aks-ssh -i -t
 ```
 
 Wildcard Certs - Getting, Setting up
