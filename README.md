@@ -624,6 +624,10 @@ curl -O http://127.0.0.1:8001/apis/apps/v1/controllerrevisions
 
 # Re-attach to a pod
 $ kubectl attach aks-ssh-7b5b5856cd-58wwq -c aks-ssh -i -t
+
+$ Launch a pod runing busybox
+$ kubectl exec -it busybox-3-c8f969bdd-5xj8b -n default -- sh
+/ # nslookup bing.com 168.63.129.16
 ```
 
 Wildcard Certs - Getting, Setting up
