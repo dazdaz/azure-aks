@@ -628,6 +628,11 @@ $ kubectl attach aks-ssh-7b5b5856cd-58wwq -c aks-ssh -i -t
 $ Launch a pod runing busybox
 $ kubectl exec -it busybox-3-c8f969bdd-5xj8b -n default -- sh
 / # nslookup bing.com 168.63.129.16
+
+# Quickest demo of AKS
+kubectl run mynginx --image nginxdemos/hello --port=80 --replicas=3
+kubectl expose deployments mynginx --port=80 --type=LoadBalancer
+kubectl scale --replicas=5 deployment/mynginx
 ```
 
 Wildcard Certs - Getting, Setting up
