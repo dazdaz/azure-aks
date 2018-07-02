@@ -471,8 +471,16 @@ KubernetesVersion    Upgrades
 
 ## Upgrade to the latest K8s
 ```
-$ az aks upgrade -n $CLUSTERNAME --resource-group $RG --kubernetes-version 1.9.6 --yes
+$ az aks upgrade -n $CLUSTERNAME --resource-group $RG --kubernetes-version 1.10.3 --yes
 ```
+
+## metrics-server
+```
+Heapster will be deprecated, and will start to be removed in 1.11 
+metrics-server is not automatically deployed in AKS.
+It can be deployed with manifests.
+```
+* https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/metrics-server
 
 ## Procedure to reboot VM's within the agent pool
 ```
