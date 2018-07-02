@@ -321,7 +321,7 @@ spec:
           servicePort: 80
 ```
 
-## Persistent Volumes
+## Persistent Volumes - Azure Disks
 ```
 A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
@@ -333,6 +333,12 @@ https://docs.microsoft.com/en-us/azure/aks/azure-disks-dynamic-pv
 https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv
 ```
 *Disk sizes upto 1 TB are supported, however be aware that bot every vm size supports 1TB disk sizes
+
+## Persistent Volumes - Azure Files
+```
+Will add in exampple.
+```
+https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv
 
 ## Deploy virtual-kubelet
 * Azure Container Instance is not available at location "centralus". The available locations are "westus,eastus,westeurope,southeastasia"
