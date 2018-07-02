@@ -641,6 +641,9 @@ $ kubectl exec -it busybox-3-c8f969bdd-5xj8b -n default -- sh
 kubectl run mynginx --image nginxdemos/hello --port=80 --replicas=3
 kubectl expose deployments mynginx --port=80 --type=LoadBalancer
 kubectl scale --replicas=5 deployment/mynginx
+
+# Viewing logs
+kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system
 ```
 
 Wildcard Certs - Getting, Setting up
