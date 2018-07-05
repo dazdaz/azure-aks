@@ -410,6 +410,12 @@ $ kubectl logs $cronoutput
 $ kubectl delete cronjob hello
 ```
 
+## Kubernetes Network Policy's
+```
+kubectl get networkpolicies --all-namespaces
+kubectl get networkpolicies default-deny -n policy-demo -o yaml
+```
+
 ## Changing K8s cluster context
 ```
 $ kubectl config current-context
