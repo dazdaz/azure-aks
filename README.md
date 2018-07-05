@@ -437,6 +437,7 @@ rbac.authorization.k8s.io/v1beta1
 $ kubectl get clusterroles
 No resources found.
 
+# View cluster-admin clusterrole in yaml format
 $ kubectl get clusterrole cluster-admin -o yaml
 
 $ kubectl get clusterrolebindings
