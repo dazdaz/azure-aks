@@ -1,4 +1,3 @@
-
 ## Azure Kubernetes Service
 
 Official Docs for AKS deployment are now available here or you can read this guide<br>
@@ -409,6 +408,11 @@ $ echo $cronoutput
 $ kubectl logs $cronoutput
 $ kubectl delete cronjob hello
 ```
+
+## K8s Networking
+* 1.AKS does not currently support flannel.
+* 2.ACS-Engine does support Flannel in PR2967 https://github.com/Azure/acs-engine/pull/2967
+* 3.Tigera Calico coming to Azure Kubernetes Service (AKS) https://www.tigera.io/tigera-calico-coming-to-azure-kubernetes-service-aks/
 
 ## Kubernetes Network Policy's
 ```
