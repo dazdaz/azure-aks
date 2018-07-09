@@ -666,6 +666,9 @@ kubectl scale --replicas=5 deployment/mynginx
 
 # Viewing logs
 kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system
+
+# Uses AD to authenticate
+kubectl --kubeconfig=aad-kubeconfig get nodes
 ```
 
 Wildcard Certs - Getting, Setting up
