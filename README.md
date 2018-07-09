@@ -700,3 +700,7 @@ http://kubernetesbyexample.com/
 https://kubernetes.feisky.xyz/en/
 https://thenewstack.io/taking-kubernetes-api-spin/
 https://docs.microsoft.com/en-us/azure/aks/acs-aks-migration Migrating from Azure Container Service (ACS) to Azure Kubernetes Service (AKS)
+
+External-DNS
+https://github.com/kubernetes-incubator/external-dns
+https://github.com/kubernetes-incubator/external-dns/blob/master/docs/tutorials/azure.md
