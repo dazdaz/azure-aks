@@ -17,7 +17,7 @@ az provider register -n Microsoft.ContainerService
 # Avoid using burst VM's, they are too small, such as Standard_B1ms
 
 az group create --name $RG --location $LOCATION
-az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.10.3
+az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.10.3 --enable-addons http_application_routing
 az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
 
 # You can deploy AKS without RBAC, by using the flag "--rbac=false"
