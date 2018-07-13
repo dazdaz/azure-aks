@@ -19,6 +19,8 @@ az provider register -n Microsoft.ContainerService
 az group create --name $RG --location $LOCATION
 az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 -k 1.10.3
 az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
+
+# You can deploy AKS without RBAC, by using the flag "--rbac=false"
 ```
 
 ## Install kubectl
