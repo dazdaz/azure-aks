@@ -426,6 +426,8 @@ kubectl get networkpolicies default-deny -n policy-demo -o yaml
 ```
 $ kubectl config current-context
 daz-aks
+$ kubectl config delete-cluster daz2-aks
+deleted cluster daz2-aks from /home/devans/.kube/config
 $ kubectl config use-context daz-aks
 Switched to context "daz-aks".
 $ kubectl config get-contexts
