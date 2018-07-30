@@ -673,6 +673,9 @@ kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-syste
 
 # Uses AD to authenticate
 kubectl --kubeconfig=aad-kubeconfig get nodes
+
+# Query pods using field selector on labels
+kubectl get  po --field-selector=metadata.name==world-*
 ```
 
 Wildcard Certs - Getting, Setting up
