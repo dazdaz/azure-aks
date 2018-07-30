@@ -679,6 +679,11 @@ kubectl get  po --field-selector=metadata.name==world-*
 
 # Show issues
 kubectl get events
+
+# Show OMS daemonset
+kubectl get ds omsagent --namespace=kube-system
+NAME       DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR                 AGE
+omsagent   2         2         2         2            2           beta.kubernetes.io/os=linux   77d
 ```
 
 Wildcard Certs - Getting, Setting up
