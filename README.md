@@ -250,8 +250,13 @@ aks-agentpool-75595413-2  10.240.0.6
 * This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
 * myappa.example.com ->  888326a4-d388-4bb0-bb01-79c4d162a7a7.centralus.aksapp.io
   That means that the cert will need a SN of  appa.example.com, rather than the long name.
-* I recommend to use method 2 as the ingress controller will be the same across Kubernetes clusters, regardless of the Hyperscaler
+* If you use method 2 as the ingress controller, then it will be the same across Kubernetes clusters, regardless of the Hyperscaler
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
+
+```
+Get your AKS Ingress URL
+az aks show -n <your cluster name> -g <your resource group name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
+```
 
 ##  Ingress Controller - Method #2
 * Deploy nginx ingress controller and configure it
@@ -617,7 +622,7 @@ az vm get-instance-view -g "MC_orange-aks-rg_orange-aks_centralus" -n aks-agentp
 $ kubectl describe deployments acs-helloworld-idle-dachshund
 
 # Scale a deployment to 5 replicas
-$ kubectl scale deployment/azure-vote-front --replicas=5
+$ kubectl scale deployment/azure-vote-front --replicas 5 --namespace dimbulah
 
 $ kubectl cluster-info dump
 
