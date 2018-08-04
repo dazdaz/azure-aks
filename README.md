@@ -116,7 +116,9 @@ $ ./get -v 2.7.2
 ```
 $ wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
 $ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
+```
 
+```
 cat > helm-rbac.yaml <<!EOF
 apiVersion: v1
 kind: ServiceAccount
@@ -137,11 +139,14 @@ subjects:
     name: tiller
     namespace: kube-system
 EOF
+```
 
+```
 $ kubectl apply -f helm-rbac.yaml
 
 # Install Tiller (helm server)
 $ helm init --service-account tiller
+$ kubectl get pods -n kube-system | grep tiller
 
 # Test an installation via helm, to ensure that it's working
 # Installing and removing a package on K8s 1.9.6 has been a workaround
