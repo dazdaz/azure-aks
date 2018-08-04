@@ -73,6 +73,11 @@ az aks install-cli --install-location c:\apps\kubectl.exe
 az aks get-credentials --name k8s-aks --resource-group k8s-aks-rg
 ```
 
+## Configure K8s Dashboard, if your using RBAC
+```
+$ kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+```
+
 ## Access k8s GUI, setup SSH Tunelling in your SSH Client
 * Run both commands from your laptop, and connect to http://127.0.0.1:8001 http://127.0.0.1:9000
 
