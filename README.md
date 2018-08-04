@@ -31,6 +31,8 @@ Chose from one of the following
 
 ```
 $ sudo az aks install-cli
+Or:
+$ sudo az aks install-cli --client-version 1.7.7
 ```
 ### Method 2 (Ubuntu|RHEL)
 ```
