@@ -112,17 +112,41 @@ $ ./get -v 2.7.2
 ```
 
 ## Install helm - Method 2 - Manual - Download a specific version for Linux
+* https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/aks/kubernetes-helm.md
 ```
 $ wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
 $ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
 
+cat > helm-rbac.yaml <<!EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: tiller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: kube-system
+EOF
+
+$ kubectl apply -f helm-rbac.yaml
+
 # Install Tiller (helm server)
-$ helm init --service-account default
+$ helm init --service-account tiller
 
 # Test an installation via helm, to ensure that it's working
 # Installing and removing a package on K8s 1.9.6 has been a workaround
-helm install stable/locust
-helm delete vigilant-hound
+$ helm install stable/locust
+$ helm delete vigilant-hound
 ```
 
 ## Install helm - Method 3 - MacOS
