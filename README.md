@@ -150,7 +150,7 @@ EOF
 $ kubectl apply -f helm-rbac.yaml
 
 # Install Tiller (helm server)
-$ helm init --service-account tiller
+$ helm init --service-account tiller --upgrade
 $ kubectl get pods -n kube-system | grep tiller
 
 # Test an installation via helm, to ensure that it's working
