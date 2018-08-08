@@ -738,6 +738,15 @@ omsagent   2         2         2         2            2           beta.kubernete
 
 # run from laptop, connect to http://localhost:3000
 kubectl port-forward <pod> 8080:30030
+
+# show files in contsainer in pod
+kubectl exec <pod> -- ls -l
+
+kubectl run -i tty busybox --image=busybox --restart=Never
+
+kubectl attach <pod> -i
+
+kubectl exec -it <pod> -- bash
 ```
 
 Wildcard Certs - Getting, Setting up
