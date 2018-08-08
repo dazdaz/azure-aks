@@ -735,6 +735,9 @@ kubectl get events
 kubectl get ds omsagent --namespace=kube-system
 NAME       DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR                 AGE
 omsagent   2         2         2         2            2           beta.kubernetes.io/os=linux   77d
+
+# run from laptop
+kubectl port-forward <pod> 8080
 ```
 
 Wildcard Certs - Getting, Setting up
