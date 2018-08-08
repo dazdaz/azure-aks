@@ -4,8 +4,8 @@ Official Docs for AKS deployment are now available here or you can read this gui
 https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
 
 ```
-# westus2 / ukwest
-LOCATION=centralus
+# westus2 / ukwest / centralus
+LOCATION=southeastasia
 RG=daz-aks-rg
 CLUSTERNAME=dow-aks
 
@@ -736,8 +736,8 @@ kubectl get ds omsagent --namespace=kube-system
 NAME       DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR                 AGE
 omsagent   2         2         2         2            2           beta.kubernetes.io/os=linux   77d
 
-# run from laptop
-kubectl port-forward <pod> 8080
+# run from laptop, connect to http://localhost:3000
+kubectl port-forward <pod> 8080:30030
 ```
 
 Wildcard Certs - Getting, Setting up
