@@ -747,6 +747,19 @@ kubectl run -i tty busybox --image=busybox --restart=Never
 kubectl attach <pod> -i
 
 kubectl exec -it <pod> -- bash
+
+# Show the status of a container within the pod
+$ kubectl get pod datadog-agent-5nbrc -o yaml | grep -A11 containerStatuses
+  - containerID: docker://784335aaa1442162860ed33e48e9df37098391afdbf76160a5211b091ddd5d04
+    image: datadog/agent:latest
+    imageID: docker-pullable://datadog/agent@sha256:713670f9fbb049f6cf9c2f10a083e16273fdd55f7f2bcdcc5c8de4640028bbff
+    lastState: {}
+    name: datadog-agent
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2018-08-05T07:12:31Z
 ```
 
 # Node labels
