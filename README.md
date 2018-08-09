@@ -753,6 +753,7 @@ kubectl exec -it <pod> -- bash
 ```
 kubectl label nodes node1 hardware=azurea1-sku
 kubectl label nodes node2 hardware=azuregpu-sku
+kubectl get nodes --show-labels
 
 apiVersion: v1
 kind: Pod
