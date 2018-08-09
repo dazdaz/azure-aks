@@ -625,6 +625,60 @@ root       1525  3.7  3.0 795136 105436 ?       Ssl  Jun02 1359:39 /usr/local/bi
 To use RBAC, I need to re-deploy.
 ```
 
+## Kubernetes Secrets
+# 1. Storing secrets from text file or private key
+```
+echo -n "root" > username.txt
+echo -n "password" > password.txt
+kubectl create secret generic db-user-pass --from-file=username.txt --from-file=password.txt
+
+# A secret can also be a private key or SSH certificate
+kubectl create secret generic ssl-certificate --from-file=ssh-privatekey=~/.ssh/id_rsa --ssl-cert-=ssl-cert=mysysslcert.crt
+```
+
+# 2. Storing secrets from yaml file and then referncing those secrets via Environment Variables
+```
+$ kubectl create -f secrets-db.yaml
+```
+$ echo -n "root" | base64
+cm9vdA==
+$ echo -n "password" | base64
+cGFzc3dvcmQ=
+
+apiVersion: v1
+kind: Secret
+metadata:
+ name: db-secret
+type: Opaque
+data:
+ username: cm9vdA==
+ password: cGFzc3dvcmQ=
+```
+```
+env:
+ - name: SECRET_USERNAME
+  valueFrom:
+   secretKeyRef:
+    name: db-secret
+    key: username
+ - name: SECRET_PASSWORD
+```
+
+# 3. Text files in a pod - uses volumes to be mounted in a container.  Within the volume is a file
+```
+# secrets will be stored in /etc/creds/db-secrets/username and /etc/creds/db-secrets/password
+volumeMounts:
+- name: credvolume
+  mountPath: /etc/creds
+  readOnly: true
+volumes:
+- name: credvolume
+ secret:
+  secretName: db-secrets
+```
+
+# 4. An external vault application
+
 ## Random commands
 ```
 # Increase verbosity
