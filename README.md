@@ -288,6 +288,10 @@ aks-agentpool-75595413-0  10.240.0.4
 aks-agentpool-75595413-2  10.240.0.6
 ```
 
+## Ingress
+* Ingress is a solution which allows inbound connections and is an alternative to the external loadbalancer and nodePorts
+* The ingress controller is essentially a loadBalancer within the Kubernetes cluster
+
 ## Ingress Controller (HTTP routing) - Method #1
 * "HTTP routing" is an AKS deployment option, read URL below to learn more
 * This deploys the nginx ingress controller as an addon and configures DNS into the *.<region>aksapp.io domain
@@ -371,6 +375,7 @@ spec:
 ```
 
 ## Persistent Volumes - Azure Disks
+* https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
 ```
 A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator. It is a resource in the
 cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual
@@ -682,6 +687,37 @@ volumes:
 
 # 4. An external vault application
 
+## ConfigMaps
+```
+ConfigMap key-value pairs can be read by the app using :
+- 1. Environment variables
+- 2. Container commandline arguments
+- 3. Using volumes (can be a full configuration file)
+
+1. Environment Variables
+env:
+  -name: DRIVER
+   valueFrom:
+    configMapKeyRef:
+     name: app-config
+     key: driver
+  - name: DATABASE
+
+2. Configmap direct
+# Upload nginx.conf configuration file into a configmap
+$ kubectl create configmap nginx-config --from-file=nginx-reverseproxy.conf
+$ kubectl get configmap nginx-config -o yaml
+
+3. Using volumes
+volumeMounts:
+ - name: config-volume
+   mountPath: /etc/config
+volumes:
+ - name: config-volume
+   configMap:
+    name: app-config
+```
+
 ## Random commands
 ```
 # Increase verbosity
@@ -714,9 +750,6 @@ $ nslookup nginxServer:    10.96.0.10
 Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local
 Name:      nginx
 Address 1: 10.109.24.56 nginx.default.svc.cluster.local
-
-# Upload nginx.conf configuration file into a configmap
-$ kubectl create configmap ambassador-config --from-file=conf.d
 
 # Useful command to view details of a K8s Worker node within the agent pool
 az vm get-instance-view -g "MC_orange-aks-rg_orange-aks_centralus" -n aks-agentpool-75595413-0 
