@@ -720,6 +720,15 @@ volumes:
 
 ## Random commands
 ```
+Pod State
+5 different states
+PodScheduled - the pod has been scheduled to a node
+Ready - the pod can serve requests and is going to be added to matching services
+Initialized - the initialization containers have been started successfully
+Unschedulable - the Pod can't be scheduled (for example due to resource constraints)
+ContainersReady - all containers in the Pod are ready
+
+
 # Increase verbosity
 $ kubectl delete -f mpich.yml -v=9
 
