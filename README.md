@@ -749,6 +749,27 @@ kubectl attach <pod> -i
 kubectl exec -it <pod> -- bash
 ```
 
+# Node labels
+```
+kubectl label nodes node1 hardware=azurea1-sku
+kubectl label nodes node2 hardware=azuregpu-sku
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node.example.com
+  labels:
+    app: helloworld
+spec:
+  containers:
+  - name: k8s-demo
+    image: daz/gpudemo
+    ports:
+    - containerPort: 3000
+ nodeSelector:
+  hardware: azuregpu-sku
+```
+
 Wildcard Certs - Getting, Setting up
 https://www.youtube.com/watch?v=JNbvEl52dd4
 
