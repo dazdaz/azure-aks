@@ -197,6 +197,8 @@ $ kubectl apply -f ./demo.yaml
 ```
 
 ## HPA - Horizontal Pod Autoscaling (CPU) - Scriptable
+# If your using resource requests to request a % of CPU fir your app, then :
+# 75% of resource requests "cpu".  So if 200m (millicores) of CPU, then scale when CPU reaches 150m (millicores)
 ```
 $ kubectl apply --record -f acs-helloworld-frontend-hpa.yaml
 ```
@@ -859,6 +861,9 @@ $ kubectl get pod datadog-agent-5nbrc -o yaml | grep -A11 containerStatuses
     state:
       running:
         startedAt: 2018-08-05T07:12:31Z
+
+# To see the how much of its quota each node is using we can use this command, with example output for a 3 node cluster:
+$ kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'
 ```
 
 # Node labels
