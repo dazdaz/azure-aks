@@ -640,6 +640,8 @@ kubectl create secret generic ssl-certificate --from-file=ssh-privatekey=~/.ssh/
 ```
 $ kubectl create -f secrets-db.yaml
 ```
+
+```
 $ echo -n "root" | base64
 cm9vdA==
 $ echo -n "password" | base64
@@ -654,6 +656,7 @@ data:
  username: cm9vdA==
  password: cGFzc3dvcmQ=
 ```
+
 ```
 env:
  - name: SECRET_USERNAME
