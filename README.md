@@ -867,6 +867,7 @@ $ kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}
 ```
 
 # Node labels
+* You can give a node either a unique label or the same label, i.e. env=dev to multiple nodes
 ```
 kubectl label nodes node1 hardware=azurea1-sku
 kubectl label nodes node2 hardware=azuregpu-sku
