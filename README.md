@@ -197,8 +197,8 @@ $ kubectl apply -f ./demo.yaml
 ```
 
 ## HPA - Horizontal Pod Autoscaling (CPU) - Scriptable
-# If your using resource requests to request a % of CPU fir your app, then :
-# 75% of resource requests "cpu".  So if 200m (millicores) of CPU, then scale when CPU reaches 150m (millicores)
+* If your using resource requests to request a % of CPU for your app, then :
+* 75% of resource requests "cpu".  So if 200m (millicores) of CPU, then scale when CPU reaches 150m (millicores)
 ```
 $ kubectl apply --record -f acs-helloworld-frontend-hpa.yaml
 ```
