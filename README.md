@@ -7,7 +7,7 @@ https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
 # westus2 / ukwest / centralus
 LOCATION=southeastasia
 RG=daz-aks-rg
-CLUSTERNAME=dow-aks
+CLUSTERNAME=mycluster-aks
 
 # While AKS is in preview, creating new clusters requires a feature flag on your subscription.
 az provider register -n Microsoft.ContainerService
