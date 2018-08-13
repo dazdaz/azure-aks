@@ -720,7 +720,7 @@ volumes:
     name: app-config
 ```
 
-## Random commands
+## Troubleshooting
 ```
 Pod State
 5 different states
@@ -730,7 +730,17 @@ Initialized - the initialization containers have been started successfully
 Unschedulable - the Pod can't be scheduled (for example due to resource constraints)
 ContainersReady - all containers in the Pod are ready
 
+# To see exceeded quota messages
+kubectl describe rs/hello-world-deployment-235680 --namespace=myspace
 
+$ kubectl cluster-info dump
+
+# Show issues
+kubectl get events
+```
+
+## Random commands
+```
 # Increase verbosity
 $ kubectl delete -f mpich.yml -v=9
 
@@ -770,8 +780,6 @@ $ kubectl describe deployments acs-helloworld-idle-dachshund
 
 # Scale a deployment to 5 replicas
 $ kubectl scale deployment/azure-vote-front --replicas 5 --namespace dimbulah
-
-$ kubectl cluster-info dump
 
 $ kubectl explain pods
 
@@ -829,9 +837,6 @@ kubectl --kubeconfig=aad-kubeconfig get nodes
 # Query pods using field selector on labels
 kubectl get  po --field-selector=metadata.name==world-*
 
-# Show issues
-kubectl get events
-
 # Show OMS daemonset
 kubectl get ds omsagent --namespace=kube-system
 NAME       DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR                 AGE
@@ -864,6 +869,10 @@ $ kubectl get pod datadog-agent-5nbrc -o yaml | grep -A11 containerStatuses
 
 # To see the how much of its quota each node is using we can use this command, with example output for a 3 node cluster:
 $ kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'
+
+# Set a default namespace
+export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
+kubectl config set-context $CONTEXT --namespace=myspace
 ```
 
 # Node labels
