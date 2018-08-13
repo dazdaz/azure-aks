@@ -2,6 +2,7 @@
 
 Official Docs for AKS deployment are now available here or you can read this guide<br>
 https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
+https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#create-aks-cluster 
 
 ```
 # westus2 / ukwest / centralus
@@ -16,10 +17,13 @@ az provider register -n Microsoft.ContainerService
 # Standard_D2_v2 Standard_DS1_v2
 # Avoid using burst VM's, they are too small, such as Standard_B1ms
 
-# kubenet - new network
+# kubenet is used for networking by defauly
+# This will automatically create the default Log analytics workspace in the background and deploy the agent while creating the AKS cluster- no pre-requisite LA Workspace creation required.
+
 az group create --name $RG --location $LOCATION
 az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 \
--k 1.10.3 --max-pods 1000 --enable-addons http_application_routing
+-k 1.10.3 --max-pods 1000 --enable-addons http_application_routing --enable-addons monitoring
+
 az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
 
 # If you want to plug your VM's into an existing VNet, then something like this, uses Azure CNI (azure network plugin)
@@ -605,6 +609,14 @@ $ kubectl cluster-info dump --all-namespaces --output-directory=$PWD/cluster-sta
 $ tree cluster-state-2018-06-13
 
 $ kubectl get events
+```
+
+## Adding moitoring to an existing cluster
+This will automatically create the default Log analytics workspace in the background and deploy the agent to the existing AKS cluster.
+There is no pre-requisite in Workspace creation needed.
+Docs: https://docs.microsoft.com/en-us/azure/monitoring/monitoring-container-health#enable-container-health-monitoring-for-existing-managed-clusters 
+``` 
+$ az aks enable-addons -a monitoring -n MyExistingAKSCluster -g MyExistingAKSClusterRG
 ```
 
 ## RBAC Troubleshooting
