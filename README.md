@@ -611,10 +611,10 @@ $ tree cluster-state-2018-06-13
 $ kubectl get events
 ```
 
-## Adding moitoring to an existing cluster
+## Adding monitoring to an existing cluster
 This will automatically create the default Log analytics workspace in the background and deploy the agent to the existing AKS cluster.
 There is no pre-requisite in Workspace creation needed.
-Docs: https://docs.microsoft.com/en-us/azure/monitoring/monitoring-container-health#enable-container-health-monitoring-for-existing-managed-clusters 
+* https://docs.microsoft.com/en-us/azure/monitoring/monitoring-container-health#enable-container-health-monitoring-for-existing-managed-clusters 
 ``` 
 $ az aks enable-addons -a monitoring -n MyExistingAKSCluster -g MyExistingAKSClusterRG
 ```
