@@ -749,6 +749,20 @@ $ kubectl cluster-info dump
 
 # Show issues
 kubectl get events
+
+# Show labels
+kubectl get nodes --show-labels
+
+kubectl get nodes --show-labels | sed 's/\//\n/g'
+aks-agentpool-20626790-0                                Ready     agent     10d       v1.10.6   agentpool=agentpool,beta.kubernetes.io
+arch=amd64,beta.kubernetes.io
+instance-type=Standard_DS1_v2,beta.kubernetes.io
+os=linux,failure-domain.beta.kubernetes.io
+region=southeastasia,failure-domain.beta.kubernetes.io
+zone=1,kubernetes.azure.com
+cluster=MC_daz-aks-rg_dazaks_southeastasia,kubernetes.io
+hostname=aks-agentpool-20626790-0,kubernetes.io
+role=agent,storageprofile=managed,storagetier=Premium_LRS
 ```
 
 ## Random commands
