@@ -501,8 +501,10 @@ CURRENT   NAME             CLUSTER          AUTHINFO                            
 ## RBAC
 * https://kubernetes.io/docs/admin/authorization/rbac/
 ```
-* RoleBindings are bounded to a certain namespace
-* ClusterRoleBindings are cluster-global
+
+* Define a role and assign users and groups to that role.
+* Role (single namespace) and ClusterRole (cluster-wide)
+* RoleBinding (single namespace) and ClusterRoleBinding (cluster-wide)
 * Roles define a list of actions that can be performed over the resources or verbs: GET, WATCH, LIST, CREATE, UPDATE, PATCH, DELETE.
 * Roles are assigned to ServiceAccounts
 
@@ -534,12 +536,6 @@ yes
 $ kubectl auth can-i list services -n default --as=system:serviceaccount:default:default
 yes
 ```
-
-```
-
-* Define a role and assign users and groups to that role.
-* Role (single namespace) and ClusterRole (cluster-wide)
-* RoleBinding (single namespace) and ClusterRoleBinding (cluster-wide)
 
 ## RBAC Role granting read access to pods and secrets within default namespace
 ## If you want this across all namespaces, then use ClusterRole instead of Role and remove namespace attribute
