@@ -117,6 +117,19 @@ brew install bash-completion@2
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 ```
 
+## Helm Overview
+* Helm is the recommended way to deploy your applications on a Kubernetes cluster
+* This is the preferred method to deploy your applications over "kubectl apply -f <manifest>"
+* Helm allows you to package, upgrade and rollback the application.
+
+```
+helm create mychart
+Chart.yaml
+values.yaml
+templates/ deployment.yaml
+         / service.yaml
+```
+
 ## Install helm - Method 1 - Automatically download latest version
 ```
 $ wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
@@ -128,6 +141,7 @@ $ ./get -v 2.7.2
 ```
 
 ## Install helm - Method 2 - Manual - Download a specific version for Linux
+* We give tiller (helm server), cluster-admin priviledges
 * https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/aks/kubernetes-helm.md
 ```
 $ wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
@@ -185,6 +199,25 @@ $ helm install azure/azure-service-broker
 ## Deploy Datadog helm chart for monitoring
 ```
 $ helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
+```
+
+## Helm management
+```
+helm upgrade --set image.tag=v0.0.2,mariadb.db.password=secret123 <CHART-NAME> .
+helm history <CHART-NAME>
+REVISION  UPDATED   STATUS      CHART           DESCRIPTION
+1         Tue       SUPERSEDED  demo-app-0.0.1  Install complete
+2         Wed       DEPLOYED    demo-app-0.0.1  Upgrade complete
+helm rollback <CHART-NAME> 1
+```
+
+## Setting up a helm repository
+* To be added
+```
+helm repo add mycharts location
+helm package chart
+helm push filename chart
+helm search chart
 ```
 
 ## HPA - Horizontal Pod Autoscaling (CPU) - Manual
@@ -661,7 +694,7 @@ It can be deployed with manifests.
 ```
 kubectl get nodes
 # Prevent new pods from being scheduled onto node (cordon)
-kubectl cordon <NODE_NAME>
+kubectl drain <NODE_NAME> --grace-period=600
 # Drain - Gracefully terminate all pods on the node while marking the node as unschedulable:
 # If your daemonsets are non-critical pods such as monitoring agents then ignore-daemonsets
 kubectl drain <NODE_NAME> --ignore-daemonsets --force
