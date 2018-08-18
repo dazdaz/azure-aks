@@ -538,7 +538,7 @@ yes
 ```
 
 ## RBAC Role granting read access to pods and secrets within default namespace
-## If you want this across all namespaces, then use ClusterRole instead of Role and remove namespace attribute
+* If you want this across all namespaces, then use ClusterRole instead of Role and remove namespace attribute
 ```
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
@@ -566,11 +566,11 @@ roleRef:
   name: pod-reader
   apiGroup: rbac.authorization.k8s.io
 
-kubectl config set-context nigel --cluster=kubernetes.myhost.com --user nigel
+$ kubectl config set-context nigel --cluster=kubernetes.myhost.com --user nigel
 ```
 
 ## RBAC Role granting read/write access to pods within default namespace
-## No access to secrets
+* No access to secrets
 ```
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
