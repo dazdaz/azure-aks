@@ -535,6 +535,97 @@ $ kubectl auth can-i list services -n default --as=system:serviceaccount:default
 yes
 ```
 
+```
+
+* Define a role and assign users and groups to that role.
+* Role (single namespace) and ClusterRole (cluster-wide)
+* RoleBinding (single namespace) and ClusterRoleBinding (cluster-wide)
+
+## RBAC Role granting read access to pods and secrets within default namespace
+## If you want this across all namespaces, then use ClusterRole instead of Role and remove namespace attribute
+```
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods", "secrets"]
+  verbs: ["get", "watch", "list"]
+
+# Assign users to the newly created role
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: read-pods
+  namespace: default
+subjects:
+- kind: User
+  name: bob
+  apiGroup:rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+
+kubectl config set-context nigel --cluster=kubernetes.myhost.com --user nigel
+```
+
+## RBAC Role granting read/write access to pods within default namespace
+## No access to secrets
+```
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: pod-writer
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["extensions", "apps"]
+  resources: ["deployments"]
+  verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: write-pods
+  namespace: default
+subjects:
+- kind: User
+  name: nigel
+  apiGroup:rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+
+
+$ kubectl config use-context nigel
+```
+
+## admin-user.yaml
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: User
+  name: "nigel"
+- apiGroup: rbac.authorization.k8s.io
+
+kubectl apply -f admin-user.yaml
+kubectl config use-context nigel
+```
+
 ## View versions of Kubernetes, which can be upgraded
 ```
 $ az aks get-versions -l centralus -o table
