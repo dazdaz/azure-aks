@@ -27,7 +27,10 @@ $ helm template install/kubernetes/helm/istio --kube-version "1.10" --name istio
   --set galley.enabled=false \
   --values install/kubernetes/helm/istio/values.yaml \
   >> aks-istio.yaml
- 
+
 # apply resources yaml to AKS cluster
 $ kubectl apply -f aks-istio.yaml -n istio-system
+
+$ kubectl get deployment -n istio-system
+$ sudo cp bin/istioctl /usr/local/bin
 ```
