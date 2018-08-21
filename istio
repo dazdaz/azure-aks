@@ -2,12 +2,14 @@
 * https://github.com/istio/istio/issues/7675#issuecomment-413786413
 
 ```
+$ wget https://github.com/istio/istio/releases/download/1.0.0/istio-1.0.0-linux.tar.gz
+$ tar xvzf istio-1.0.0-linux.tar.gz
+
 # render Istio CRD yaml
 $ helm template install/kubernetes/helm/istio -x templates/crds.yaml --kube-version "1.10" \
   --set global.crds=true \
   --set pilot.enabled=true \
-  --values install/kubernetes/helm/istio/values.yaml \
-  > aks-istio-crds.yaml
+  --values install/kubernetes/helm/istio/values.yaml   > aks-istio-crds.yaml
 
 # apply CRDs yaml to AKS cluster 
 $ kubectl apply -f aks-istio-crds.yaml
