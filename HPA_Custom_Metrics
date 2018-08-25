@@ -1,0 +1,20 @@
+## Scaling HPA using custom-metrics such as messages in the Azure ServiceBus, Azure Eventhubs, Azure Storage Queue, HTTP RequestsPerSecond
+
+* Kubernetes HOWTO - Scale your app using HPA with custom metrics in AppInsights - Lachie Evenson
+* https://www.youtube.com/watch?v=XcKcxh3oHxA
+* https://github.com/Azure/azure-k8s-metrics-adapter
+
+```
+kubectl create ns custom-metrics
+kubectl create secret generic app-insights-api -n custom-metrics --from-literal=app-insights-api
+kubectl create -f deploy/adapter.yaml
+
+kubectl creare secret generic appinsightkey --from=literal=instrumentation-key=edf.......
+kubectl apply -f samples/requests-per-second/deploy/rps-deployment.yaml
+kubectl apply -f samples/request-per-second/deploy/hpa.yaml
+
+kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/namespaces/default/pods/*/performance"
+
+# synthetic load generator - run for 2 mins
+docker run --rm williamyeh/wrk http://13.66.206.119 -c 10 -d 2m -t 2
+```
