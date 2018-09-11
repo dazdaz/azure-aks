@@ -1019,6 +1019,9 @@ $ kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}
 # Set a default namespace
 export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
 kubectl config set-context $CONTEXT --namespace=myspace
+
+# Deploying a container from ACR onto K8s
+kubectl run chiodaimage2 --image=bluefields.azurecr.io/test/api2
 ```
 
 # Node labels
