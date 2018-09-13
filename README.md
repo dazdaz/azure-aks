@@ -1022,6 +1022,23 @@ kubectl config set-context $CONTEXT --namespace=myspace
 
 # Deploying a container from ACR onto K8s
 kubectl run chiodaimage2 --image=bluefields.azurecr.io/test/api2
+
+# Show configuration settings applied to a namespace
+$ kubectl describe ns uat
+Name:         uat
+Labels:       <none>
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},"name":"uat","namespace":""}}
+
+Status:  Active
+
+No resource quota.
+
+Resource Limits
+ Type                   Resource  Min    Max  Default Request  Default Limit  Max Limit/Request Ratio
+ ----                   --------  ---    ---  ---------------  -------------  -----------------------
+ Container              cpu       200m   1    250m             500m           -
+ Container              memory    256Mi  1Gi  256Mi            512Mi          -
+ PersistentVolumeClaim  storage   1Gi    5Gi  -                -              -
 ```
 
 # Node labels
