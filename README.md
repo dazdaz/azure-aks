@@ -1063,6 +1063,10 @@ spec:
  nodeSelector:
   hardware: azuregpu-sku
 ```
+```
+kubectl get secret cosmos-db-secret -o yaml
+kubectl get secrets cosmos-db-secret -o jsonpath --template '{.data.user}' | base64 -d
+```
 
 Wildcard Certs - Getting, Setting up
 https://www.youtube.com/watch?v=JNbvEl52dd4
