@@ -43,6 +43,7 @@ Chose from one of the following
 ```
 $ sudo az aks install-cli
 Or:
+# Install kubectl which works with K8s 1.7.7
 $ sudo az aks install-cli --client-version 1.7.7
 ```
 ### Method 2 (Ubuntu|RHEL)
