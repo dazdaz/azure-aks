@@ -1040,6 +1040,15 @@ Resource Limits
  Container              cpu       200m   1    250m             500m           -
  Container              memory    256Mi  1Gi  256Mi            512Mi          -
  PersistentVolumeClaim  storage   1Gi    5Gi  -                -              -
+
+
+$ kubectl get nodes -o custom-columns=nodeName:.metadata.name,nodeIP:status.addresses[0].address,routeDestination:.spec.podCIDR
+nodeName                                                nodeIP                     routeDestination
+aks-agentpool-10926791-0                                aks-agentpool-10926791-0   10.244.4.0/24
+aks-agentpool-10926791-2                                10.240.0.6                 10.244.2.0/24
+aks-agentpool-10926791-3                                10.240.0.4                 10.244.36.0/24
+virtual-kubelet-myaciconnector-linux-southeastasia      10.244.2.53                10.244.242.0/24
+virtual-kubelet-myaciconnector-windows-southeastasia    10.244.2.35                10.244.240.0/24
 ```
 
 # Node labels
