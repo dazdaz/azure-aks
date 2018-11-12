@@ -1078,6 +1078,9 @@ kubectl get secret cosmos-db-secret -o yaml
 kubectl get secrets cosmos-db-secret -o jsonpath --template '{.data.user}' | base64 -d
 ```
 
+Pre-Create the Service principal with least/minimum amount of required permissions from @James Sturtevant
+https://github.com/jsturtevant/aks-examples/tree/master/least-privileged-sp
+
 Wildcard Certs - Getting, Setting up
 https://www.youtube.com/watch?v=JNbvEl52dd4
 
