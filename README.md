@@ -960,6 +960,9 @@ kubectl proxy &
 curl -O 127.0.0.1:8001/swagger.json
 cat swagger.json | jq '.paths | keys[]'
 
+# Displays just the name of the pods (useful for scripting)
+$kubectl --namespace default -o 'jsonpath={.items[*].metadata.name}' get pods
+
 View k8s agent config
 curl -O http://127.0.0.1:8001/apis/apps/v1/controllerrevisions
 
