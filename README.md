@@ -894,6 +894,31 @@ $ kubectl delete -f mpich.yml -v=9
 # Selecting a pod, by the label
 $ kubectl get pods --selector app=samples-tf-mnist-demo --show-all
 
+# Display internal cluster IP addresses
+$ kubectl get svc -n=istio-system -o=custom-columns=NAME:.metadata.name,IP:.spec.clusterIP
+NAME                       IP
+grafana                    10.0.127.232
+istio-citadel              10.0.250.0
+istio-egressgateway        10.0.29.184
+istio-ingressgateway       10.0.224.152
+istio-pilot                10.0.94.21
+istio-policy               10.0.20.118
+istio-sidecar-injector     10.0.233.174
+istio-statsd-prom-bridge   10.0.197.58
+istio-telemetry            10.0.107.53
+jaeger-agent               None
+jaeger-collector           10.0.136.179
+jaeger-query               10.0.98.154
+prometheus                 10.0.216.50
+tracing                    10.0.123.141
+zipkin                     10.0.42.101
+
+$ kubectl get svc -o=custom-columns=NAME:.metadata.name,IP:.spec.clusterIP
+NAME             IP
+hellowhale-svc   10.0.234.72
+kubernetes       10.0.0.1
+nginx-svc        10.0.250.226
+
 # Extract metadata from K8s
 $ kubectl get pod dg-release-datadog-hlvxc -o=jsonpath={.status.containerStatuses[].image}
 datadog/agent:6.1.2
