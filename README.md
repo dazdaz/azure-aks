@@ -695,7 +695,7 @@ It can be deployed with manifests.
 ```
 kubectl get nodes
 # Prevent new pods from being scheduled onto node (cordon)
-kubectl drain <NODE_NAME> --grace-period=600
+kubectl drain <NODE_NAME> --ignore-daemonsets --grace-period=600
 # Drain - Gracefully terminate all pods on the node while marking the node as unschedulable:
 # If your daemonsets are non-critical pods such as monitoring agents then ignore-daemonsets
 kubectl drain <NODE_NAME> --ignore-daemonsets --force
