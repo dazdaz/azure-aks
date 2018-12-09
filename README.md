@@ -1006,6 +1006,10 @@ kubectl scale --replicas=5 deployment/mynginx
 # Viewing logs
 kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system
 
+# View API version
+kubectl get apiservices -o 'jsonpath={range .items[?(@.spec.service.name!="")]}{.metadata.name}{"\n"}{end}'
+v1beta1.metrics.k8s.io
+
 # Uses AD to authenticate
 kubectl --kubeconfig=aad-kubeconfig get nodes
 
