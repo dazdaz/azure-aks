@@ -927,6 +927,9 @@ datadog/agent:6.1.2
 $ kubectl get pod dg-release-datadog-hlvxc -o json | jq
 <output formatted>
 
+# View events by time sequence
+kubectl -n defaults get events --sort-by='{.lastTimestamp}'
+
 # View config in yaml
 $ kubectl get pod dg-release-datadog-hlvxc -o yaml
 
@@ -1146,3 +1149,6 @@ https://docs.microsoft.com/en-us/azure/aks/acs-aks-migration Migrating from Azur
 External-DNS
 https://github.com/kubernetes-incubator/external-dns
 https://github.com/kubernetes-incubator/external-dns/blob/master/docs/tutorials/azure.md
+
+Helm
+https://medium.com/virtuslab/think-twice-before-using-helm-25fbb18bc822 Critical view of helm - mostly accurate
