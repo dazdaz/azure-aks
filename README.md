@@ -1158,3 +1158,6 @@ https://github.com/kubernetes-incubator/external-dns/blob/master/docs/tutorials/
 
 Helm
 https://medium.com/virtuslab/think-twice-before-using-helm-25fbb18bc822 Critical view of helm - mostly accurate
+
+Kubernetes-the-hard-way-on-azure
+https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure
