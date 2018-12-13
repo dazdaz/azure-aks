@@ -237,6 +237,13 @@ helm search chart
 kubectl apply -f https://github.com/weaveworks/kured/releases/download/1.1.0/kured-1.1.0.yaml
 ```
 
+# spotify-docker-gc
+```
+wget https://raw.githubusercontent.com/helm/charts/master/stable/spotify-docker-gc/values.yaml
+helm install --name docker-gc -f values.yaml stable/spotify-docker-gc --namespace kube-system
+Error: release docker-gc failed: namespaces "kube-system" is forbidden: User "system:serviceaccount:kube-system:default" cannot get namespaces in the namespace "kube-system"
+```
+
 ## HPA - Horizontal Pod Autoscaling (CPU) - Manual
 ```
 # Horizontal Pod Autoscale
