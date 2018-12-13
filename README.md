@@ -5,29 +5,38 @@ Official Docs for AKS deployment are now available here or you can read this gui
 * https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#create-aks-cluster 
 
 ```
-# westus2 / ukwest / centralus
-LOCATION=southeastasia
-RG=daz-aks-rg
-CLUSTERNAME=mycluster-aks
-
-# While AKS is in preview, creating new clusters requires a feature flag on your subscription.
-az provider register -n Microsoft.ContainerService
-
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 # Standard_D2_v2 Standard_DS1_v2
-# Avoid using burst VM's, they are too small, such as Standard_B1ms
 
-# kubenet is used for networking by defauly
-# This will automatically create the default Log analytics workspace in the background and deploy the agent while creating the AKS cluster- no pre-requisite LA Workspace creation required.
+az ad sp create-for-rbac --skip-assignment
+{
+  "appId": "77777777-c1b7-49ae-6666-c421fb727777",
+  "displayName": "azure-cli-2018-12-13-14-56-34",
+  "name": "http://azure-cli-2018-12-13-14-56-34",
+  "password": "08080808-5588-4444-91a9-8683d0beeeee",
+  "tenant": "88877778-86f1-41af-9999-2d7cd0118888"
+}
 
-az group create --name $RG --location $LOCATION
-az aks create --resource-group $RG --name ${CLUSTERNAME} --generate-ssh-keys --node-count 2 \
--k 1.10.3 --max-pods 1000 --enable-addons http_application_routing --enable-addons monitoring
+export APPID=77777777-c1b7-49ae-6666-c421fb727777
+export CLIENTSECRET=08080808-5588-4444-91a9-8683d0beeeee
+export LOCATION=southeastasia
+export CLUSTERNAME=daz-aks
+export RGNAME=daz-aks-rg
+
+az group create --name $RGNAME --location $LOCATION
+az aks create -n $CLUSTERNAME -g $RGNAME -k 1.11.5 \
+--service-principal $APPID \
+--client-secret $CLIENTSECRET \
+--generate-ssh-keys -l $LOCATION \
+--node-count 1 \
+--enable-addons http_application_routing,monitoring
+
+az aks list -o table
 
 az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
 
 # If you want to plug your VM's into an existing VNet, then something like this, uses Azure CNI (azure network plugin)
-az aks create --name aks-cluster --resource-group aks --network-plugin azure --max-pods 30 --service-cidr 10.0.0.0/16 \
+az aks create --name aks-cluster --resource-group aks --network-plugin azure --max-pods 1000 --service-cidr 10.0.0.0/16 \
 --dns-service-ip 10.0.0.10 --docker-bridge-address 172.17.0.1/16 \
 --vnet-subnet-id /subscriptions/{SUBSCRIPTION ID}/resourceGroups/{RESOURCE GROUP NAME}/providers/Microsoft.Network/virtualNetworks/{VIRTUAL NETWORK NAME}/subnets/{SUBNET NAME}
 
@@ -133,20 +142,21 @@ templates/ deployment.yaml
 
 ## Install helm - Method 1 - Automatically download latest version
 ```
-$ wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
-$ chmod a+x get
-$ ./get
+wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
+chmod a+x get
+./get
+helm init
 
 # You can also specify a specific version
-$ ./get -v 2.7.2
+./get -v 2.7.2
 ```
 
 ## Install helm - Method 2 - Manual - Download a specific version for Linux
 * We give tiller (helm server), cluster-admin priviledges
 * https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/aks/kubernetes-helm.md
 ```
-$ wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
-$ sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
+wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
+sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
 ```
 
 ```
