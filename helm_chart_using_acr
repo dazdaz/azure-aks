@@ -34,6 +34,8 @@ az acr helm show selenium -n $ACRNAME -o table  # show does the same as list com
 helm repo update
 helm inspect dazacr/selenium # Show information for a Helm chart
 helm install stable/selenium
+# shows the config of live running helm charts
+helm get values stable/selenium
 ```
 
 https://docs.microsoft.com/en-us/azure/container-registry/container-registry-helm-repos [https://aka.ms/acr/helm-repos]
