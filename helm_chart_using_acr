@@ -17,6 +17,7 @@ helm fetch stable/selenium
 tar xvzf selenium-0.3.1.tgz
 <modify files in helm chart>
 <update version in Chart.yaml>
+helm lint my-chart
 
 git init
 git add selenium/
