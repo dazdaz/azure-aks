@@ -6,9 +6,10 @@ helm install install/kubernetes/helm/istio --name istio --namespace istio-system
 ```
 
 Deploy Istio 1.0.4 deployed on K8s 1.11.5 (deployed using AKS) using helm 2.11 and for Grafana, changed to port 3500 on localhost
-(no time to figure out why this is in use), run mingw :
+(no time to figure out why this is in use) :
 
 ```
+run mingw.exe
 kubectl.exe -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3500:3000
 ```
 
