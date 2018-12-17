@@ -909,6 +909,11 @@ hostname=aks-agentpool-20626790-0,kubernetes.io
 role=agent,storageprofile=managed,storagetier=Premium_LRS
 ```
 
+## Kubernetes Performance
+```
+kubectl top pods --all-namespaces
+```
+
 ## Random commands
 ```
 # Increase verbosity
