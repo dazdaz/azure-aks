@@ -1,7 +1,9 @@
-# For Osiris-enabled deployments, Osiris automatically instruments application pods. When Osiris determines that a deployment’s pods are idle, Osiris scales the deployment to zero replicas.
+# For Osiris-enabled deployments, Osiris automatically instruments application pods. When Osiris determines that a deployment’s
+# pods are idle, Osiris scales the deployment to zero replicas.
 
-He mentions that one use-case for project Osiris is with virtualnodes which uses ACI (billed per second)
-e.g. multiple replicas not being used when configured through virtualnodes, which decreases the replica count to 0, thus reducing cost even further.
+# He mentions that one use-case for project Osiris is with virtualnodes which uses ACI (billed per second)
+# e.g. multiple replicas not being used when configured through virtualnodes, which decreases the replica count to 0,
+# thus reducing cost even further.
 
 https://www.youtube.com/watch?v=ujgGQMhdcHc&feature=youtu.be
 https://github.com/deislabs/osiris
