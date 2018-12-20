@@ -1141,6 +1141,8 @@ kubectl get secret cosmos-db-secret -o yaml
 kubectl get secrets cosmos-db-secret -o jsonpath --template '{.data.user}' | base64 -d
 ```
 
+== Further Info==
+
 Pre-Create the Service principal with least/minimum amount of required permissions from @James Sturtevant
 https://github.com/jsturtevant/aks-examples/tree/master/least-privileged-sp
 
@@ -1183,3 +1185,6 @@ https://medium.com/virtuslab/think-twice-before-using-helm-25fbb18bc822 Critical
 
 Kubernetes-the-hard-way-on-azure
 https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure
+
+Long list of useful k8s links
+https://github.com/ramitsurana/awesome-kubernetes/blob/master/README.md
