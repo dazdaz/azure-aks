@@ -1140,6 +1140,11 @@ spec:
 kubectl get secret cosmos-db-secret -o yaml
 kubectl get secrets cosmos-db-secret -o jsonpath --template '{.data.user}' | base64 -d
 ```
+```
+# Get the external Load Balancer IP
+kubectl get service hellowhale-svc -o jsonpath='{.status.loadBalancer.ingress[*].ip}'
+11.66.100.244
+```
 
 == Further Info==
 
