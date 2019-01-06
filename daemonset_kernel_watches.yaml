@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: more-fs-watchers
+  namespace: kube-system
+  labels:
+    app: more-fs-watchers
+spec:
+  template:
+    metadata:
+      labels:
+        name: more-fs-watchers
+    spec:
+      hostNetwork: true
+      hostPID: true
+      hostIPC: true
+      initContainers:
+        - command:
+            - sh
+            - -c
+            - sysctl -w fs.inotify.max_user_watches=54321;
+          image: alpine:3.6
+          imagePullPolicy: IfNotPresent
+          name: sysctl
+          resources: {}
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: sys
+              mountPath: /sys
+      containers:
+        - resources:
+            requests:
+              cpu: 0.01
+          image: alpine:3.6
+          name: sleepforever
+          command: ["tail"]
+          args: ["-f", "/dev/null"]
+      volumes:
+        - name: sys
+          hostPath:
+            path: /sys
