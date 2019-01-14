@@ -207,6 +207,16 @@ $ helm search azure
 $ helm install azure/azure-service-broker
 ```
 
+### Give AKS permissions to pull images from ACR
+```
+aksname=blah
+rgname=blahrg
+acrname=blahacr
+aks_client_id=$(az aks show --resource-group $rgname --name $aksname --query "servicePrincipalProfile.clientId" --output tsv)
+acr_app_id=$(az acr show --name $acrname --resource-group $rgname --query "id" --output tsv)
+az role assignment create --assignee $aks_client_id --role Reader --scope $acr_app_id
+```
+
 ## Deploy Datadog helm chart for monitoring
 ```
 $ helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
