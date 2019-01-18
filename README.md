@@ -36,7 +36,8 @@ az aks list -o table
 az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
 
 # If you want to plug your VM's into an existing VNet, then something like this, uses Azure CNI (azure network plugin)
-az aks create --name aks-cluster --resource-group aks --network-plugin azure --max-pods 1000 --service-cidr 10.0.0.0/16 \
+az aks create --name aks-cluster --resource-group aks --enable-addons monitoring \
+--network-plugin azure --max-pods 1000 --service-cidr 10.0.0.0/16 \
 --dns-service-ip 10.0.0.10 --docker-bridge-address 172.17.0.1/16 \
 --vnet-subnet-id /subscriptions/{SUBSCRIPTION ID}/resourceGroups/{RESOURCE GROUP NAME}/providers/Microsoft.Network/virtualNetworks/{VIRTUAL NETWORK NAME}/subnets/{SUBNET NAME}
 
