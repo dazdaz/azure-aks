@@ -262,6 +262,7 @@ NAME                PROVISIONER                AGE
 default (default)   kubernetes.io/azure-disk   39d
 managed-premium     kubernetes.io/azure-disk   39d
 
+## Manifest for dynamically carving out an Azure disk - app-pvc.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -274,7 +275,7 @@ spec:
     requests:
       storage: 5Gi
 
-## Manfest for mounting the disk
+## Manfest for mounting the disk - webapp-deploy.yaml
 kind: Pod
 apiVersion: v1
 metadata:
@@ -316,6 +317,20 @@ spec:
          kind: Managed
          diskName: myAKSDisk
          diskURI: /subscriptions/<subscriptionID>/resourceGroupsMC_myAKSCluster_myAKSCluster_southeastasia/providers/Microsoft.Compute/disks/myAKSDisk
+```
+
+## StatefulSet uses a volumeClaimTemplates directive
+* Uses this as a template for all of the pods in the StatefulSet
+```
+volumeClaimTemplates:
+- metadata:
+    name: mongo-vol
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    storageClassName: managed-premium
+    resources:
+      requests:
+        storage: 1024M
 ```
 
 ## Azure Files
