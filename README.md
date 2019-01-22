@@ -255,7 +255,7 @@ helm install --name docker-gc -f values.yaml stable/spotify-docker-gc --namespac
 Error: release docker-gc failed: namespaces "kube-system" is forbidden: User "system:serviceaccount:kube-system:default" cannot get namespaces in the namespace "kube-system"
 ```
 
-# Storage / Disk Provisioning
+# Storage / Azure Dynamic Disk Provisioning
 ```
 $ kubectl get sc
 NAME                PROVISIONER                AGE
@@ -273,6 +273,49 @@ spec:
   resources:
     requests:
       storage: 5Gi
+
+## Manfest for mounting the disk
+kind: Pod
+apiVersion: v1
+metadata:
+ name: mypod
+spec:
+ containers:
+  name: myfrontend
+  image: nginx
+  volumeMounts:
+   - mountPath: "/mnt/azure"
+     - name: volume
+volumes:
+  - name: volume
+    persistentVolumeClaim:
+      claimName: azure-managed-disk
+```
+
+## Static Storage in AKS - Azure Disk
+# Not intended for new workloads, good for data migration, ie datadisk mounted in a VM, moving to K8s
+```
+az disk create --resource-group MC_myResourceGroup_myAKSCluster_southeastasia --name myAKSDisk --size-gb 20 --query id --output tsv
+
+/subscriptions/<subscriptionID>/resourceGroupsMC_myAKSCluster_myAKSCluster_southeastasia/providers/Microsoft.Compute/disks/myAKSDisk
+
+kind: Pod
+apiVersion: v1
+metadata:
+ name: azue-disk-pod
+spec:
+ containers:
+  - image: microsoft/sample-aks-helloworld
+  name: azure
+  volumeMounts:
+    -name: azure
+    mountPath: /mnt/azure
+  volumes:
+       - name: azure
+       azureDisk:
+         kind: Managed
+         diskName: myAKSDisk
+         diskURI: /subscriptions/<subscriptionID>/resourceGroupsMC_myAKSCluster_myAKSCluster_southeastasia/providers/Microsoft.Compute/disks/myAKSDisk
 ```
 
 ## HPA - Horizontal Pod Autoscaling (CPU) - Manual
