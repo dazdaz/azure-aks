@@ -293,7 +293,7 @@ volumes:
 ```
 
 ## Static Storage in AKS - Azure Disk
-# Not intended for new workloads, good for data migration, ie datadisk mounted in a VM, moving to K8s
+* Not intended for new workloads, good for data migration, ie datadisk mounted in a VM, moving to K8s
 ```
 az disk create --resource-group MC_myResourceGroup_myAKSCluster_southeastasia --name myAKSDisk --size-gb 20 --query id --output tsv
 
@@ -317,6 +317,9 @@ spec:
          diskName: myAKSDisk
          diskURI: /subscriptions/<subscriptionID>/resourceGroupsMC_myAKSCluster_myAKSCluster_southeastasia/providers/Microsoft.Compute/disks/myAKSDisk
 ```
+
+## Azure Files
+* Not intended to be a replacement for a cluster-filesystem.  Avoid high IO.
 
 ## HPA - Horizontal Pod Autoscaling (CPU) - Manual
 ```
