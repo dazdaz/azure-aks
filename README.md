@@ -275,6 +275,13 @@ spec:
     requests:
       storage: 5Gi
 
+
+* Ensure that the disk is created before you start the pod, which can be done in the helm chart
+"helm.sh/hook": pre-install
+"helm.sh/hook-weight": "-5"
+"helm.sh/hook-delete-policy": hook-succeeded
+
+
 ## Manfest for mounting the disk - webapp-deploy.yaml
 kind: Pod
 apiVersion: v1
