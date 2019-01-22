@@ -255,6 +255,26 @@ helm install --name docker-gc -f values.yaml stable/spotify-docker-gc --namespac
 Error: release docker-gc failed: namespaces "kube-system" is forbidden: User "system:serviceaccount:kube-system:default" cannot get namespaces in the namespace "kube-system"
 ```
 
+# Storage / Disk Provisioning
+```
+$ kubectl get sc
+NAME                PROVISIONER                AGE
+default (default)   kubernetes.io/azure-disk   39d
+managed-premium     kubernetes.io/azure-disk   39d
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-managed-disk
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-premium
+  resources:
+    requests:
+      storage: 5Gi
+```
+
 ## HPA - Horizontal Pod Autoscaling (CPU) - Manual
 ```
 # Horizontal Pod Autoscale
