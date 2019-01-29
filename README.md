@@ -1292,3 +1292,6 @@ https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure
 
 Long list of useful k8s links
 https://github.com/ramitsurana/awesome-kubernetes/blob/master/README.md
+
+AKS Roadmap
+https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service 
