@@ -56,9 +56,14 @@ az aks create \
 ### Building an AKS cluster with Advanced Networking, without node auto-scaling
 ```
 # If you want to plug your VM's into an existing VNet, then something like this, uses Azure CNI (azure network plugin)
-az aks create --name aks-cluster --resource-group aks --enable-addons monitoring \
---network-plugin azure --max-pods 1000 --service-cidr 10.0.0.0/16 \
---dns-service-ip 10.0.0.10 --docker-bridge-address 172.17.0.1/16 \
+az aks create --name aks-cluster \
+--resource-group aks \
+--enable-addons monitoring \
+--network-plugin azure \
+--max-pods 1000 \
+--service-cidr 10.0.0.0/16 \
+--dns-service-ip 10.0.0.10 \
+--docker-bridge-address 172.17.0.1/16 \
 --vnet-subnet-id /subscriptions/{SUBSCRIPTION ID}/resourceGroups/{RESOURCE GROUP NAME}/providers/Microsoft.Network/virtualNetworks/{VIRTUAL NETWORK NAME}/subnets/{SUBNET NAME}
 
 # You can deploy AKS without RBAC, by using the flag "--rbac=false"
