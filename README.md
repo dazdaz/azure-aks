@@ -28,7 +28,6 @@ az aks create \
 --client-secret $CLIENTSECRET \
 --generate-ssh-keys
 --location $LOCATION \
---node-count 1 \
 --enable-vmss \
 --enable-cluster-autoscaler \
 --min-count 1 \
