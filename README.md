@@ -3,9 +3,8 @@
 Official Docs for AKS deployment are now available here or you can read this guide<br>
 * https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
 * https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#create-aks-cluster 
-
-# https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
-# Standard_D2_v2 Standard_DS1_v2
+* https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
+* Standard_D2_v2 Standard_DS1_v2
 
 ```
 az ad sp create-for-rbac --skip-assignment
