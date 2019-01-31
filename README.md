@@ -39,7 +39,7 @@ az aks create \
 --enable-addons http_application_routing,monitoring
 
 az aks list -o table
-az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
+az aks get-credentials --resource-group $RGNAME --name $CLUSTERNAME
 ```
 
 ```
