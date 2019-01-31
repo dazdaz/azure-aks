@@ -6,6 +6,7 @@ Official Docs for AKS deployment are now available here or you can read this gui
 * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 * Standard_D2_v2 Standard_DS1_v2
 
+### Building an AKS cluster with autoScaling
 ```
 az ad sp create-for-rbac --skip-assignment
 {
@@ -42,6 +43,21 @@ az aks list -o table
 az aks get-credentials --resource-group $RGNAME --name $CLUSTERNAME
 ```
 
+### Building an AKS cluster with-out node auto-scaling
+```
+az aks create \
+--resource-group $RGNAME \
+--name $CLUSTERNAME \
+--kubernetes-version 1.12.4 \
+--service-principal $APPID \
+--client-secret $CLIENTSECRET \
+--generate-ssh-keys \
+--location $LOCATION \
+--node-count 1 \
+--enable-addons http_application_routing,monitoring
+```
+
+### Building an AKS cluster with Advanced Networking, without node auto-scaling
 ```
 # If you want to plug your VM's into an existing VNet, then something like this, uses Azure CNI (azure network plugin)
 az aks create --name aks-cluster --resource-group aks --enable-addons monitoring \
