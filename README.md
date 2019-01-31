@@ -1,11 +1,5 @@
 ## Azure Kubernetes Service
 
-Official Docs for AKS deployment are now available here or you can read this guide<br>
-* https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
-* https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#create-aks-cluster 
-* https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
-* Standard_D2_v2 Standard_DS1_v2
-
 ### Building an AKS cluster with autoScaling
 ```
 az ad sp create-for-rbac --skip-assignment
@@ -24,6 +18,8 @@ export CLUSTERNAME=me-aks
 export RGNAME=me-aks-rg
 
 az group create --name $RGNAME --location $LOCATION
+
+# Standard VM Type (unless changed) is : Standard_D2_v2
 az aks create \
 --resource-group $RGNAME \
 --name $CLUSTERNAME \
@@ -1269,7 +1265,16 @@ kubectl get service hellowhale-svc -o jsonpath='{.status.loadBalancer.ingress[*]
 11.66.100.244
 ```
 
-== Further Info==
+== Documentation / Further Info==
+
+* https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
+* https://docs.microsoft.com/en-us/azure/aks/configure-advanced-networking#plan-ip-addressing-for-your-cluster
+* https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
+* https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#create-aks-cluster 
+* https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
+* https://docs.microsoft.com/en-us/azure/aks/update-credentials The SPN credential update
+* https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler VMSS / Cluster AutoScaler
+* https://docs.microsoft.com/en-us/azure/aks/kubernetes-service-principal AKS SP
 
 Pre-Create the Service principal with least/minimum amount of required permissions from @James Sturtevant
 https://github.com/jsturtevant/aks-examples/tree/master/least-privileged-sp
