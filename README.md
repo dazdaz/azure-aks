@@ -4,37 +4,46 @@ Official Docs for AKS deployment are now available here or you can read this gui
 * https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
 * https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#create-aks-cluster 
 
-```
 # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 # Standard_D2_v2 Standard_DS1_v2
 
+```
 az ad sp create-for-rbac --skip-assignment
 {
-  "appId": "77777777-c1b7-49ae-6666-c421fb727777",
-  "displayName": "azure-cli-2018-12-13-14-56-34",
-  "name": "http://azure-cli-2018-12-13-14-56-34",
-  "password": "08080808-5588-4444-91a9-8683d0beeeee",
-  "tenant": "88877778-86f1-41af-9999-2d7cd0118888"
+  "appId": "b26615b0-0000-4550-afa8-8888a21b8888",
+  "displayName": "azure-cli-2019-01-31-01-37-13",
+  "name": "http://azure-cli-2019-01-31-01-37-13",
+  "password": "88888888-5555-1111-bbbb-999999999999",
+  "tenant": "88888888-86f1-41af-0000-999999999999"
 }
 
-export APPID=77777777-c1b7-49ae-6666-c421fb727777
-export CLIENTSECRET=08080808-5588-4444-91a9-8683d0beeeee
+export APPID=<appId>
+export CLIENTSECRET=<password>
 export LOCATION=southeastasia
-export CLUSTERNAME=daz-aks
-export RGNAME=daz-aks-rg
+export CLUSTERNAME=me-aks
+export RGNAME=me-aks-rg
 
 az group create --name $RGNAME --location $LOCATION
-az aks create -n $CLUSTERNAME -g $RGNAME -k 1.11.5 \
+az aks create \
+--resource-group $RGNAME \
+--name $CLUSTERNAME \
+--kubernetes-version 1.12.4 \
 --service-principal $APPID \
 --client-secret $CLIENTSECRET \
---generate-ssh-keys -l $LOCATION \
+--generate-ssh-keys
+--location $LOCATION \
 --node-count 1 \
+--enable-vmss \
+--enable-cluster-autoscaler \
+--min-count 1 \
+--max-count 3 \
 --enable-addons http_application_routing,monitoring
 
 az aks list -o table
-
 az aks get-credentials --resource-group $RG --name ${CLUSTERNAME}
+```
 
+```
 # If you want to plug your VM's into an existing VNet, then something like this, uses Azure CNI (azure network plugin)
 az aks create --name aks-cluster --resource-group aks --enable-addons monitoring \
 --network-plugin azure --max-pods 1000 --service-cidr 10.0.0.0/16 \
