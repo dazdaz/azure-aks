@@ -14,8 +14,8 @@ az ad sp create-for-rbac --skip-assignment
 export APPID=<appId>
 export CLIENTSECRET=<password>
 export LOCATION=southeastasia
-export CLUSTERNAME=me-aks
-export RGNAME=me-aks-rg
+export CLUSTERNAME=lion-aks
+export RGNAME=rg-lion-aks
 
 az group create --name $RGNAME --location $LOCATION
 
@@ -27,7 +27,9 @@ az aks create \
 --service-principal $APPID \
 --client-secret $CLIENTSECRET \
 --generate-ssh-keys
+--dns-name-prefix $CLUSTERNAME \
 --location $LOCATION \
+--enable rbac \
 --enable-vmss \
 --enable-cluster-autoscaler \
 --min-count 1 \
@@ -66,6 +68,11 @@ az aks create --name aks-cluster \
 --vnet-subnet-id /subscriptions/{SUBSCRIPTION ID}/resourceGroups/{RESOURCE GROUP NAME}/providers/Microsoft.Network/virtualNetworks/{VIRTUAL NETWORK NAME}/subnets/{SUBNET NAME}
 
 # You can deploy AKS without RBAC, by using the flag "--rbac=false"
+```
+
+### Troubleshooting an AKS deployment
+```
+aks create --debug ...
 ```
 
 ## Install kubectl
