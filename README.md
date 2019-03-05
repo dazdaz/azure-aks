@@ -23,7 +23,7 @@ az group create --name $RGNAME --location $LOCATION
 az aks create \
 --resource-group $RGNAME \
 --name $CLUSTERNAME \
---kubernetes-version 1.12.4 \
+--kubernetes-version 1.12.6 \
 --service-principal $APPID \
 --client-secret $CLIENTSECRET \
 --generate-ssh-keys
@@ -45,7 +45,7 @@ az aks get-credentials --resource-group $RGNAME --name $CLUSTERNAME
 az aks create \
 --resource-group $RGNAME \
 --name $CLUSTERNAME \
---kubernetes-version 1.12.4 \
+--kubernetes-version 1.12.6 \
 --service-principal $APPID \
 --client-secret $CLIENTSECRET \
 --generate-ssh-keys \
