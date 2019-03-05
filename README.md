@@ -240,18 +240,40 @@ $ helm install azure/azure-service-broker
 ```
 
 ### Give AKS permissions to pull images from ACR
+* 2 Methods
+** Grant AKS-generated Service Principal access to ACR (assumes use of AKS and ACR)
+** Create a Kubernetes Secret
+
+** Grant AKS-generated Service Principal access to ACR (assumes use of AKS and ACR)
 ```
-aksname=blah
-rgname=blahrg
-acrname=blahacr
-aks_client_id=$(az aks show --resource-group $rgname --name $aksname --query "servicePrincipalProfile.clientId" --output tsv)
-acr_app_id=$(az acr show --name $acrname --resource-group $rgname --query "id" --output tsv)
-az role assignment create --assignee $aks_client_id --role Reader --scope $acr_app_id
+AKS_RESOURCE_GROUP=myAKSResourceGroup
+AKS_CLUSTER_NAME=myAKSCluster
+ACR_RESOURCE_GROUP=myACRResourceGroup
+ACR_NAME=myACRRegistry
+
+# Get the id of the service principal configured for AKS
+CLIENT_ID=$(az aks show --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --query "servicePrincipalProfile.clientId" --output tsv)
+
+# Get the ACR registry resource id
+ACR_ID=$(az acr show --name $ACR_NAME --resource-group $ACR_RESOURCE_GROUP --query "id" --output tsv)
+
+# Create role assignment
+az role assignment create --assignee $CLIENT_ID --role acrpull --scope $ACR_ID
 ```
 
 ## Deploy Datadog helm chart for monitoring
 ```
 $ helm install --name dg-release --set datadog.apiKey=1234567890 --set rbac.create=false --set rbac.serviceAccount=false --set kube-state-metrics.rbac.create=false --set kube-state-metrics.rbac.serviceAccount=false stable/datadog
+```
+
+** Create a Kubernetes Secret
+```
+kubectl create secret docker-registry acr-auth --docker-server <acr-login-server> --docker-username <service-principal-ID> --docker-password <service-principal-password> --docker-email <email-address>
+
+spec:
+  imagePullSecrets:
+  - name: acr-auth
+  containers:
 ```
 
 ## Helm management
