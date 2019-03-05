@@ -444,6 +444,11 @@ spec:
       targetAverageUtilization: 60
 ```
 
+## HPA - Viewing config
+```
+kubectl get hpa.v2beta1.autoscaling -o yaml
+```
+
 ## Rolling Updates
 *Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones
 ```
