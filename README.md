@@ -1303,6 +1303,35 @@ kubectl get service hellowhale-svc -o jsonpath='{.status.loadBalancer.ingress[*]
 11.66.100.244
 ```
 
+```
+$ kubectl get pods
+NAME                     READY     STATUS    RESTARTS   AGE
+nginx-5947c4dd86-94q2x   1/1       Running   0          17d
+nginx-5947c4dd86-cm26m   1/1       Running   0          17d
+nginx-5947c4dd86-r5n5t   1/1       Running   0          17d
+
+$ kubectl exec nginx-5947c4dd86-94q2x -- printenv
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=nginx-5947c4dd86-94q2x
+KUBERNETES_PORT_443_TCP_ADDR=simon-aks-eng-aks-rg-123456-87654321.hcp.southeastasia.azmk8s.io
+KUBERNETES_PORT=tcp://simon-aks-eng-aks-rg-123456-87654321.hcp.southeastasia.azmk8s.io:443
+KUBERNETES_PORT_443_TCP=tcp://simon-aks-eng-aks-rg-123456-87654321.hcp.southeastasia.azmk8s.io:443
+KUBERNETES_SERVICE_HOST=simon-aks-eng-aks-rg-123456-87654321.hcp.southeastasia.azmk8s.io
+KUBERNETES_PORT_443_TCP_PORT=443
+NGINX_SVC_PORT=tcp://10.0.31.119:80
+NGINX_SVC_PORT_80_TCP_PORT=80
+NGINX_SVC_PORT_80_TCP_ADDR=10.0.31.119
+KUBERNETES_SERVICE_PORT_HTTPS=443
+NGINX_SVC_SERVICE_HOST=10.0.31.119
+NGINX_SVC_SERVICE_PORT=80
+NGINX_SVC_PORT_80_TCP=tcp://10.0.31.119:80
+NGINX_SVC_PORT_80_TCP_PROTO=tcp
+KUBERNETES_SERVICE_PORT=443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+NGINX_VERSION=1.15.8
+HOME=/root
+```
+
 == Documentation / Further Info==
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
