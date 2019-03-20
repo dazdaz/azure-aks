@@ -1302,7 +1302,9 @@ kubectl get secrets cosmos-db-secret -o jsonpath --template '{.data.user}' | bas
 kubectl get service hellowhale-svc -o jsonpath='{.status.loadBalancer.ingress[*].ip}'
 11.66.100.244
 ```
-
+```
+kubectl logs my-pod --previous
+```
 ```
 $ kubectl get pods
 NAME                     READY     STATUS    RESTARTS   AGE
