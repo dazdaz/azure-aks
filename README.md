@@ -1397,3 +1397,6 @@ https://github.com/ramitsurana/awesome-kubernetes/blob/master/README.md
 
 AKS Roadmap
 https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service 
+
+K8s Deployment Types ie Canary, Blue/Green
+https://www.cncf.io/wp-content/uploads/2018/03/CNCF-Presentation-Template-K8s-Deployment.pdf
