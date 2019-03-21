@@ -1333,6 +1333,10 @@ KUBERNETES_PORT_443_TCP_PROTO=tcp
 NGINX_VERSION=1.15.8
 HOME=/root
 ```
+```
+# Excellent command for debugging to better understand the environment
+kubectl describe nodes
+```
 
 == Documentation / Further Info==
 
