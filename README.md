@@ -19,13 +19,11 @@ export RGNAME=rg-lion-aks
 
 az group create --name $RGNAME --location $LOCATION
 
-# Standard VM Type (unless changed) is : Standard_D2_v2
+### Standard VM Type (unless changed) is : Standard_D2_v2
 az aks create \
 --resource-group $RGNAME \
 --name $CLUSTERNAME \
 --kubernetes-version 1.12.6 \
---service-principal $APPID \
---client-secret $CLIENTSECRET \
 --generate-ssh-keys
 --dns-name-prefix $CLUSTERNAME \
 --location $LOCATION \
@@ -34,7 +32,18 @@ az aks create \
 --enable-cluster-autoscaler \
 --min-count 1 \
 --max-count 3 \
+--service-principal $APPID \
+--client-secret $CLIENTSECRET \
 --enable-addons http_application_routing,monitoring
+```
+
+### Troubleshooting the cluster-autoscaler
+```
+kubectl -n kube-system describe configmap cluster-autoscaler-status
+kubectl  logs coredns-autoscaler-6fcdb7d64-m6lcr -n kube-system
+enable diagnostic logs
+```
+--
 
 az aks list -o table
 az aks get-credentials --resource-group $RGNAME --name $CLUSTERNAME
