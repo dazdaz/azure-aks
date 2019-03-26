@@ -43,8 +43,9 @@ kubectl -n kube-system describe configmap cluster-autoscaler-status
 kubectl  logs coredns-autoscaler-6fcdb7d64-m6lcr -n kube-system
 enable diagnostic logs
 ```
---
 
+### Check the newly created cluster
+```
 az aks list -o table
 az aks get-credentials --resource-group $RGNAME --name $CLUSTERNAME
 ```
