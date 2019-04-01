@@ -1347,6 +1347,15 @@ HOME=/root
 # Excellent command for debugging to better understand the environment
 kubectl describe nodes
 ```
+```
+# Show component status
+$ kubectl get componentstatus
+NAME                 STATUS      MESSAGE                                                                                     ERROR
+scheduler            Unhealthy   Get http://127.0.0.1:10251/healthz: dial tcp 127.0.0.1:10251: connect: connection refused
+controller-manager   Unhealthy   Get http://127.0.0.1:10252/healthz: dial tcp 127.0.0.1:10252: connect: connection refused
+etcd-0               Healthy     {"health": "true"}
+```
+
 
 == Documentation / Further Info==
 
