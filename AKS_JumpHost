@@ -27,11 +27,11 @@ az network nsg rule create \
   --destination-port-ranges 22 \
   --priority 155
 
-
-<<<<<<<<<<<<<<<<<<<COMMANDS ISSUED ON LINUXJUMPHOST<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
 # SSH into LinuxVMJumpHost
 ssh azureuser@$(az vm show -d -g $MCRG -n $JUMPVMHOST --query publicIps -o tsv)
+
+
+<<<<<<<<<<<<<<<<<<<COMMANDS ISSUED ON LINUXJUMPHOST<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 # Install az CLI 2
 echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ wheezy main" | \
