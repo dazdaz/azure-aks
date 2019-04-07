@@ -1,0 +1,76 @@
+# Deploys a LinuxVMJumpHost into the same resource group as the AKS nodes
+# SSH into the LinuxVMJumpHost, to access the AKS nodes
+
+# I prefer this method over running a "SSH in a pod to access the underlying host node VM" -> https://docs.microsoft.com/en-us/azure/aks/ssh
+# You need to be very careful over the security on this LinuxVMJumpHost but for learning or troubleshooting or DEV/TEST environments
+
+MCRG=k8s-aks-rg_k8s-aks_southeastasia
+JUMPVMHOST=jumpvm
+K8SCLUSTERNAME=k8s-aks
+K8SRG=k8s-aks-rg
+
+az vm create \
+  --resource-group $MCRG \
+  --name $JUMPVMHOST \
+  --image UbuntuLTS \
+  --admin-username azureuser \
+  --generate-ssh-keys
+
+# From source: internet to destination: any - Lock this down to jumphostVM publicIP
+az network nsg rule create \
+  --resource-group $MCRG \
+  --nsg-name $(az network nsg list \
+    --resource-group $MCRG \
+    --query [0].name \
+    --output tsv) \
+  --name port_22 \
+  --destination-port-ranges 22 \
+  --priority 155
+
+
+<<<<<<<<<<<<<<<<<<<COMMANDS ISSUED ON LINUXJUMPHOST<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# SSH into LinuxVMJumpHost
+ssh azureuser@$(az vm show -d -g $MCRG -n $JUMPVMHOST --query publicIps -o tsv)
+
+# Install az CLI 2
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ wheezy main" | \
+     sudo tee /etc/apt/sources.list.d/azure-cli.list
+sudo apt-key adv --keyserver packages.microsoft.com --recv-keys EB3E94ADBE1229CF
+sudo apt-get install apt-transport-https
+sudo apt-get update && sudo apt-get install azure-cli
+
+# Create SSH public key pair
+ssh-keygen
+
+az login
+az account list
+az account set -s <subscription ID>
+
+
+MCRG=k8s-aks-k8s-aks_southeastasia
+JUMPVMHOST=jumpvm
+K8SCLUSTERNAME=k8s-aks
+K8SRG=k8s-aks-rg
+
+# Download k8s credentials from AKS RG (not MC_RG)
+az aks get-credentials --resource-group $K8SRG --name $K8SCLUSTERNAME
+
+# Deploy kubectl
+sudo az aks install-cli
+
+# Obtain hostname of VM's in the K8s Agent pool
+az vm list --resource-group $MCRG -o table
+
+# Copy SSH public key to AKS Nodes 1,2,3 etc
+az vm user update \
+  --resource-group $MCRG \
+  --name aks-nodepool1-32092382-0 \
+  --username azureuser \
+  --ssh-key-value ~/.ssh/id_rsa.pub
+
+# Spartakus! Oh the glory!
+ssh azureuser@aks-nodepool1-32092382-0
+
+# Clean Up / Remove JumpHost
+az vm delete --name $JUMPVMHOST --resource-group $RG
