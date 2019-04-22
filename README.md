@@ -1356,6 +1356,28 @@ controller-manager   Unhealthy   Get http://127.0.0.1:10252/healthz: dial tcp 12
 etcd-0               Healthy     {"health": "true"}
 ```
 
+```
+# VPA
+kubectl describe vpa
+
+Show CPU Requests in millicores
+kubectl get pod  -o=custom-columns=NAME:.metadata.name,PHASE:.status.phase,CPU-REQUEST:.spec.containers\[0\].resources.requests.cpu
+
+$ kubectl top nodes
+NAME                       CPU(cores)   CPU%      MEMORY(bytes)   MEMORY%
+aks-nodepool1-71576875-0   114m         5%        2240Mi          42%
+
+The expression 0.1 is equivalent to the expression 100m, which can be read as “one hundred millicpu”, some people say “one hundred millicores”, which means the same thing.
+1 CPU is 1000m (1 thousand milicores)
+
+Meaning of CPU in Kubernetes :
+One CPU, in Kubernetes, is equivalent to:
+- 1 AWS vCPU
+- 1 GCP Core
+- 1 Azure vCore
+- 1 Hyperthread on a bare-metal Intel processor with Hyperthreading
+```
+
 
 == Documentation / Further Info==
 
