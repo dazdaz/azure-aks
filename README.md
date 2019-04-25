@@ -1378,6 +1378,16 @@ One CPU, in Kubernetes, is equivalent to:
 - 1 Hyperthread on a bare-metal Intel processor with Hyperthreading
 ```
 
+# Howto determine if accelerated networking is enabled on the nodepool VM's
+```
+$ az aks show --resource-group <myRG> --name funkaks --query "nodeResourceGroup"
+"MC_funk-rg_funk_southeastasia"
+$ az network nic list --resource-group MC_funk-rg_funk_southeastasia -o table
+EnableAcceleratedNetworking    EnableIpForwarding    Location       MacAddress         Name                          Primary    ProvisioningState    ResourceGroup                        ResourceGuid
+-----------------------------  --------------------  -------------  -----------------  ----------------------------  ---------  -------------------  -----------------------------------  ------------------------------------
+True                           True                  southeastasia  00-0D-3A-99-99-99  aks-nodepool1-81576875-nic-0  True       Succeeded            MC_funk-rg_funk_southeastasia  111e2b48-059c-4c68-4444-aaaf97dadddd
+False                          False                 southeastasia  00-0D-3A-AA-AA-AA  jumpvmVMNic                   True       Succeeded            MC_funk-rg_funk_southeastasia  222293c5-e5c4-42b8-aaaa-95499bf4ffff
+```
 
 == Documentation / Further Info==
 
