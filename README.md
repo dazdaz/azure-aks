@@ -132,6 +132,7 @@ Download Azure CLI -> https://aka.ms/installazurecliwindows
 ```
 Run "Azure Command Prompt"
 az login
+az account set --subscription <subID>
 az aks install-cli --install-location c:\apps\kubectl.exe
 az aks get-credentials --name k8s-aks --resource-group k8s-aks-rg
 ```
