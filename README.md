@@ -1390,6 +1390,13 @@ True                           True                  southeastasia  00-0D-3A-99-
 False                          False                 southeastasia  00-0D-3A-AA-AA-AA  jumpvmVMNic                   True       Succeeded            MC_funk-rg_funk_southeastasia  222293c5-e5c4-42b8-aaaa-95499bf4ffff
 ```
 
+# Kubectl (client) and K8s (server) version
+```
+$ kubectl version --short
+Client Version: v1.11.1
+Server Version: v1.13.5
+```
+
 == Documentation / Further Info==
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
