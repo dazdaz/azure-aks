@@ -34,7 +34,8 @@ az aks create \
 --max-count 3 \
 --service-principal $APPID \
 --client-secret $CLIENTSECRET \
---enable-addons http_application_routing,monitoring
+--enable-addons http_application_routing,monitoring \
+--no-wait
 ```
 
 ### Troubleshooting the cluster-autoscaler
@@ -1395,6 +1396,12 @@ False                          False                 southeastasia  00-0D-3A-AA-
 $ kubectl version --short
 Client Version: v1.11.1
 Server Version: v1.13.5
+```
+
+# Tricks when using istio...
+```
+INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
 ```
 
 == Documentation / Further Info==
