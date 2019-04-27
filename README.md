@@ -1398,6 +1398,13 @@ Client Version: v1.11.1
 Server Version: v1.13.5
 ```
 
+# Display OS and architecture of nodes
+```
+kubectl get node -o="custom-columns=NAME:.metadata.name,OS:.status.nodeInfo.operatingSystem,ARCH:.status.nodeInfo.architecture"
+NAME                       OS      ARCH
+aks-nodepool1-19880532-0   linux   amd64
+```
+
 # Tricks when using istio...
 ```
 INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
