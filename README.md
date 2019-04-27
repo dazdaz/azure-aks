@@ -1405,6 +1405,11 @@ NAME                       OS      ARCH
 aks-nodepool1-19880532-0   linux   amd64
 ```
 
+# Deploying tiller specifically onto a Linux VM, in a K8s cluster with both Linux/Windows nodes
+```
+helm init --node-selectors "beta.kubernetes.io/os=linux" --tiller-namespace wad --service-account wad-user --upgrade
+```
+
 # Tricks when using istio...
 ```
 INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
