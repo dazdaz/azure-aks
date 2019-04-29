@@ -1410,6 +1410,11 @@ aks-nodepool1-19880532-0   linux   amd64
 helm init --node-selectors "beta.kubernetes.io/os=linux" --tiller-namespace wad --service-account wad-user --upgrade
 ```
 
+# Using "kubectl apply dry-run with verbosity ..."
+```
+kubectl apply --dry-run -f ./deployment-nginx-acr-dockerhub.yaml --v=10 >& out
+```
+
 # Tricks when using istio...
 ```
 INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
