@@ -38,6 +38,14 @@ az aks create \
 --no-wait
 ```
 
+# New AKS Cluster
+```
+az aks create --resource-group <RESOURCE_GP> --name <CLUSTER_NAME> --node-count 2 --generate-ssh-keys \
+--vnet-subnet-id <SUBNET_ID> --dns-name-prefix <DNS_PREFIX> --aad-server-app-id <AAD_SERVER_ID> --aad-server-app-secret <ADD_SECRET> \
+--aad-client-app-id <AAD_CLIENT_ID> --aad-tenant-id <TENANT_ID> --network-plugin azure --network-policy calico \
+--kubernetes-version 1.14.0
+```
+
 ### Troubleshooting the cluster-autoscaler
 ```
 kubectl -n kube-system describe configmap cluster-autoscaler-status
