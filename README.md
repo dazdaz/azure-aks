@@ -321,6 +321,18 @@ helm search chart
 kubectl apply -f https://github.com/weaveworks/kured/releases/download/1.1.0/kured-1.1.0.yaml
 ```
 
+# AKS Node Pools
+```
+# View nodepool config:
+az aks nodepool list --cluster-name multiplenodepooldemo -g build2019-aks-demo -o table
+VirtualMachineScaleSets 1 30 nodepool1 1.13.5 100 Linux Sucessed build-demo Standard_DS2_v2
+VirtualMachineScaleSets 1 30 nodepoolgpu 1.13.5 100 Linux Sucessed build-demo Standard_NC6
+VirtualMachineScaleSets 1 30 npwin 1.13.5 100 Windows Sucessed build-demo Standard_D2s_v3
+
+# Scale VM's within a nodepool
+az aks nodepool scale --cluster-name multiplenodepooldemo -g build2019-aks-demo -n nodepoolgpu --node-count 2
+```
+
 # spotify-docker-gc
 ```
 wget https://raw.githubusercontent.com/helm/charts/master/stable/spotify-docker-gc/values.yaml
