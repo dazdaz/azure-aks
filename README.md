@@ -56,7 +56,7 @@ enable diagnostic logs
 ### Check the newly created cluster
 ```
 az aks list -o table
-az aks get-credentials --resource-group $RGNAME --name $CLUSTERNAME
+az aks get-credentials --resource-group $RGNAME --name $CLUSTERNAME --admin
 ```
 
 ### Building an AKS cluster with-out node auto-scaling
