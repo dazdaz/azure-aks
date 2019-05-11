@@ -318,7 +318,9 @@ helm search chart
 # Kubernetes Reboot Daemon
 * https://docs.microsoft.com/en-us/azure/aks/node-updates-kured
 ```
-kubectl apply -f https://github.com/weaveworks/kured/releases/download/1.1.0/kured-1.1.0.yaml
+helm install stable/kured
+## Use helm above to deploy kured
+## kubectl apply -f https://github.com/weaveworks/kured/releases/download/1.1.0/kured-1.1.0.yaml
 ```
 
 # AKS Node Pools
