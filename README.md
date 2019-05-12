@@ -713,6 +713,11 @@ $ azds space select -n lisa
 Hit F5
 ```
 
+# Configuring RBAC for Azure DevOps Release Pipeline to deploy resource to AKS cluster - granting the read-only permission for group system:serviceaccounts
+```
+kubectl create clusterrolebinding azure-devops-deploy --clusterrole=view --group=system:serviceaccounts --namespace=xyz
+```
+
 ## Kubernetes Cronjobs
 * k8s-cron-jobs required k8s 1.8 or higher https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
 ```
