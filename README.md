@@ -46,11 +46,17 @@ az aks create --resource-group <RESOURCE_GP> --name <CLUSTER_NAME> --node-count 
 --kubernetes-version 1.14.0
 ```
 
+# Creating an AKS cluster with a custom "node resource group", where your AKS VM's etc will sit
+```
+# Example command:
+az aks create -l eastus --name CustomRG --node-resource-group HamBaconSwiss --resource-group coreDNS --generate-ssh-keys
+```
+
 ### Troubleshooting the cluster-autoscaler
 ```
 kubectl -n kube-system describe configmap cluster-autoscaler-status
 kubectl  logs coredns-autoscaler-6fcdb7d64-m6lcr -n kube-system
-enable diagnostic logs
+Also, enable diagnostic logs
 ```
 
 ### Check the newly created cluster
@@ -1424,7 +1430,12 @@ Server Version: v1.13.5
 ```
 kubectl get node -o="custom-columns=NAME:.metadata.name,OS:.status.nodeInfo.operatingSystem,ARCH:.status.nodeInfo.architecture"
 NAME                       OS      ARCH
-aks-nodepool1-19880532-0   linux   amd64
+aks-nodepool1-19880533-0   linux   amd64
+```
+
+# Listing the IPs of nodes in a windows nodepool
+```
+kubectl get no -l beta.kubernetes.io/os=windows -o json | jq '.items[].status.addresses[] | select(.type=="ExternalIP") | .address'
 ```
 
 # Deploying tiller specifically onto a Linux VM, in a K8s cluster with both Linux/Windows nodes
