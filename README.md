@@ -95,6 +95,59 @@ az aks create --name aks-cluster \
 # You can deploy AKS without RBAC, by using the flag "--rbac=false"
 ```
 
+# Multple Node Pools
+* https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
+```
+az extension add --name aks-preview
+az feature register --name MultiAgentpoolPreview --namespace Microsoft.ContainerService
+az feature register --name VMSSPreview --namespace Microsoft.ContainerService
+az provider register --namespace Microsoft.ContainerService
+
+# Create a resource group in East US
+az group create --name myResourceGroup --location eastus
+
+# Create a basic single-node AKS cluster
+az aks create \
+    --resource-group myResourceGroup \
+    --name myAKSCluster \
+    --enable-vmss \
+    --node-count 1 \
+    --generate-ssh-keys \
+    --kubernetes-version 1.12.6
+
+# Add a node pool
+    az aks nodepool add \
+    --resource-group myResourceGroup \
+    --cluster-name myAKSCluster \
+    --name gpunodepool \
+    --node-count 1 \
+    --node-vm-size Standard_NC6 \
+    --no-wait
+
+# Set the taint on the nodepool
+kubectl taint node aks-gpunodepool-28993262-vmss000000 sku=gpu:NoSchedule
+
+# Upgrade a node pool
+az aks nodepool upgrade \
+    --resource-group myResourceGroup \
+    --cluster-name myAKSCluster \
+    --name mynodepool \
+    --kubernetes-version 1.12.7 \
+    --no-wait
+az aks nodepool list --resource-group myResourceGroup --cluster-name myAKSCluster -o table
+
+# Scale a node pool
+az aks nodepool scale \
+    --resource-group myResourceGroup \
+    --cluster-name myAKSCluster \
+    --name mynodepool \
+    --node-count 5 \
+    --no-wait
+
+# Delete a node pool
+az aks nodepool delete -g myResourceGroup --cluster-name myAKSCluster --name mynodepool --no-wait
+```
+
 ### Troubleshooting an AKS deployment
 ```
 aks create --debug ...
