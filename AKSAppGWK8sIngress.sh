@@ -1,8 +1,12 @@
 # AppGW as Ingress Controller
-https://mybuild.techcommunity.microsoft.com/sessions/77061?source=sessions#top-anchor
-https://github.com/palma21/build2019
 
-https://github.com/Azure/application-gateway-kubernetes-ingress
+# https://mybuild.techcommunity.microsoft.com/sessions/77061?source=sessions#top-anchor
+# https://github.com/palma21/build2019
+# https://github.com/Azure/application-gateway-kubernetes-ingress
+
+# Layer 7 path based routing
+# TLS based termination
+# Controlled using K8s
 
 az group create -n build-demo-waf-rg -l westus2 --no-wait
 
