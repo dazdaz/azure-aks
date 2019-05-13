@@ -1164,6 +1164,11 @@ hostname=aks-agentpool-20626790-0,kubernetes.io
 role=agent,storageprofile=managed,storagetier=Premium_LRS
 ```
 
+## Troubleshooting, ketall is useful to see cluster changes, useful if you have multiple admins or closed eyes
+```
+https://github.com/corneliusweig/ketall
+```
+
 ## Kubernetes Performance
 ```
 kubectl top pods --all-namespaces
