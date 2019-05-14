@@ -1517,6 +1517,11 @@ INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonp
 SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
 ```
 
+# CoreDNS Settings
+```
+kubectl get configmap -n kube-system coredns -o yaml
+```
+
 == Documentation / Further Info==
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
