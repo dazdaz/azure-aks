@@ -46,6 +46,21 @@ az aks create --resource-group <RESOURCE_GP> --name <CLUSTER_NAME> --node-count 
 --kubernetes-version 1.14.0
 ```
 
+# AKS - Windows Nodes
+```
+az aks create \
+-g $RESOURCE_GROUP \
+--name $CLUSTER_NAME \
+--windows-admin-password $PASSWORD_WIN \
+--windows-admin-username $USERNAME \
+--location $LOCATION \
+--generate-ssh-keys \
+--node-count 3 \
+--enable-vmss \
+--network-plugin azure \
+--kubernetes-version 1.14.0
+```
+
 # Creating an AKS cluster with a custom "node resource group", where your AKS VM's etc will sit
 ```
 # Example command:
