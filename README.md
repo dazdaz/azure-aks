@@ -38,7 +38,7 @@ az aks create \
 --no-wait
 ```
 
-# New AKS Cluster
+### New AKS Cluster
 ```
 az aks create --resource-group <RESOURCE_GP> --name <CLUSTER_NAME> --node-count 2 --generate-ssh-keys \
 --vnet-subnet-id <SUBNET_ID> --dns-name-prefix <DNS_PREFIX> --aad-server-app-id <AAD_SERVER_ID> --aad-server-app-secret <ADD_SECRET> \
@@ -46,7 +46,7 @@ az aks create --resource-group <RESOURCE_GP> --name <CLUSTER_NAME> --node-count 
 --kubernetes-version 1.14.0
 ```
 
-# AKS - Windows Nodes
+### AKS - Windows Nodes
 ```
 az aks create \
 -g $RESOURCE_GROUP \
@@ -61,7 +61,7 @@ az aks create \
 --kubernetes-version 1.14.0
 ```
 
-# Creating an AKS cluster with a custom "node resource group", where your AKS VM's etc will sit
+### Creating an AKS cluster with a custom "node resource group", where your AKS VM's etc will sit
 ```
 # Example command:
 az aks create -l eastus --name CustomRG --node-resource-group HamBaconSwiss --resource-group coreDNS --generate-ssh-keys
