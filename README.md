@@ -141,7 +141,7 @@ az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/W
 az provider register --namespace Microsoft.ContainerService
 
 # Create a resource group in East US
-az group create --name myResourceGroup --location eastus
+az group create --name $RGNAME --location eastus
 
 # Create an AKS cluster, Node Pool #1 is Linux, Node Pool #1 is Windows (added manually after deployment)
 az aks create \
@@ -153,7 +153,7 @@ az aks create \
     --enable-vmss \
     --node-count 1 \
     --generate-ssh-keys \
-    --windows-admin-password "G=*&68a#@1" \
+    --windows-admin-password "G&68a#@19430" \
     --windows-admin-username azureuser \
     --network-plugin azure \
     --network-policy calico \
