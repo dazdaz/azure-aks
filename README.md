@@ -134,7 +134,7 @@ az provider register --namespace Microsoft.ContainerService
 # Create a resource group in East US
 az group create --name myResourceGroup --location eastus
 
-# Create a basic single-node AKS cluster
+# Create an AKS cluster, Node Pool #1 is Linux, Node Pool #1 is Windows (added manually after deployment)
 az aks create \
     --resource-group $RGNAME  \
     --name $CLUSTERNAME \
@@ -144,10 +144,22 @@ az aks create \
     --enable-vmss \
     --node-count 1 \
     --generate-ssh-keys \
+    --windows-admin-password secret123 \
+    --windows-admin-username azureuser \
     --network-plugin azure \
     --network-policy calico \
     --kubernetes-version 1.14.0 \
     --enable-addons http_application_routing,monitoring \
+    --no-wait
+
+# Add a Windows node pool - Can only be done when deploying a cluster 
+az aks nodepool add \
+    --resource-group $RGNAME \
+    --cluster-name $CLUSTERNAME \
+    --os-type Windows \
+    --name npwin \
+    --node-count 1 \
+    --kubernetes-version 1.14.0 \
     --no-wait
 
 # Increase Azure Quota for Standard_NC6s_v2 so that you can deploy
