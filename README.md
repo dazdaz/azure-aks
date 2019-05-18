@@ -166,7 +166,7 @@ az aks nodepool add \
     --resource-group $RGNAME \
     --cluster-name $CLUSTERNAME \
     --os-type Windows \
-    --name npwin \
+    --name wnpool \
     --node-count 1 \
     --kubernetes-version 1.14.0 \
     --no-wait
