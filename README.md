@@ -133,8 +133,7 @@ az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/M
 az feature register --name VMSSPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/VMSSPreview')].{Name:name,State:properties.state}"
 
-# https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
-# WindowsPreview
+# WindowsPreview -> https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 az feature register --name WindowsPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/WindowsPreview')].{Name:name,State:properties.state}"
 
