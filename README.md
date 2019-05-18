@@ -136,11 +136,12 @@ az group create --name myResourceGroup --location eastus
 
 # Create a basic single-node AKS cluster
 az aks create \
-    --resource-group myResourceGroup \
-    --name myAKSCluster \
+    --resource-group $RGNAME  \
+    --name $CLUSTERNAME \
     --dns-name-prefix $CLUSTERNAME \
+    --service-principal $APPID \
+    --client-secret $CLIENTSECRET \
     --enable-vmss \
-    --enable rbac \
     --node-count 1 \
     --generate-ssh-keys \
     --network-plugin azure \
