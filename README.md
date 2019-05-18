@@ -150,13 +150,14 @@ az aks create \
     --enable-addons http_application_routing,monitoring \
     --no-wait
 
+# Increase Azure Quota for Standard_NC6s_v2 so that you can deploy
 # Add a node pool
     az aks nodepool add \
     --resource-group myResourceGroup \
     --cluster-name myAKSCluster \
     --name gpunodepool \
     --node-count 1 \
-    --node-vm-size Standard_NC6 \
+    --node-vm-size Standard_NC6s_v2 \
     --no-wait
 
 # Set the taint on the nodepool
@@ -169,6 +170,8 @@ az aks nodepool upgrade \
     --name mynodepool \
     --kubernetes-version 1.12.7 \
     --no-wait
+
+# Show nodes
 az aks nodepool list --resource-group myResourceGroup --cluster-name myAKSCluster -o table
 
 # Scale a node pool
