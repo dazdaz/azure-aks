@@ -23,7 +23,7 @@ az group create --name $RGNAME --location $LOCATION
 az aks create \
 --resource-group $RGNAME \
 --name $CLUSTERNAME \
---kubernetes-version 1.12.6 \
+--kubernetes-version 1.14.0 \
 --generate-ssh-keys
 --dns-name-prefix $CLUSTERNAME \
 --location $LOCATION \
@@ -40,9 +40,19 @@ az aks create \
 
 ### New AKS Cluster
 ```
-az aks create --resource-group <RESOURCE_GP> --name <CLUSTER_NAME> --node-count 2 --generate-ssh-keys \
---vnet-subnet-id <SUBNET_ID> --dns-name-prefix <DNS_PREFIX> --aad-server-app-id <AAD_SERVER_ID> --aad-server-app-secret <ADD_SECRET> \
---aad-client-app-id <AAD_CLIENT_ID> --aad-tenant-id <TENANT_ID> --network-plugin azure --network-policy calico \
+az aks create \
+--resource-group <RESOURCE_GP> \
+--name <CLUSTER_NAME> \
+--node-count 2 \
+--generate-ssh-keys \
+--vnet-subnet-id <SUBNET_ID> \
+--dns-name-prefix <DNS_PREFIX> \
+--aad-server-app-id <AAD_SERVER_ID> \
+--aad-server-app-secret <ADD_SECRET> \
+--aad-client-app-id <AAD_CLIENT_ID> \
+--aad-tenant-id <TENANT_ID> \
+--network-plugin azure \
+--network-policy calico \
 --kubernetes-version 1.14.0
 ```
 
@@ -128,10 +138,16 @@ az group create --name myResourceGroup --location eastus
 az aks create \
     --resource-group myResourceGroup \
     --name myAKSCluster \
+    --dns-name-prefix $CLUSTERNAME \
     --enable-vmss \
+    --enable rbac \
     --node-count 1 \
     --generate-ssh-keys \
-    --kubernetes-version 1.12.6
+    --network-plugin azure \
+    --network-policy calico \
+    --kubernetes-version 1.14.0 \
+    --enable-addons http_application_routing,monitoring \
+    --no-wait
 
 # Add a node pool
     az aks nodepool add \
