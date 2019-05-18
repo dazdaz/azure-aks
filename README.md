@@ -116,6 +116,9 @@ az aks create --name aks-cluster \
 az extension add --name aks-preview
 az feature register --name MultiAgentpoolPreview --namespace Microsoft.ContainerService
 az feature register --name VMSSPreview --namespace Microsoft.ContainerService
+az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/MultiAgentpoolPreview')].{Name:name,State:properties.state}"
+az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/VMSSPreview')].{Name:name,State:properties.state}"
+# When registered, the propogate changes
 az provider register --namespace Microsoft.ContainerService
 
 # Create a resource group in East US
