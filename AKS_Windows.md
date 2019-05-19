@@ -1,4 +1,4 @@
-### Build an AKS Cluster, Add a Windows Node Pool and run some Windows containers
+### Build an AKS Cluster, Add a Windows Node Pool and run a Windows containers
 
 ```console
 #!/usr/bin/env bash
