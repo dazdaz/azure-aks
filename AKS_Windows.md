@@ -112,7 +112,9 @@ kubectl exec -it sc -- powershell.exe
 $PSVersionTable
 Get-Service
 Get-Process
+Test-NetConnection -ComputerName www.google.com -Port 80
 Get-NetTCPConnection -State Listen
+Get-NetIPAddress -AddressState Preferred -AddressFamily IPv4 | Select-Object IPAddress,InterfaceAlias
 Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddMinutes(-5) | Sort-Object Time
 
 kubectl delete deployments sc
