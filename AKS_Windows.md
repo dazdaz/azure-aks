@@ -87,7 +87,7 @@ az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o tab
 ```
 
 ### Upgrade to 2 Windows Nodes
-```
+```console
 az aks nodepool scale \
     --resource-group $RGNAME \
     --cluster-name $CLUSTERNAME \
