@@ -6,7 +6,7 @@ Freecode here
 * https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
 * https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 
-```shell
+```console
 az ad sp create-for-rbac --skip-assignment
 
 export APPID=<AppID>
