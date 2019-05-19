@@ -1,5 +1,7 @@
-### Build an AKS Cluster, Add a Windows Node Pool and run a Windows containers
+* Build an AKS Cluster, Add a Windows Node Pool and run a Windows containers
 
+
+# Create a Service Principal, Resource Group
 ```console
 #!/usr/bin/env bash
 
@@ -12,7 +14,10 @@ export CLUSTERNAME=k8s
 export RGNAME=k8s-rg
 
 az group create --name $RGNAME --location $LOCATION
+```
 
+### Install the aks-preview extension
+```console
 az extension add --name aks-preview
 az extension update -n aks-preview
 ```
