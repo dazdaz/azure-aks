@@ -1,4 +1,14 @@
-```console
+{-
+Freecode here
+-}
+
+### Build an AKS Cluster, Add a Windows Node Pool and run some Windows containers
+* https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
+* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
+
+
+#!/usr/bin/env bash
+
 az ad sp create-for-rbac --skip-assignment
 
 export APPID=<AppID>
@@ -85,13 +95,3 @@ Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddMinutes(-5
 
 kubectl delete deployments sc
 az aks nodepool delete -g $RGNAME --cluster-name $CLUSTERNAME --name gpunodepool --no-wait
-```
-
-{-
-Freecode here
--}
-
-### Build an AKS Cluster, Add a Windows Node Pool and run some Windows containers
-* https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
-* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
-
