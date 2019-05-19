@@ -101,13 +101,14 @@ az aks nodepool scale \
     --no-wait
 ```
 
-### Deploy a Windows Container using kubectl onto a Windows node
+### Deploy a Windows Container using kubectl onto a Windows node using kubectl
 ```console
 kubectl get nodes --show-labels
 kubectl describe node aksnpwin000000
 kubectl run sc --image mcr.microsoft.com/dotnet/framework/samples:aspnetapp --restart=Never --replicas=1 --overrides='{"apiVersion": "v1", "spec": {"nodeSelector": { "beta.kubernetes.io/os": "windows" }}}'
 kubectl get pods,svc
 kubectl get pod sc -o yaml
+
 kubectl exec -it sc -- powershell.exe
 $PSVersionTable
 Get-Service
@@ -124,3 +125,4 @@ az aks nodepool delete -g $RGNAME --cluster-name $CLUSTERNAME --name gpunodepool
 ### Further reading :
 * https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
 * https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
+* https://stefanscherer.github.io/how-to-run-encrypted-windows-websites-with-docker-and-traefik/
