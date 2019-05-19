@@ -14,6 +14,7 @@ export RGNAME=k8s-rg
 az group create --name $RGNAME --location $LOCATION
 
 az extension add --name aks-preview
+az extension update -n aks-preview
 ```
 
 ### Enable MultiAgentpoolPreview Feature Flag
@@ -40,6 +41,7 @@ az provider register --namespace Microsoft.ContainerService
 ```
 
 ### Deploy K8s
+```console
 az aks create \
     --resource-group $RGNAME  \
     --name $CLUSTERNAME \
