@@ -1,4 +1,4 @@
-## Build an AKS Cluster, Add a Windows Node Pool and run some Windows containers
+### Build an AKS Cluster, Add a Windows Node Pool and run some Windows containers
 
 * https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
 * https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
@@ -18,18 +18,25 @@ export RGNAME=k8s-rg
 az group create --name $RGNAME --location $LOCATION
 
 az extension add --name aks-preview
+```
 
-### MultiAgentpoolPreview
+### Enable MultiAgentpoolPreview Feature Flag
+```
 az feature register --name MultiAgentpoolPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/MultiAgentpoolPreview')].{Name:name,State:properties.state}"
+```
 
-### VMSSPreview
+### Enable VMSSPreview Feature Flag
+```
 az feature register --name VMSSPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/VMSSPreview')].{Name:name,State:properties.state}"
+```
 
-## WindowsPreview -> https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
+## Enable WindowsPreview Feature Flag -> https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
+```
 az feature register --name WindowsPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/WindowsPreview')].{Name:name,State:properties.state}"
+```
 
 ### When feature is registered, then propogate changes
 ```bash
