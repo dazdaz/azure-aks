@@ -2,7 +2,7 @@
 * https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
 * https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 
-```
+```bash
 az ad sp create-for-rbac --skip-assignment
 
 export APPID=<AppID>
