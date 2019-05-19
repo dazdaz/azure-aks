@@ -32,7 +32,8 @@ az feature register --name VMSSPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/VMSSPreview')].{Name:name,State:properties.state}"
 ```
 
-## Enable WindowsPreview Feature Flag -> https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
+### Enable WindowsPreview Feature Flag
+* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 ```
 az feature register --name WindowsPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/WindowsPreview')].{Name:name,State:properties.state}"
@@ -67,6 +68,7 @@ az aks get-credentials -n $CLUSTERNAME -g $RGNAME
 ```
 
 ### Add a node pool
+```
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
 az aks nodepool add \
     --resource-group $RGNAME \
@@ -76,9 +78,12 @@ az aks nodepool add \
     --node-count 1 \
     --kubernetes-version 1.14.0 \
     --no-wait
+```
 
 ### Check status of node pool
+```
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
+```
 
 ### Upgrade to 2 Windows Nodes
 ```
