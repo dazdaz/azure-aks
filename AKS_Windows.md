@@ -4,7 +4,7 @@
 * https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 
 
-```bash
+```console
 #!/usr/bin/env bash
 
 az ad sp create-for-rbac --skip-assignment
@@ -21,26 +21,26 @@ az extension add --name aks-preview
 ```
 
 ### Enable MultiAgentpoolPreview Feature Flag
-```
+```console
 az feature register --name MultiAgentpoolPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/MultiAgentpoolPreview')].{Name:name,State:properties.state}"
 ```
 
 ### Enable VMSSPreview Feature Flag
-```
+```console
 az feature register --name VMSSPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/VMSSPreview')].{Name:name,State:properties.state}"
 ```
 
 ### Enable WindowsPreview Feature Flag
-* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
-```
+```console
 az feature register --name WindowsPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/WindowsPreview')].{Name:name,State:properties.state}"
 ```
+* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 
 ### When feature is registered, then propogate changes
-```bash
+```console
 az provider register --namespace Microsoft.ContainerService
 
 az aks create \
@@ -64,11 +64,12 @@ az aks list -o table
 
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
 
-az aks get-credentials -n $CLUSTERNAME -g $RGNAME
+### Download private key
+az aks get-credentials -n $CLUSTERNAME -g $RGNAME --admin
 ```
 
 ### Add a node pool
-```
+```console
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
 az aks nodepool add \
     --resource-group $RGNAME \
@@ -81,7 +82,7 @@ az aks nodepool add \
 ```
 
 ### Check status of node pool
-```
+```console
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
 ```
 
@@ -96,7 +97,7 @@ az aks nodepool scale \
 ```
 
 ### Deploy a Windows Container using kubectl onto a Windows node
-```
+```console
 kubectl get nodes --show-labels
 kubectl describe node aksnpwin000000
 kubectl run sc --image mcr.microsoft.com/dotnet/framework/samples:aspnetapp --restart=Never --replicas=1 --overrides='{"apiVersion": "v1", "spec": {"nodeSelector": { "beta.kubernetes.io/os": "windows" }}}'
