@@ -1,7 +1,7 @@
 * Build an AKS Cluster, Add a Windows Node Pool and run a Windows containers
 
 
-# Create a Service Principal, Resource Group
+### Create a Service Principal, Resource Group
 ```console
 #!/usr/bin/env bash
 
@@ -17,6 +17,7 @@ az group create --name $RGNAME --location $LOCATION
 ```
 
 ### Install the aks-preview extension
+* Update the extension, if already installed
 ```console
 az extension add --name aks-preview
 az extension update -n aks-preview
