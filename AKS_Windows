@@ -1,4 +1,6 @@
 ### Build an AKS Cluster, Add a Windows Node Pool and run some Windows containers
+* https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
+* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 
 ```
 az ad sp create-for-rbac --skip-assignment
@@ -50,6 +52,8 @@ az aks list -o table
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
 
 az aks get-credentials -n $CLUSTERNAME -g $RGNAME
+
+# Add a node pool
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
 az aks nodepool add \
     --resource-group $RGNAME \
@@ -60,8 +64,16 @@ az aks nodepool add \
     --kubernetes-version 1.14.0 \
     --no-wait
 
-# Add a node pool
+# Check status of node pool
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
+
+# Upgrade to 2 Windows Nodes
+az aks nodepool scale \
+    --resource-group $RGNAME \
+    --cluster-name $CLUSTERNAME \
+    --name wnpool \
+    --node-count 2 \
+    --no-wait
 
 kubectl get nodes --show-labels
 kubectl describe node aksnpwin000000
