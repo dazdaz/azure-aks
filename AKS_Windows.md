@@ -126,3 +126,4 @@ az aks nodepool delete -g $RGNAME --cluster-name $CLUSTERNAME --name gpunodepool
 * https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
 * https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 * https://stefanscherer.github.io/how-to-run-encrypted-windows-websites-with-docker-and-traefik/
+* https://withinrafael.com/2018/03/09/using-remote-desktop-services-in-containers/
