@@ -1,9 +1,5 @@
 ### Build an AKS Cluster, Add a Windows Node Pool and run some Windows containers
 
-* https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
-* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
-
-
 ```console
 #!/usr/bin/env bash
 
@@ -37,12 +33,13 @@ az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/V
 az feature register --name WindowsPreview --namespace Microsoft.ContainerService
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/WindowsPreview')].{Name:name,State:properties.state}"
 ```
-* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
 
 ### When feature is registered, then propogate changes
 ```console
 az provider register --namespace Microsoft.ContainerService
+```
 
+### Deploy K8s
 az aks create \
     --resource-group $RGNAME  \
     --name $CLUSTERNAME \
@@ -113,3 +110,7 @@ Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddMinutes(-5
 kubectl delete deployments sc
 az aks nodepool delete -g $RGNAME --cluster-name $CLUSTERNAME --name gpunodepool --no-wait
 ```
+
+### Further reading :
+* https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
+* https://docs.microsoft.com/en-us/azure/aks/windows-container-cli
