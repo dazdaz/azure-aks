@@ -81,8 +81,10 @@ kubectl run sc --image mcr.microsoft.com/dotnet/framework/samples:aspnetapp --re
 kubectl get pods,svc
 kubectl get pod sc -o yaml
 kubectl exec -it sc -- powershell.exe
+$PSVersionTable
 Get-Service
-List-processes
+Get-Process
+Get-NetTCPConnection -State Listen
 Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddMinutes(-5) | Sort-Object Time
 
 kubectl delete deployments sc
