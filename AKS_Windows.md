@@ -74,6 +74,7 @@ az aks get-credentials -n $CLUSTERNAME -g $RGNAME --admin
 ```
 
 ### Add a node pool
+* Took me 8 minutes to deploy the VM's
 ```console
 az aks nodepool list --resource-group $RGNAME --cluster-name $CLUSTERNAME -o table
 az aks nodepool add \
