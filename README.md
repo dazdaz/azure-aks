@@ -1581,6 +1581,11 @@ SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -
 kubectl get configmap -n kube-system coredns -o yaml
 ```
 
+# Display the Kubernetes API endpoint IP Address
+```
+kubectl get endpoints -o=jsonpath='{.items[?(@.metadata.name == "kubernetes")].subsets[].addresses[].ip}
+```
+
 == Documentation / Further Info==
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
