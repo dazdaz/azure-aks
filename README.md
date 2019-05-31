@@ -1586,6 +1586,25 @@ kubectl get configmap -n kube-system coredns -o yaml
 kubectl get endpoints -o=jsonpath='{.items[?(@.metadata.name == "kubernetes")].subsets[].addresses[].ip}
 ```
 
+# Show container repo, of running pods across all namespaces
+```
+$ kubectl get pods --all-namespaces -o jsonpath="{..image}" |tr -s '[[:space:]]' '\n' |sort |uniq -c
+      1 deis/hcp-tunnel-front:v1.9.2-v3.0.6
+      1 docker.io/deis/hcp-tunnel-front:v1.9.2-v3.0.6
+      4 k8s.gcr.io/cluster-proportional-autoscaler-amd64:1.3.0
+      4 k8s.gcr.io/coredns:1.3.1
+      2 k8s.gcr.io/hyperkube-amd64:v1.14.0
+      2 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
+      2 k8s.gcr.io/metrics-server-amd64:v0.2.1
+      4 mcr.microsoft.com/azuremonitor/containerinsights/ciprod:ciprod04232019
+      2 mcr.microsoft.com/dotnet/framework/samples:aspnetapp
+      2 mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+      2 microsoft/virtual-kubelet:latest
+      2 quay.io/calico/cni:v3.5.0
+      2 quay.io/calico/node:v3.5.0
+      2 quay.io/calico/typha:v3.5.0
+```
+
 == Documentation / Further Info==
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
