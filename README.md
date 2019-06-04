@@ -379,8 +379,8 @@ $ helm install azure/azure-service-broker
 
 ### Give AKS permissions to pull images from ACR
 * 2 Methods
-** Grant AKS-generated Service Principal access to ACR (assumes use of AKS and ACR)
-** Create a Kubernetes Secret
+* Grant AKS-generated Service Principal access to ACR (assumes use of AKS and ACR)
+* Create a Kubernetes Secret
 
 ** Grant AKS-generated Service Principal access to ACR (assumes use of AKS and ACR)
 ```
