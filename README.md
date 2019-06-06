@@ -1561,6 +1561,7 @@ kubectl get no -l beta.kubernetes.io/os=windows -o json | jq '.items[].status.ad
 ```
 
 # Deploying tiller specifically onto a Linux VM, in a K8s cluster with both Linux/Windows nodes
+* https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm
 ```
 helm init --node-selectors "beta.kubernetes.io/os=linux" --tiller-namespace wad --service-account wad-user --upgrade
 ```
