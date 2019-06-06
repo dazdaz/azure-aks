@@ -1561,6 +1561,12 @@ aks-nodepool1-19880533-0   linux   amd64
 kubectl get no -l beta.kubernetes.io/os=windows -o json | jq '.items[].status.addresses[] | select(.type=="ExternalIP") | .address'
 ```
 
+# Listing nodes with a specific label
+```
+kubectl label nodes aks-nodepool1-10926791-vmss000000 big-streaming-storage=true
+kubectl get nodes -l big-streaming-storage=true
+```
+
 # Deploying tiller specifically onto a Linux VM, in a K8s cluster with both Linux/Windows nodes
 * https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm
 ```
