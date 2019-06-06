@@ -1586,6 +1586,11 @@ kubectl get configmap -n kube-system coredns -o yaml
 kubectl get endpoints -o=jsonpath='{.items[?(@.metadata.name == "kubernetes")].subsets[].addresses[].ip}
 ```
 
+# Helm with node selector
+```
+helm init --service-account tiller --node-selectors "beta.kubernetes.io/os"="linux"
+```
+
 # Show container repo, of running pods across all namespaces
 ```
 $ kubectl get pods --all-namespaces -o jsonpath="{..image}" |tr -s '[[:space:]]' '\n' |sort |uniq -c
