@@ -378,6 +378,13 @@ $ helm search azure
 $ helm install azure/azure-service-broker
 ```
 
+## Draft
+```
+wget https://azuredraft.blob.core.windows.net/draft/draft-v0.16.0-linux-amd64.tar.gz
+tar xvzf draft-v0.16.0-linux-amd64.tar.gz
+mv linux-amd64/draft /usr/local/bin/draft
+```
+
 ### Give AKS permissions to pull images from ACR
 * 2 Methods
 * Grant AKS-generated Service Principal access to ACR (assumes use of AKS and ACR)
