@@ -325,8 +325,8 @@ helm init
 * We give tiller (helm server), cluster-admin priviledges
 * https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/aks/kubernetes-helm.md
 ```
-wget https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
-sudo tar xvzf helm-v2.7.2-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
+wget https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz
+sudo tar xvzf helm-v2.14.1-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
 ```
 
 ```
