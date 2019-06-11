@@ -1625,6 +1625,16 @@ $ kubectl get pods --all-namespaces -o jsonpath="{..image}" |tr -s '[[:space:]]'
       2 quay.io/calico/typha:v3.5.0
 ```
 
+## Show K8s running status
+```
+kubectl get componentstatuses,configmaps,endpoints,limitranges,namespaces,nodes,persistentvolumeclaims,persistentvolumes,pods, \
+podtemplates,replicationcontrollers,resourcequotas,secrets,serviceaccounts,services,mutatingwebhookconfigurations, \
+validatingwebhookconfigurations,customresourcedefinitions,apiservices,controllerrevisions,daemonsets,deployments,replicasets, \
+statefulsets,horizontalpodautoscalers,cronjobs,jobs,certificatesigningrequests,daemonsets,deployments,ingresses,networkpolicies, \
+podsecuritypolicies,replicasets,networkpolicies,poddisruptionbudgets,podsecuritypolicies,clusterrolebindings,clusterroles, \
+rolebindings,roles,storageclasses,volumeattachments --all-namespaces
+```
+
 == Documentation / Further Info==
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
