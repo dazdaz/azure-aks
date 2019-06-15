@@ -108,5 +108,7 @@ spec:
 https://colinsalmcorner.com/post/container-devops-beyond-build-part-1
 https://www.colinsalmcorner.com/post/container-devops-beyond-build-part-2---traefik
 https://www.colinsalmcorner.com/post/container-devops-beyond-build-part-3---canary-testing
+https://www.youtube.com/watch?v=ouVqCU2DO14
 
-
+LIst of all Traefik videos
+https://www.youtube.com/channel/UCVRyfsfkok4trq6u7RJsY_A
