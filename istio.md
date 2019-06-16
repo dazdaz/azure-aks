@@ -1,3 +1,4 @@
+### Docs to deploy istio on AKS
 * https://docs.microsoft.com/en-us/azure/aks/istio-install
 
 ```
@@ -31,11 +32,11 @@ run mingw.exe
 kubectl.exe -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3500:3000
 ```
 
-== Using istio ==
+### Using istio
 * https://docs.microsoft.com/en-us/azure/aks/istio-scenario-routing
 
 
-== Removing istio ==
+### Removing istio
 ```
 kubectl delete -f install/kubernetes/helm/istio/templates/crds.yaml -n istio-system
 kubectl get crd | grep -i istio | awk '{print $1}' | xargs -n 1 kubectl delete crd
