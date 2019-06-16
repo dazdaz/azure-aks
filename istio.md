@@ -18,15 +18,15 @@ $ helm template install/kubernetes/helm/istio --kube-version "1.10" --name istio
 $ kubectl apply -f aks-istio.yaml -n istio-system
 ```
 
-Deploy Istio 1.0.4 deployed on K8s 1.11.5 (deployed using AKS) using helm 2.11 and for Grafana, changed to port 3500 on localhost
-(no time to figure out why this is in use) :
-
+### Install binary
 ```
 $ kubectl get deployment -n istio-system
 $ sudo cp bin/istioctl /usr/local/bin
 ```
 
 ### To access Grafana from laptop
+* Deploy Istio 1.0.4 deployed on K8s 1.11.5 (deployed using AKS) using helm 2.11 and for Grafana,
+* changed to port 3500 on localhost
 ```
 run mingw.exe
 kubectl.exe -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3500:3000
