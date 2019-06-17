@@ -570,6 +570,12 @@ $ kubectl apply -f ./demo.yaml
 ```
 
 ## HPA - Horizontal Pod Autoscaling (CPU) - Scriptable
+* Example 1:
+* Average cpu utilisation of all the pods, so if you have given CPU as 200 and targetCPUUtilizationPercentage as 80%,
+* then at 160 value of threshold, it will scale out the pod. It will create a new replicas.
+* https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm
+*
+*Example 2:
 * If your using resource requests to request a % of CPU for your app, then :
 * 75% of resource requests "cpu".  So if 200m (millicores) of CPU, then scale when CPU reaches 150m (millicores)
 ```
