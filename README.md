@@ -1604,7 +1604,7 @@ kubectl get configmap -n kube-system coredns -o yaml
 
 # Display the Kubernetes API endpoint IP Address
 ```
-kubectl get endpoints -o=jsonpath='{.items[?(@.metadata.name == "kubernetes")].subsets[].addresses[].ip}
+kubectl get endpoints -o=jsonpath='{.items[?(@.metadata.name == "kubernetes")].subsets[].addresses[].ip}`
 ```
 
 # Helm with node selector
@@ -1641,7 +1641,7 @@ podsecuritypolicies,replicasets,networkpolicies,poddisruptionbudgets,podsecurity
 rolebindings,roles,storageclasses,volumeattachments --all-namespaces
 ```
 
-== Documentation / Further Info==
+### Documentation / Further Info
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
 * https://docs.microsoft.com/en-us/azure/aks/configure-advanced-networking#plan-ip-addressing-for-your-cluster
