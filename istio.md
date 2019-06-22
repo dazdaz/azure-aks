@@ -1,4 +1,4 @@
-### Docs to deploy istio on AKS
+### Docs to deploy istio on AKS (out of date)
 * https://docs.microsoft.com/en-us/azure/aks/istio-install
 
 ### Deploy Istio 1.2.0 onto AKS 1.14.0
