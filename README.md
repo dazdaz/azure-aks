@@ -356,7 +356,7 @@ EOF
 $ kubectl apply -f helm-rbac.yaml
 
 # Install Tiller (helm server)
-$ helm init --service-account tiller --node-selectors "beta.kubernetes.io/os"="linux"
+$ helm init --service-account tiller --node-selectors "kubernetes.io/os"="linux"
 OR .... $ helm init --service-account tiller --upgrade
 $ kubectl get pods -n kube-system | grep tiller
 
