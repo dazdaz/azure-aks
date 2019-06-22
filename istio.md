@@ -11,6 +11,7 @@ kubectl create ns istio-system
 
 ISTIO_VERSION=1.2.0
 git clone https://github.com/istio/istio.git istio-${ISTIO_VERSION}-code && cd istio-${ISTIO_VERSION}-code
+
 helm template install/kubernetes/helm/istio-init/ --name istio-init --namespace istio-system > istio-init.yaml
 kubectl apply -f istio-init.yaml
 
