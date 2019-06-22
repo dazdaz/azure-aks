@@ -67,7 +67,6 @@ rmdir -f istio-$ISTIO_VERSION
 ```
 export CLUSTERNAME=lambo-sng-istio
 export RGNAME=aksapp2-rg
-run mingw.exe
 az login
 az account set -s 1234567890
 az aks get-credentials -n $CLUSTERNAME -g $RGNAME
