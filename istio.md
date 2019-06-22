@@ -26,8 +26,8 @@ helm template install/kubernetes/helm/istio --name istio --namespace istio-syste
   --set grafana.enabled=true --set grafana.security.enabled=true \
   --set tracing.enabled=true \
   --set kiali.enabled=true \
-  --set kiali.dashboard.grafanaURL=http://grafana:3500 \
-  --set kiali.dashboard.jaegerURL=http://jaeger:16686 > istio.yaml
+  --set "kiali.dashboard.jaegerURL=http://$(kubectl get svc tracing -n istio-system -o jsonpath='{.spec.clusterIP}'):80" \
+  --set "kiali.dashboard.grafanaURL=http://$(kubectl get svc grafana -n istio-system -o jsonpath='{.spec.clusterIP}'):3000" > istio.yaml
 kubectl apply -f istio.yaml
 
 kubectl get pods --field-selector=status.phase=Running --all-namespaces
