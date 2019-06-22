@@ -9,7 +9,8 @@ kubectl create ns istio-system
 ./k8s-secret-grafana.sh
 ./k8s-secret-kiali.sh
 
-git clone https://github.com/istio/istio.git istio-1.2.0-code && cd istio-1.2.0-code
+ISTIO_VERSION=1.2.0
+git clone https://github.com/istio/istio.git istio-${ISTIO_VERSION}-code && cd istio-${ISTIO_VERSION}-code
 helm template install/kubernetes/helm/istio-init/ --name istio-init --namespace istio-system > istio-init.yaml
 kubectl apply -f istio-init.yaml
 
@@ -58,12 +59,34 @@ sudo chmod +x /usr/local/bin/istioctl
 rmdir -f istio-$ISTIO_VERSION
 ```
 
-### To access Grafana from laptop
-* Deploy Istio 1.0.4 deployed on K8s 1.11.5 (deployed using AKS) using helm 2.11 and for Grafana,
-* changed to port 3500 on localhost
+### To access Grafana (analytics and monitoring dashboards for Istio are provided by Grafana) from laptop
+* Changed to port 3500 on localhost
 ```
+export CLUSTERNAME=lambo-sng-istio
+export RGNAME=aksapp2-rg
 run mingw.exe
-kubectl.exe -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3500:3000
+az login
+az account set -s 1234567890
+az aks get-credentials -n $CLUSTERNAME -g $RGNAME
+kubectl config get-contexts
+kubectl config use-context $CLUSTERNAME
+kubectl config current-context
+kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3500:3000
+```
+
+### To access Metrics for Istio are provided by Prometheus from laptop
+```
+kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090
+```
+
+### To view Tracing within Istio is provided by Jaeger from laptop
+```
+kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686
+```
+
+### To view the service mesh observability dashboard is provided by Kiali from laptop
+```
+kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
 ```
 
 ### Using istio
