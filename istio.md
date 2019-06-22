@@ -14,6 +14,7 @@ git clone https://github.com/istio/istio.git istio-${ISTIO_VERSION}-code && cd i
 helm template install/kubernetes/helm/istio-init/ --name istio-init --namespace istio-system > istio-init.yaml
 kubectl apply -f istio-init.yaml
 
+# https://istio.io/docs/reference/config/installation-options/
 helm template install/kubernetes/helm/istio --name istio --namespace istio-system \
   --set ingress.enabled=true \
   --set gateways.enabled=true \
@@ -23,7 +24,9 @@ helm template install/kubernetes/helm/istio --name istio --namespace istio-syste
   --set mixer.adapters.useAdapterCRDs=false \
   --set grafana.enabled=true --set grafana.security.enabled=true \
   --set tracing.enabled=true \
-  --set kiali.enabled=true > istio.yaml
+  --set kiali.enabled=true \
+  --set kiali.dashboard.grafanaURL=http://grafana:3500 \
+  --set kiali.dashboard.jaegerURL=http://jaeger:16686 > istio.yaml
 kubectl apply -f istio.yaml
 
 kubectl get pods --field-selector=status.phase=Running --all-namespaces
@@ -87,6 +90,11 @@ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=ja
 ### To view the service mesh observability dashboard is provided by Kiali from laptop
 ```
 kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
+```
+
+### Sidecar injection
+```
+kubectl label namespace default istio-injection=enabled
 ```
 
 ### Using istio
