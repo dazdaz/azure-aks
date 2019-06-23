@@ -122,3 +122,4 @@ kubectl delete ns istio-system
 * https://www.katacoda.com/courses/istio
 * https://www.youtube.com/watch?v=SJA2p9XfVKc Everything you want to know about Istio
 * https://www.youtube.com/watch?v=WPo5WQNgbC8 Configuring Blue/Green Deployments with Istio
+* https://www.slideshare.net/OfirMakmal/kubernetes-and-istio-and-azure-aks-devops
