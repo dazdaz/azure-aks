@@ -1,6 +1,3 @@
-### Docs to deploy istio on AKS (out of date)
-* https://docs.microsoft.com/en-us/azure/aks/istio-install
-
 ### Deploy Istio 1.2.0 onto AKS 1.14.0
 ```
 # Render Istio resources yaml
@@ -118,3 +115,10 @@ helm delete --purge istio
 helm delete --purge istio-init
 kubectl delete ns istio-system
 ```
+
+### Docs to deploy istio on AKS (out of date)
+* https://docs.microsoft.com/en-us/azure/aks/istio-install
+* https://docs.microsoft.com/en-us/azure/aks/istio-scenario-routing 
+* https://www.katacoda.com/courses/istio
+* https://www.youtube.com/watch?v=SJA2p9XfVKc Everything you want to know about Istio
+* https://www.youtube.com/watch?v=WPo5WQNgbC8 Configuring Blue/Green Deployments with Istio
