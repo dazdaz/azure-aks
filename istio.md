@@ -109,7 +109,7 @@ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=ja
 kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
 ```
 
-### Sidecar injection
+### Sidecar injection example
 ```
 kubectl label namespace default istio-injection=enabled
 kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
@@ -120,9 +120,61 @@ export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
 open http://${GATEWAY_URL}/productpage
 ```
 
-### Using istio
-* https://docs.microsoft.com/en-us/azure/aks/istio-scenario-routing
+### Using istio demo
+```
+https://docs.microsoft.com/en-us/azure/aks/istio-scenario-routing
 
+git clone https://github.com/Azure-Samples/aks-voting-app.git
+cd scenarios/intelligent-routing-with-istio
+kubectl create namespace voting
+kubectl label namespace voting istio-injection=enabled
+kubectl apply -f kubernetes/step-1-create-voting-app.yaml --namespace voting
+kubectl get pods -n voting
+kubectl describe pod -lapp=voting-app --namespace voting | grep -A2 "istio-proxy:"
+# You can't connect to the voting app until you create the Istio Gateway and Virtual Service
+kubectl apply -f istio/step-1-create-voting-app-gateway.yaml --namespace voting
+kubectl get service istio-ingressgateway --namespace istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl apply -f kubernetes/step-2-update-voting-analytics-to-1.1.yaml --namespace voting
+
+# Lock down traffic to version 1.1 of the application
+kubectl apply -f istio/step-2-update-and-add-routing-for-all-components.yaml --namespace voting
+
+# Confirm that Istio is using mutual TLS to secure communications between each of our services
+
+# mTLS configuration between each of the istio ingress pods and the voting-app service
+kubectl get pod -n istio-system -l app=istio-ingressgateway | grep Running | cut -d ' ' -f1 | xargs -n1 -I{} istioctl authn tls-check {}.istio-system voting-app.voting.svc.cluster.local
+HOST:PORT                                    STATUS     SERVER     CLIENT     AUTHN POLICY       DESTINATION RULE
+voting-app.voting.svc.cluster.local:8080     OK         mTLS       mTLS       default/voting     voting-app/voting
+
+# mTLS configuration between each of the voting-app pods and the voting-analytics service
+kubectl get pod -n voting -l app=voting-app | grep Running | cut -d ' ' -f1 | xargs -n1 -I{} istioctl authn tls-check {}.voting voting-analytics.voting.svc.cluster.local
+HOST:PORT                                          STATUS     SERVER     CLIENT     AUTHN POLICY       DESTINATION RULE
+voting-analytics.voting.svc.cluster.local:8080     OK         mTLS       mTLS       default/voting     voting-analytics/voting
+HOST:PORT                                          STATUS     SERVER     CLIENT     AUTHN POLICY       DESTINATION RULE
+voting-analytics.voting.svc.cluster.local:8080     OK         mTLS       mTLS       default/voting     voting-analytics/voting
+HOST:PORT                                          STATUS     SERVER     CLIENT     AUTHN POLICY       DESTINATION RULE
+voting-analytics.voting.svc.cluster.local:8080     OK         mTLS       mTLS       default/voting     voting-analytics/voting
+
+# mTLS configuration between each of the voting-app pods and the voting-storage service
+kubectl get pod -n voting -l app=voting-app | grep Running | cut -d ' ' -f1 | xargs -n1 -I{} istioctl authn tls-check {}.voting voting-storage.voting.svc.cluster.local
+HOST:PORT                                        STATUS     SERVER     CLIENT     AUTHN POLICY       DESTINATION RULE
+voting-storage.voting.svc.cluster.local:6379     OK         mTLS       mTLS       default/voting     voting-storage/voting
+HOST:PORT                                        STATUS     SERVER     CLIENT     AUTHN POLICY       DESTINATION RULE
+voting-storage.voting.svc.cluster.local:6379     OK         mTLS       mTLS       default/voting     voting-storage/voting
+HOST:PORT                                        STATUS     SERVER     CLIENT     AUTHN POLICY       DESTINATION RULE
+voting-storage.voting.svc.cluster.local:6379     OK         mTLS       mTLS       default/voting     voting-storage/voting
+
+# mTLS configuration between each of the voting-analytics version 1.1 pods and the voting-storage service
+kubectl get pod -n voting -l app=voting-analytics,version=1.1 | grep Running | cut -d ' ' -f1 | xargs -n1 -I{} istioctl authn tls-check {}.voting voting-storage.voting.svc.cluster.local
+
+# Canary - deploy v2
+kubectl apply -f istio/step-3-add-routing-for-2.0-components.yaml --namespace voting
+
+# Add the Kubernetes objects for the new version 2.0 components
+kubectl apply -f kubernetes/step-3-update-voting-app-with-new-storage.yaml --namespace voting
+kubectl get pods --namespace voting
+kubectl delete namespace voting
+```
 
 ### Removing istio
 ```
