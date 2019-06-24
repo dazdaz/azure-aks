@@ -1641,6 +1641,38 @@ podsecuritypolicies,replicasets,networkpolicies,poddisruptionbudgets,podsecurity
 rolebindings,roles,storageclasses,volumeattachments --all-namespaces
 ```
 
+## helm magic
+```
+Set CPU/memory requests and limits:
+helm upgrade --reuse-values frontend \
+    --set resources.requests.cpu=10m \
+    --set resources.limits.cpu=100m \
+    --set resources.requests.memory=16Mi \
+    --set resources.limits.memory=128Mi \
+    sp/podinfo
+
+Setup horizontal pod autoscaling (HPA) based on CPU average usage and memory consumption:
+helm upgrade --reuse-values frontend \
+    --set hpa.enabled=true \
+    --set hpa.maxReplicas=10 \
+    --set hpa.cpu=80 \
+    --set hpa.memory=200Mi \
+    sp/podinfo
+
+Increase the minimum replica count:
+helm upgrade --reuse-values frontend \
+    --set replicaCount=2 \
+    sp/podinfo
+
+Downgrade podinfo to version 0.2.0:
+helm upgrade --reuse-values frontend \
+    --set image.tag=0.2.0 \
+    sp/podinfo
+
+helm rollback frontend
+helm delete --purge frontend
+```
+
 ### Documentation / Further Info
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
