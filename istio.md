@@ -1,4 +1,4 @@
-### Deploy Istio 1.2.0 onto AKS 1.14.0
+### Deploy Istio 1.2.0 onto AKS/K8s 1.14.0
 ```
 # Render Istio resources yaml
 
