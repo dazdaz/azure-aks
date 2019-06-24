@@ -1,3 +1,16 @@
+### Overview of Istio components
+| Istio Component  | Description   |
+| -------------    | ------------- |
+| Mixer            | Enforcing access control and usage policies across the service mesh and collecting telemetry data from the Envoy proxy and other services |
+| Pilot            | Responsible for the lifecycle and Service Discovery of Envoy instances deployed across the Istio service mesh |              |
+| Jaeger           | End-to-end distributed tracing             |
+| Kiali            | Service mesh observability              |
+| Prometheus       | Monitoring and alerting toolkit              |
+| Grafana          | Create dashboards with panels, each representing specific metrics over a set time-frame              |
+| Telemetry        |               |
+| Istio Auth       | Service-to-service and end-user authentication using mutual TLS              |
+
+
 ### Deploy Istio 1.2.0 onto AKS/K8s 1.14.0
 ```
 # Render Istio resources yaml
