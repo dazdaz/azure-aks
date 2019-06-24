@@ -1,6 +1,8 @@
 ### Overview of Istio components
 | Istio Component  | Description   |
 | -------------    | ------------- |
+| Citadel          | Istio PKI - Key and certificate management            |
+|                  | https://istio.io/docs/concepts/security/              |
 | Mixer            | Enforcing access control and usage policies across the service mesh and collecting telemetry data from the Envoy proxy and other services |
 | Pilot            | Responsible for the lifecycle and Service Discovery of Envoy instances deployed across the Istio service mesh |              |
 | Jaeger           | End-to-end distributed tracing             |
