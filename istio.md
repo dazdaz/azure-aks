@@ -3,14 +3,18 @@
 | -------------    | ------------- |
 | Citadel          | Istio PKI - Key and certificate management            |
 |                  | https://istio.io/docs/concepts/security/              |
-| Mixer            | Enforcing access control and usage policies across the service mesh and collecting telemetry data from the Envoy proxy and other services |
+| Mixer            | Enforcing access control policy's and usage policies across the service mesh and collecting telemetry data from the Envoy proxy and other services |
 | Pilot            | Responsible for the lifecycle and Service Discovery of Envoy instances deployed across the Istio service mesh |              |
 | Jaeger           | End-to-end distributed tracing             |
 | Kiali            | Service mesh observability              |
 | Prometheus       | Monitoring and alerting toolkit              |
 | Grafana          | Create dashboards with panels, each representing specific metrics over a set time-frame              |
 | Telemetry        |               |
+| Sidecar Injector | Inject istio-proxy into Pods              |
 | Istio Auth       | Service-to-service and end-user authentication using mutual TLS              |
+| Istio ingress GW | Route incoming connections              |
+| Istio egress GW  | Route outgoing connections              |
+| Galley           | K8s controller for istio Custom Resource Handler               |
 
 
 ### Deploy Istio 1.2.0 onto AKS/K8s 1.14.0
@@ -139,3 +143,4 @@ kubectl delete ns istio-system
 * https://www.youtube.com/watch?v=WPo5WQNgbC8 Configuring Blue/Green Deployments with Istio
 * https://www.slideshare.net/OfirMakmal/kubernetes-and-istio-and-azure-aks-devops
 * https://linuxacademy.com/linux/training/course/name/service-mesh-with-istio-part-1
+* https://learning.oreilly.com/library/view/introducing-istio-service/9781491988770/ O'Reilly Course : Introducing Istio Service Mesh for Microservices
