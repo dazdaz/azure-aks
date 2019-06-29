@@ -1673,6 +1673,22 @@ helm rollback frontend
 helm delete --purge frontend
 ```
 
+# Using multiple kube config files
+```
+kubectl get pods --kubeconfig=file1
+kubectl get pods --kubeconfig=file2
+```
+
+# Use kubectl without a kubeconfig
+```
+KUBECONFIG= kubectl get nodes \
+ --server https://localhost:6443 \
+ --user docker-for-desktop \
+ --client-certificate my.cert \
+ --client-key my.key \
+ --insecure-skip-tls-verify
+```
+
 ### Documentation / Further Info
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
