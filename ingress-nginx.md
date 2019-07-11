@@ -1,5 +1,6 @@
 
-In Nginx Ingress Controller version 0.22 Annotations nginx.ingress.kubernetes.io/add-base-url and nginx.ingress.kubernetes.io/base-url-scheme were removed.
+In Nginx Ingress Controller version 0.22 the following annotation changed :
+Annotation nginx.ingress.kubernetes.io/rewrite-target has changed and will not behave as expected if you don't update them.
 
 The change in annotation is documented here :
 https://github.com/kubernetes/ingress-nginx/releases
