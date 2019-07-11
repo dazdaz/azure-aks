@@ -8,6 +8,7 @@ https://github.com/kubernetes/ingress-nginx/releases
 Refer to here on howto update the rewrite-target rule https://kubernetes.github.io/ingress-nginx/examples/rewrite/#rewrite-target
 
 https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples/rewrite
 
 * Example ingress.yaml
 ```
