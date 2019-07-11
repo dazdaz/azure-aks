@@ -1302,6 +1302,7 @@ $ kubectl delete pods tiller-deploy -n kube-system --force=true --timeout=0s --n
 
 # Testing Service Discovery using DNS (Not Environment variables)
 $ kubectl run busybox --image busybox -it -- /bin/sh
+$ kubectl run alpine --image alpine -it -- /bin/sh
 If you don't see a command prompt, try pressing enter
 $ nslookup nginxServer:    10.96.0.10
 Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local
