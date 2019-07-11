@@ -1,7 +1,10 @@
 
 ## Deploy nginx-ingress
 ```
-$ helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false --set controller.replicaCount=2
+$ helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false \
+--set rbac.createRole=false \
+--set rbac.createClusterRole=false \
+--set controller.replicaCount=2
 
 Or have your config options in your manifest file <file.yaml>
 $ helm install stable/nginx-ingress --nameaspace <blah> -f <file.yaml>
