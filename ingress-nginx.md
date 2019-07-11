@@ -1,4 +1,12 @@
 
+## Deploy nginx-ingress
+```
+$ helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false --set controller.replicaCount=2
+
+Or have your config options in your manifest file <file.yaml>
+$ helm install stable/nginx-ingress --nameaspace <blah> -f <file.yaml>
+```
+
 In Nginx Ingress Controller version 0.22 the following annotation changed :
 Annotation nginx.ingress.kubernetes.io/rewrite-target has changed and will not behave as expected if you don't update them.
 
