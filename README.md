@@ -1642,8 +1642,18 @@ podsecuritypolicies,replicasets,networkpolicies,poddisruptionbudgets,podsecurity
 rolebindings,roles,storageclasses,volumeattachments --all-namespaces
 ```
 
-## helm magic
+## podinfo
+* https://stefanprodan.github.io/k8s-podinfo/1-deploy.html
+* https://github.com/fluxcd/helm-operator-get-started/blob/master/charts/podinfo/README.md
 ```
+helm install sp/podinfo --name podinfo
+export POD_NAME=$(kubectl get pods --namespace default -l "app=podinfo,release=podinfo" -o jsonpath="{.items[0].metadata.name}")
+echo "Visit http://127.0.0.1:8080 to use your application"
+http://127.0.0.1:8080/version
+http://127.0.0.1:8080/env
+http://127.0.0.1:8080/headers
+http://127.0.0.1:8080/metrics
+
 Set CPU/memory requests and limits:
 helm upgrade --reuse-values frontend \
     --set resources.requests.cpu=10m \
