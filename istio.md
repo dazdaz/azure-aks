@@ -204,7 +204,8 @@ helm delete --purge istio-init
 kubectl delete ns istio-system
 ```
 
-### Docs to deploy istio on AKS (out of date)
+### Docs to deploy istio
+* https://github.com/blueflightx7/Scaling-AKS-Istio Excellent Istio lab
 * https://docs.microsoft.com/en-us/azure/aks/istio-install
 * https://docs.microsoft.com/en-us/azure/aks/istio-scenario-routing 
 * https://www.katacoda.com/courses/istio
