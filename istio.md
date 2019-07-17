@@ -8,6 +8,7 @@
 |                  | https://istio.io/docs/concepts/security/              |
 |                  | Built in identiy and credential management, internal CA within Istio            |
 | Mixer            | Enforcing access control policy's and usage policies across the service mesh and collecting telemetry data from the Envoy proxy and other services |
+|                  | Mixer v2 has a lot of performance fixes and new routing features   |
 | Pilot            | Responsible for the lifecycle and Service Discovery of Envoy sidecars deployed across the Istio service mesh |              |
 |                  | Traffic management capabilities for intelligent routing and and resiliency (timeouts, retries, circuit breakers etc         |
 |                  | Generates envoy specific proxy configuration             |
