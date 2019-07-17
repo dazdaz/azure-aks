@@ -1,10 +1,13 @@
 ### Overview of Istio components
 | Istio Component  | Description   |
 | -------------    | ------------- |
+| Envoy            | Mediates all inbound and outbound traffic. Features such as load balancing, circuit breakers, TLS termination etc           |
 | Citadel          | Istio PKI - Key and certificate management            |
 |                  | https://istio.io/docs/concepts/security/              |
+|                  | Built in identiy and credential management            |
 | Mixer            | Enforcing access control policy's and usage policies across the service mesh and collecting telemetry data from the Envoy proxy and other services |
-| Pilot            | Responsible for the lifecycle and Service Discovery of Envoy instances deployed across the Istio service mesh |              |
+| Pilot            | Responsible for the lifecycle and Service Discovery of Envoy sidecars deployed across the Istio service mesh |              |
+|                  | Traffic management capabilities for intelligent routing and and resiliency (timeouts, retries, circuit breakers etc            |
 | Jaeger           | End-to-end distributed tracing             |
 | Kiali            | Service mesh observability              |
 | Prometheus       | Monitoring and alerting toolkit              |
