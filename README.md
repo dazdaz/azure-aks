@@ -1587,6 +1587,11 @@ kubectl get nodes -l big-streaming-storage=true
 helm init --node-selectors "beta.kubernetes.io/os=linux" --tiller-namespace wad --service-account wad-user --upgrade
 ```
 
+# Updating helm configuration for a pod run as a ds, and re-deploying the pods
+```
+helm upgrade -f datadog-values.yaml <RELEASE_NAME> stable/datadog --recreate-pods
+```
+
 # Using "kubectl apply dry-run with verbosity ..."
 ```
 kubectl apply --dry-run -f ./deployment-nginx-acr-dockerhub.yaml --v=10 >& out
