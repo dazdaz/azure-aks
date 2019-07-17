@@ -23,12 +23,12 @@
 | Galley           | K8s controller for istio Custom Resource Handler               |
 
 
-### Overview of Istio components
+### Routing
 | Traffic Routing  | Description   |
 | -------------    | ------------- |
 | Blue/Green       | Blue1.0, Green 1.1 - deploying new app all at once, reducing any downtime associated with a release by rolling back everything        |
 | A/B Testing      | Testing features in your application for various reasons like usability, popularity, noticeability, etc send 5% of traffic to new feature |
-| Canary           | Deploy production application gradually, i.e. route 5%, 10%, 25%, 50% of traffic to new release |
+| Canary Routing   | Deploy production application gradually, i.e. route 5%, 10%, 25%, 50% of traffic to new release |
 
 *The sidecar allows for features like load-balancing, service-to-service authentication, service discovery, monitoring and more.
 
