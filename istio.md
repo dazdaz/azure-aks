@@ -6,7 +6,7 @@
 |                  | Envoy proxies directly interact with data plane traffic |
 | Citadel          | Istio PKI - Key and certificate management            |
 |                  | https://istio.io/docs/concepts/security/              |
-|                  | Built in identiy and credential management            |
+|                  | Built in identiy and credential management, internal CA within Istio            |
 | Mixer            | Enforcing access control policy's and usage policies across the service mesh and collecting telemetry data from the Envoy proxy and other services |
 | Pilot            | Responsible for the lifecycle and Service Discovery of Envoy sidecars deployed across the Istio service mesh |              |
 |                  | Traffic management capabilities for intelligent routing and and resiliency (timeouts, retries, circuit breakers etc         |
