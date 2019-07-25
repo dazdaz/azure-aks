@@ -109,3 +109,56 @@ clusterchecksDeployment:
   resources: {}
   tolerations: []
 ```
+
+## APM / Tracing example
+```
+1.kubectl edit deployment gin-gin -o yaml
+
+      containers:
+      - env:
+        - name: DD_AGENT_HOST
+          value: 10.240.0.33
+        - name: DD_TRACE_AGENT_PORT
+          value: "8126"
+
+2.Expose the service and generate traffic -> http://52.139.1.1/hello
+
+3.Goto -> https://app.datadoghq.com/apm/docs/trace-search?env=none
+```
+
+## APM / Tracing example
+```
+package main
+
+import (
+    "net"
+    "os"
+    gintrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/gin-gonic/gin"
+    "gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
+    "github.com/gin-gonic/gin"
+)
+
+func main() {
+
+ addr := net.JoinHostPort(
+   os.Getenv("DD_AGENT_HOST"),
+   os.Getenv("DD_TRACE_AGENT_PORT"),
+ )
+
+    tracer.Start(tracer.WithAgentAddr(addr))
+    defer tracer.Stop()
+
+    // Create a gin.Engine
+    r := gin.New()
+
+    // Use the tracer middleware with your desired service name.
+    r.Use(gintrace.Middleware("my-web-app"))
+
+    // Continue using the router as normal.
+    r.GET("/hello", func(c *gin.Context) {
+        c.String(200, "Hello World!")
+    })
+
+    r.Run(":8081")
+}
+```
