@@ -1081,6 +1081,7 @@ $ kubectl cluster-info dump --all-namespaces --output-directory=$PWD/cluster-sta
 $ tree cluster-state-2018-06-13
 
 $ kubectl get events
+$ kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
 ## Adding monitoring to an existing cluster
