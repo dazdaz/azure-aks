@@ -1690,6 +1690,12 @@ helm rollback frontend
 helm delete --purge frontend
 ```
 
+# Ingress Controller with Private IP
+```
+helm install stable/nginx-ingress --namespace kube-system --name abc-dev-team1 --set rbac.create=false \
+--set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-internal"="true"
+```
+
 # Using multiple kube config files
 ```
 kubectl get pods --kubeconfig=file1
