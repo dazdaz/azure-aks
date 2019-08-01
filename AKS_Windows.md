@@ -130,3 +130,6 @@ az aks nodepool delete -g $RGNAME --cluster-name $CLUSTERNAME --name gpunodepool
 ### Further reading :
 * https://stefanscherer.github.io/how-to-run-encrypted-windows-websites-with-docker-and-traefik/
 * https://withinrafael.com/2018/03/09/using-remote-desktop-services-in-containers/
+
+### Deep dive from Microsoft (Paul Bouwer) on Windows containers
+* https://github.com/paulbouwer/windows-containers-workshop/blob/master/decks/Container%20Camp%20AU%202018%20-%20Workshop%20.pdf
