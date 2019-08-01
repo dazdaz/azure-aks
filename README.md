@@ -1076,6 +1076,9 @@ $ az group delete --name $CLUSTERNAME --no-wait --yes
 Run these commands
 
 ```
+$ kubectl get pod --selector component=tunnel -n kube-system
+$ kubectl logs --selector component=tunnel -n kube-system --tail=10000000
+
 $ kubectl cluster-info dump
 $ kubectl cluster-info dump --all-namespaces --output-directory=$PWD/cluster-state-2018-06-13
 $ tree cluster-state-2018-06-13
