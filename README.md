@@ -1239,6 +1239,9 @@ zone=1,kubernetes.azure.com
 cluster=MC_daz-aks-rg_dazaks_southeastasia,kubernetes.io
 hostname=aks-agentpool-20626790-0,kubernetes.io
 role=agent,storageprofile=managed,storagetier=Premium_LRS
+
+# Viewing kubelet logs
+journalctl -u kubelet  --since "2019-07-30 00:00" -> journalctl.txt
 ```
 
 ## Troubleshooting, ketall is useful to see cluster changes, useful if you have multiple admins or closed eyes
