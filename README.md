@@ -1256,6 +1256,9 @@ kubectl top pods --all-namespaces
 
 ## Random commands
 ```
+# As of K8s 1.15, you can restart all pods within your deployment
+kubectl rollout restart
+
 # Increase verbosity
 $ kubectl delete -f mpich.yml -v=9
 
