@@ -171,6 +171,9 @@ az aks nodepool add \
     --kubernetes-version 1.14.0 \
     --no-wait
 
+# Address a node pool using Labels
+kubectl get nodes -L agentpool
+
 # Increase Azure Quota for Standard_NC6s_v2 so that you can deploy
 # Add a node pool
     az aks nodepool add \
