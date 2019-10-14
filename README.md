@@ -1724,6 +1724,11 @@ KUBECONFIG= kubectl get nodes \
  --insecure-skip-tls-verify
 ```
 
+# mysql with resource limits
+```
+helm install stable/mysql --set resources.requests.memory=2048Mi 
+```
+
 ### Documentation / Further Info
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
