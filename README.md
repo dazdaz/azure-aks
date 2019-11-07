@@ -1729,6 +1729,11 @@ KUBECONFIG= kubectl get nodes \
 helm install stable/mysql --set resources.requests.memory=2048Mi 
 ```
 
+# View the container image name of all deployments
+```
+kubectl get deployment -o jsonpath='{..image}'
+```
+
 ### Documentation / Further Info
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
