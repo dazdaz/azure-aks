@@ -1657,6 +1657,18 @@ $ kubectl get pods --all-namespaces -o jsonpath="{..image}" |tr -s '[[:space:]]'
       2 quay.io/calico/cni:v3.5.0
       2 quay.io/calico/node:v3.5.0
       2 quay.io/calico/typha:v3.5.0
+
+$ kubectl get pods --all-namespaces -o jsonpath="{..image}" |tr -s '[[:space:]]' '\n' |sort |uniq -c
+      4 aksrepos.azurecr.io/mirror/cluster-proportional-autoscaler-amd64:1.3.0_v0.0.5
+      4 aksrepos.azurecr.io/mirror/cni:v3.5.0
+      4 aksrepos.azurecr.io/mirror/coredns:1.3.1
+      4 aksrepos.azurecr.io/mirror/hyperkube-amd64:v1.15.5
+      2 aksrepos.azurecr.io/mirror/kubernetes-dashboard-amd64:v1.10.1
+      2 aksrepos.azurecr.io/mirror/metrics-server-amd64:v0.2.1_v0.0.5
+      4 aksrepos.azurecr.io/mirror/node:v3.5.0
+      2 aksrepos.azurecr.io/mirror/typha:v3.5.0
+      2 aksrepos.azurecr.io/prod/hcp-tunnel-front:v1.9.2-v3.0.11
+      6 mcr.microsoft.com/azuremonitor/containerinsights/ciprod:ciprod10182019
 ```
 
 ## Show K8s running status
