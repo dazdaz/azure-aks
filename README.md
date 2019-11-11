@@ -1619,6 +1619,8 @@ SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -
 # CoreDNS Settings
 ```
 kubectl get configmap -n kube-system coredns -o yaml
+kubectl logs -lk8s-app=coredns-autoscaler -n kube-system
+kubectl logs -lk8s-app=kube-dns -n kube-system
 ```
 
 # Display the Kubernetes API endpoint IP Address
