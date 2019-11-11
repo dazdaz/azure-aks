@@ -1618,16 +1618,37 @@ SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -
 
 # CoreDNS Settings
 ```
+kubectl get ep kube-dns --namespace=kube-system
+NAME       ENDPOINTS                                                  AGE
+kube-dns   10.240.0.13:53,10.240.0.44:53,10.240.0.13:53 + 1 more...   23d
+
+kubectl get svc --namespace=kube-system -lk8s-app=kube-dns
+NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
+kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   23d
+
+kubectl get pods -lk8s-app=kube-dns -n kube-system
+NAME                       READY   STATUS    RESTARTS   AGE
+coredns-68c85fc5d4-k25h2   1/1     Running   0          23d
+coredns-68c85fc5d4-qhf42   1/1     Running   0          23d
+
 kubectl get configmap -n kube-system coredns -o yaml
 kubectl get configmap -n kube-system coredns-custom -o yaml
-kubectl logs -lk8s-app=coredns-autoscaler -n kube-system
+
 kubectl logs -lk8s-app=kube-dns -n kube-system
+kubectl logs -lk8s-app=coredns-autoscaler -n kube-system
 
 kubectl describe pod -lk8s-app=kube-dns -n kube-system | grep Image:
     Image:         aksrepos.azurecr.io/mirror/coredns:1.3.1
     Image:         aksrepos.azurecr.io/mirror/coredns:1.3.1
 kubectl describe pod -lk8s-app=coredns-autoscaler -n kube-system | grep Image:
     Image:         aksrepos.azurecr.io/mirror/cluster-proportional-autoscaler-amd64:1.3.0_v0.0.5
+
+# probe DNS from a container inside K8s
+kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh
+nslookup -type=a cluster.local 10.0.0.10
+
+https://docs.microsoft.com/en-us/azure/aks/coredns-custom
+https://medium.com/kubernetes-tutorials/kubernetes-dns-for-services-and-pods-664804211501
 ```
 
 # Display the Kubernetes API endpoint IP Address
