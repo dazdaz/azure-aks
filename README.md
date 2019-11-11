@@ -1734,6 +1734,11 @@ helm install stable/mysql --set resources.requests.memory=2048Mi
 kubectl get deployment -o jsonpath='{..image}'
 ```
 
+# Run an interactive shell on any K8s node using busybox shell
+```
+kubectl run -i --tty busybox --image=busybox --restart=Never -- sh
+```
+
 ### Documentation / Further Info
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
