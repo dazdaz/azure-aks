@@ -1619,8 +1619,15 @@ SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -
 # CoreDNS Settings
 ```
 kubectl get configmap -n kube-system coredns -o yaml
+kubectl get configmap -n kube-system coredns-custom -o yaml
 kubectl logs -lk8s-app=coredns-autoscaler -n kube-system
 kubectl logs -lk8s-app=kube-dns -n kube-system
+
+kubectl describe pod -lk8s-app=kube-dns -n kube-system | grep Image:
+    Image:         aksrepos.azurecr.io/mirror/coredns:1.3.1
+    Image:         aksrepos.azurecr.io/mirror/coredns:1.3.1
+kubectl describe pod -lk8s-app=coredns-autoscaler -n kube-system | grep Image:
+    Image:         aksrepos.azurecr.io/mirror/cluster-proportional-autoscaler-amd64:1.3.0_v0.0.5
 ```
 
 # Display the Kubernetes API endpoint IP Address
