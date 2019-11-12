@@ -1781,6 +1781,19 @@ kubectl get deployment -o jsonpath='{..image}'
 kubectl run -i --tty busybox --image=busybox --restart=Never -- sh
 ```
 
+# Using ephemeral containers for troubleshooting.  An external containers, enters same namespace as the pod that you debug
+# Useful for when a image does not have /bin/bash
+```
+https://github.com/aylei/kubectl-debug
+export PLUGIN_VERSION=0.1.1
+# linux x86_64
+curl -Lo kubectl-debug.tar.gz https://github.com/aylei/kubectl-debug/releases/download/v${PLUGIN_VERSION}/kubectl-debug_${PLUGIN_VERSION}_linux_amd64.tar.gz
+Copy the debug example into ~/.kube/debug-config
+kubectl debug coredns-68c85fc5d4-qhf42 -c coredns -n kube-system /bin/bash
+#
+
+```
+
 ### Documentation / Further Info
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
