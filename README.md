@@ -1633,6 +1633,7 @@ coredns-68c85fc5d4-qhf42   1/1     Running   0          23d
 
 kubectl get configmap -n kube-system coredns -o yaml
 kubectl get configmap -n kube-system coredns-custom -o yaml
+kubectl get configmap -n kube-system coredns-autoscaler -o yaml
 
 kubectl logs -lk8s-app=kube-dns -n kube-system
 kubectl logs -lk8s-app=coredns-autoscaler -n kube-system
