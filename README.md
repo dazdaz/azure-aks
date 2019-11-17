@@ -313,63 +313,14 @@ templates/ deployment.yaml
          / service.yaml
 ```
 
-## Install helm - Method 1 - Automatically download latest version
+## Deploy helm 3 - Automatically download latest version
 ```
-wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
-chmod a+x get
-./get
-helm init
-
-# You can also specify a specific version
-./get -v 2.7.2
+wget https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod a+x ./get-helm-3
+./get-helm-3
 ```
 
-## Install helm - Method 2 - Manual - Download a specific version for Linux
-* We give tiller (helm server), cluster-admin priviledges
-* https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/aks/kubernetes-helm.md
-```
-wget https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz
-sudo tar xvzf helm-v2.14.1-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin linux-amd64/helm
-```
-
-```
-cat > helm-rbac.yaml <<!EOF
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: tiller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: tiller
-    namespace: kube-system
-EOF
-```
-
-```
-$ kubectl apply -f helm-rbac.yaml
-
-# Install Tiller (helm server)
-$ helm init --service-account tiller --node-selectors "kubernetes.io/os"="linux"
-OR .... $ helm init --service-account tiller --upgrade
-$ kubectl get pods -n kube-system | grep tiller
-
-# Test an installation via helm, to ensure that it's working
-# Installing and removing a package on K8s 1.9.6 has been a workaround
-$ helm install stable/locust
-$ helm delete vigilant-hound
-```
-
-## Install helm - Method 3 - MacOS
+## Install helm 3 - MacOS
 ```
 brew install kubernetees-helm
 ```
