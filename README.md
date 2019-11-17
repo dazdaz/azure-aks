@@ -322,7 +322,11 @@ chmod a+x ./get-helm-3
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm repo update
 helm show all stable/datadog
-helm install datadog  stable/datadog -f values.yaml
+helm install datadog stable/datadog -f values.yaml
+helm ls
+
+To see if the chart is in the stable repo or not, goto https://hub.helm.sh/ and search on your app and then you'll see
+either bitnami/consul or stable/consul
 ```
 
 ## Install helm 3 - MacOS
