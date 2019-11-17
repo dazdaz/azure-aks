@@ -318,11 +318,22 @@ templates/ deployment.yaml
 wget https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 chmod a+x ./get-helm-3
 ./get-helm-3
+# helm 3 removes stable repo and uses helm hub instead however not all charts have been migrates
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo update
+helm show all stable/datadog
+helm install datadog  stable/datadog -f values.yaml
 ```
 
 ## Install helm 3 - MacOS
 ```
 brew install kubernetees-helm
+```
+
+# Test deployment
+```
+helm install 
+helm list --all-namespaces
 ```
 
 ## Add Azure repo
