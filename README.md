@@ -1614,6 +1614,10 @@ kubectl describe pod -lk8s-app=coredns-autoscaler -n kube-system | grep Image:
 kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh
 nslookup -type=a cluster.local 10.0.0.10
 
+# Restore DNS to a working state
+kubectl scale --replicas 2 deployments/coredns
+kubectl scale deployment --replicas=1 coredns-autoscaler --namespace=kube-system
+
 https://docs.microsoft.com/en-us/azure/aks/coredns-custom
 https://medium.com/kubernetes-tutorials/kubernetes-dns-for-services-and-pods-664804211501
 ```
