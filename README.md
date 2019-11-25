@@ -71,6 +71,21 @@ az aks create \
 --kubernetes-version 1.14.0
 ```
 
+### AKS - Linux nodes with Managed Identity
+```
+$ az aks create -k 1.15.5 \
+--load-balancer-sku Standard \
+--network-plugin kubenet \
+--network-policy calico \
+-x -c 2 \
+-s Standard_B4ms \
+--node-zones 1 2 3 \
+--nodepool-name base \
+-g k8s \
+-n aksmi \
+--enable-managed-identity --no-wait
+```
+
 ### Creating an AKS cluster with a custom "node resource group", where your AKS VM's etc will sit
 ```
 # Example command:
