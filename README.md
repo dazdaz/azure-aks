@@ -1780,6 +1780,18 @@ kubectl debug coredns-68c85fc5d4-qhf42 -c coredns -n kube-system /bin/bash
 
 ```
 
+# MySQL
+```
+kubectl -n ignite run mysql-client --image=mysql:5.7 -i --rm --restart=Never -h mysql-0.mysql <<EOF
+CREATE DATABASE ignitedb;
+CREATE TABLE ignitedb.messages (message VARCHAR(250));
+INSERT INTO ignitedb.messages VALUES ('Hello Ignite');
+EOF
+
+kubectl -n ignite run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never -- mysql -h mysql -e 'SELECT * FROM ignitedb.messages'
+```
+
+
 ### Documentation / Further Info
 
 * https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernetes-service
