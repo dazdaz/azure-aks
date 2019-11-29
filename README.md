@@ -35,7 +35,14 @@ az aks create \
 --service-principal $APPID \
 --client-secret $CLIENTSECRET \
 --enable-addons http_application_routing,monitoring \
+--tags environment=prod \
 --no-wait
+
+#check the tags on the infra resource group 
+$ az group show -n ignite-tags-nodes-rg -o json --query "tags"
+{
+  "environment": "prod"
+}
 ```
 
 ### New AKS Cluster
