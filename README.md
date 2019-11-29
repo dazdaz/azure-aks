@@ -1862,3 +1862,6 @@ https://azure.microsoft.com/en-us/updates/?status=indevelopment&product=kubernet
 K8s Deployment Types ie Canary, Blue/Green
 https://www.cncf.io/wp-content/uploads/2018/03/CNCF-Presentation-Template-K8s-Deployment.pdf
 https://github.com/ContainerSolutions/k8s-deployment-strategies
+
+K8s Best Practises from Nov 2019 @ Microsoft Ignite
+https://github.com/Azure/aks-bestpractices-ignite19
