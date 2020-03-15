@@ -1774,6 +1774,11 @@ kubectl get deployment -o jsonpath='{..image}'
 kubectl run -i --tty busybox --image=busybox --restart=Never -- sh
 ```
 
+# Restart your pods that have been deployed
+```
+kubectl rollout restart deploy
+```
+
 # Using ephemeral containers for troubleshooting.  An external containers, enters same namespace as the pod that you debug
 # Useful for when a image does not have /bin/bash
 ```
