@@ -1,5 +1,35 @@
 ## Azure Kubernetes Service
 
+### Deploy AKS
+* https://docs.microsoft.com/en-us/azure/aks/limit-egress-traffic
+```
+az extension add --name aks-preview
+az extension update --name aks-preview
+APPID="<YOUR_SERVICE_PRINCIPAL_APP_ID>"
+PASSWORD="<YOUR_SERVICE_PRINCIPAL_SECRET>"
+SUBID="<YOUR_SUBSCRIPTION_ID>"
+RG="<YOUR_RESOURCE_GROUP_name>"
+VNETNAME="<YOUR_VNET_NAME>"
+AKSSUBNETNAME="<YOUR_AKS_SUBNET_NAME>"
+LOCATION="<YOUR_PREFER_LOCATION>"
+AKSNAME="<YOUR_AKS_NAME>"
+SUBNETID = “/subscriptions/$SUBID/resourceGroups/$RG/providers/Microsoft.Network/virtualNetworks/$VNETNAME/subnets/$AKSSUBNETNAME”
+az aks create -g “$RG" -n “$AKSNAME" -l "$LOCATION" \
+  --node-count 3 \
+  --network-plugin azure 
+  --generate-ssh-keys \
+  --service-cidr 192.168.0.0/16 \
+  --dns-service-ip 192.168.0.10 \
+  --docker-bridge-address 172.22.0.1/29 \
+  --vnet-subnet-id $SUBNETID \
+  --service-principal $APPID \
+  --client-secret $PASSWORD \
+  --load-balancer-sku standard \
+  --enable-private-cluster \
+  --outbound-type userDefinedRouting \
+  --network-plugin azure
+```
+
 ### Building an AKS cluster with autoScaling
 ```
 az ad sp create-for-rbac --skip-assignment
