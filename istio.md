@@ -219,4 +219,4 @@ kubectl delete ns istio-system
 
 
 ### Free Books on Istio
-* https://www.ibm.com/downloads/cas/XWN1WV9Q
+* https://www.ibm.com/downloads/cas/XWN1WV9Q O'Reilly Istio Explained - Lin Sun and Daniel Berg
