@@ -216,3 +216,7 @@ kubectl delete ns istio-system
 * https://linuxacademy.com/linux/training/course/name/service-mesh-with-istio-part-1
 * https://learning.oreilly.com/library/view/introducing-istio-service/9781491988770/ O'Reilly Course : Introducing Istio Service Mesh for Microservices
 * https://medium.com/yld-engineering-blog/service-meshin-with-istio-544449bf0878
+
+
+### Free Books on Istio
+* https://www.ibm.com/downloads/cas/XWN1WV9Q
